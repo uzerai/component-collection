@@ -103,6 +103,9 @@ ButtonGroup.propTypes = {
   styles: PropTypes.string,
   buttonStyles: PropTypes.string,
   onClick: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element), PropTypes.string, PropTypes.element
+  ])
 };
 
 ButtonGroup.defaultProps = {

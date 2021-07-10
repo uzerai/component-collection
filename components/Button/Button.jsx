@@ -96,7 +96,10 @@ Button.propTypes = {
   size: PropTypes.oneOf(Object.keys(SIZES)),
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   label: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element), PropTypes.string, PropTypes.element
+  ]),
 };
 
 Button.defaultProps = {

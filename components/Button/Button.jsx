@@ -1,19 +1,83 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// List of all button variations that we want developers to use
+const VARIATIONS = {
+  primary: [
+    'text-white',
+    'font-semibold',
+    'bg-pink',
+    'hover:bg-pink-dark',
+    'rounded'
+  ],
+  secondary: [
+    'text-pink',
+    'font-semibold',
+    'bg-white',
+    'border',
+    'border-pink',
+    'hover:border-pink-dark',
+    'rounded'
+  ],
+  tertiary: [
+    'text-pink',
+    'dark:text-white',
+    'hover:underline',
+    'hover:text-pink-dark',
+    'rounded',
+    'focus:!shadow-none'
+  ],
+  blue: [
+    'text-white',
+    'font-semibold',
+    'bg-blue',
+    'hover:bg-blue-dark',
+    'rounded',
+  ],
+  danger: [
+    'text-white',
+    'bg-red',
+    'hover:bg-red-dark',
+    'font-semibold',
+    'rounded',
+  ]
+};
+
+// List of all sizes that we want developers to use.
+const SIZES = {
+  fill: [
+    'w-full',
+    'py-4',
+    'px-5'
+  ],
+  small: [],
+  medium: [
+    'py-2',
+    'px-5',
+  ],
+  large: []
+};
+
+// Default classes we want applied across all variations.
+const DEFAULT_CLASSES = [
+  'transition',
+  'duration-700',
+  'focus:shadow'
+];
+
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ label, onClick }) => {
-  const classes = [
-    'bg-pink',
-  ];
+export const Button = ({ label, onClick, variation, size, styleOverride }) => {
+  const classNames = styleOverride ? 
+    styleOverride : VARIATIONS[variation]
+      .concat(SIZES[size]).concat(DEFAULT_CLASSES).join(' ');
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className={classes.join(',')}
+      className={classNames}
     >
       {label}
     </button>
@@ -21,11 +85,16 @@ export const Button = ({ label, onClick }) => {
 };
 
 Button.propTypes = {
+  styleOverride: PropTypes.string,
+  size: PropTypes.oneOf(Object.keys(SIZES)),
+  variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
+  size: 'medium',
+  variation: 'primary',
   label: "Label Me!",
-  onClick: undefined,
+  styleOverride: undefined
 };

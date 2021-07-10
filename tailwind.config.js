@@ -1,6 +1,10 @@
 module.exports = {
   mode: 'jit',
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  purge: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './.storybook/preview.js' // stops the bg-dark class from being purged in storybook
+  ],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     // These are the H1 colours

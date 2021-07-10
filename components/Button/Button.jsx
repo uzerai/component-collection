@@ -13,7 +13,6 @@ const VARIATIONS = {
   secondary: [
     'text-pink',
     'font-semibold',
-    'bg-white',
     'border',
     'border-pink',
     'hover:border-pink-dark',

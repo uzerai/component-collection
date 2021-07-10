@@ -5,7 +5,14 @@ module.exports = {
   ],
   "addons": [
     "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-postcss"
+    "storybook-addon-themes",
+    {
+      name: "@storybook/addon-essentials",
+      options: {
+        backgrounds: false
+      }
+    },
+    "@storybook/addon-postcss",
+    "storybook-addon-themes"
   ]
 }

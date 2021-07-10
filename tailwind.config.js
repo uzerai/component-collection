@@ -14,6 +14,9 @@ module.exports = {
       // Greyscale
       dark: {
         DEFAULT: "#151515",
+        "1": "#191919",
+        "2": "#1f1f1f",
+        "3": "#3e3e3e"
       },
       black: {
         DEFAULT: "#0a0a0a",

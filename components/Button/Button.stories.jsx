@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from './Button';
 
 export default {
-  title: 'Example/Button',
+  title: 'Interactive/Button',
   component: Button,
 };
 
@@ -12,34 +12,34 @@ const Template = (args) => <Button {...args} />;
 export const Primary = Template.bind({});
 Primary.args = {
   label: 'Primary Button',
-  size: 'medium',
+  size: 'default',
   variation: 'primary'
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
   label: 'Secondary Button',
-  size: 'medium',
+  size: 'default',
   variation: 'secondary'
 }
 
 export const Tertiary = Template.bind({});
 Tertiary.args = {
   label: 'Tertiary Button',
-  size: 'medium',
+  size: 'default',
   variation: 'tertiary'
 }
 
 export const Blue = Template.bind({});
 Blue.args = {
   label: 'Blue Button',
-  size: 'medium',
+  size: 'default',
   variation: 'blue'
 }
 
 export const Danger = Template.bind({});
 Danger.args = {
   label: 'Danger Button',
-  size: 'medium',
+  size: 'default',
   variation: 'danger'
 }

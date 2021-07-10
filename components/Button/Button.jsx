@@ -20,6 +20,7 @@ const VARIATIONS = {
   ],
   tertiary: [
     'text-pink',
+    'font-medium',
     'dark:text-white',
     'hover:underline',
     'hover:text-pink-dark',
@@ -44,17 +45,24 @@ const VARIATIONS = {
 
 // List of all sizes that we want developers to use.
 const SIZES = {
-  fill: [
+  full: [
     'w-full',
-    'py-4',
+    'py-2',
     'px-5'
   ],
-  small: [],
-  medium: [
+  half: [
+    'w-1/2',
+    'py-2',
+    'px-5'
+  ],
+  default: [
     'py-2',
     'px-5',
   ],
-  large: []
+  large: [
+    '!py-4',
+    '!px-6'
+  ]
 };
 
 // Default classes we want applied across all variations.
@@ -65,12 +73,12 @@ const DEFAULT_CLASSES = [
 ];
 
 /**
- * Primary UI component for user interaction
+ * The default button which comes in a number of variations.
  */
 export const Button = ({ label, onClick, variation, size, styleOverride }) => {
   const classNames = styleOverride ? 
-    styleOverride : VARIATIONS[variation]
-      .concat(SIZES[size]).concat(DEFAULT_CLASSES).join(' ');
+    styleOverride : SIZES[size]
+      .concat(VARIATIONS[variation]).concat(DEFAULT_CLASSES).join(' ');
 
   return (
     <button
@@ -85,15 +93,14 @@ export const Button = ({ label, onClick, variation, size, styleOverride }) => {
 
 Button.propTypes = {
   styleOverride: PropTypes.string,
-  size: PropTypes.oneOf(Object.keys(SIZES)),
+  size: PropTypes.oneOf(Object.keys(SIZES)).isRequired,
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
-  size: 'medium',
-  variation: 'primary',
+  size: 'default',
   label: "Label Me!",
   styleOverride: undefined
 };

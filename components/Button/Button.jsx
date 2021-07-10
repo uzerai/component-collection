@@ -59,6 +59,7 @@ const SIZES = {
     'py-2',
     'px-5',
   ],
+  none: [],
   large: [
     '!py-4',
     '!px-6'
@@ -75,10 +76,9 @@ const DEFAULT_CLASSES = [
 /**
  * The default button which comes in a number of variations.
  */
-export const Button = ({ label, onClick, variation, size, styleOverride }) => {
-  const classNames = styleOverride ? 
-    styleOverride : SIZES[size]
-      .concat(VARIATIONS[variation]).concat(DEFAULT_CLASSES).join(' ');
+export const Button = ({ label, onClick, variation, size, styles, children }) => {
+  const classNames = (SIZES[size] || [])
+      .concat(VARIATIONS[variation]).concat(DEFAULT_CLASSES).join(' ').concat(' ' + styles);
 
   return (
     <button
@@ -86,21 +86,21 @@ export const Button = ({ label, onClick, variation, size, styleOverride }) => {
       onClick={onClick}
       className={classNames}
     >
-      {label}
+      {label ? label : children}
     </button>
   );
 };
 
 Button.propTypes = {
-  styleOverride: PropTypes.string,
-  size: PropTypes.oneOf(Object.keys(SIZES)).isRequired,
+  styles: PropTypes.string,
+  size: PropTypes.oneOf(Object.keys(SIZES)),
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
-  label: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
+  label: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 Button.defaultProps = {
   size: 'default',
-  label: "Label Me!",
+  label: undefined,
   styleOverride: undefined
 };

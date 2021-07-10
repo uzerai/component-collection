@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button } from './Button';
+import TrashIcon from './assets/remove-delete-trash-cancel.svg';
 
 export default {
   title: 'Interactive/Button',
@@ -12,6 +13,13 @@ const Template = (args) => <Button {...args} />;
 export const Primary = Template.bind({});
 Primary.args = {
   label: 'Primary Button',
+  size: 'default',
+  variation: 'primary'
+};
+
+export const PrimaryWithLogo = Template.bind({});
+PrimaryWithLogo.args = {
+  label: <TrashIcon class="w-6 fill-current" />,
   size: 'default',
   variation: 'primary'
 };

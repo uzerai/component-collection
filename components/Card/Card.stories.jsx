@@ -1,10 +1,15 @@
 import React from 'react';
 
 import { Card } from './Card';
+import { CardHeader } from './components/CardHeader';
+import { CardFooter } from './components/CardFooter';
+import { CardContent } from './components/CardContent';
+import { SkeletonTextLoader } from '../SkeletonLoader/SkeletonTextLoader';
 
 export default {
   title: 'Layout/Card',
   component: Card,
+  subcomponents: { CardHeader, CardFooter, CardContent }
 };
 
 const Template = (args) => <Card {...args} />;
@@ -14,15 +19,15 @@ Default.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <Card.Header>
+    <CardHeader>
       <>Something</>
-    </Card.Header>,
-    <Card.Footer>
+    </CardHeader>,
+    <CardFooter>
       <>Footer</>
-    </Card.Footer>,
-    <Card.Content styles="h-52 flex items-center justify-center">
-      <h1 className="text-2xl">CONTENT</h1>
-    </Card.Content>
+    </CardFooter>,
+    <CardContent>
+      <SkeletonTextLoader nLines={25} />
+    </CardContent>
   ],
 };
 
@@ -31,9 +36,9 @@ Gray.args = {
   size: 'default',
   variation: 'gray',
   children: [
-    <Card.Content variation={'gray'} styles="h-52 flex items-center justify-center">
-      <h1 className="text-2xl">CONTENT</h1>
-    </Card.Content>
+    <CardContent variation={'gray'} styles={'py-2'}>
+      <SkeletonTextLoader nLines={25} styles={'bg-slate dark:bg-dark-3'}/>
+    </CardContent>
   ],
 };
 
@@ -42,11 +47,12 @@ Nested.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <Card.Content>
+    <CardContent styles='p-5'>
       <Card variation={'nested'}>
-        <Card.Content styles={"px-6 h-52"} variation={'nested'}>Some Content</Card.Content>
+        <CardContent variation={'nested'}>
+          <SkeletonTextLoader nLines={25} />
+        </CardContent>
       </Card>
-    </Card.Content>
-    
+    </CardContent>
   ],
 };

@@ -34,7 +34,7 @@ export const VARIATIONS = {
     container: ['w-full', 'rounded-sm', 'shadow', 'bg-steam']
   },
   nested: {
-    container: ['w-full', 'rounded-md', 'border', 'border-smoke'],
+    container: ['w-full', 'rounded-md', 'border', 'border-smoke', 'dark:border-charcoal'],
   },
   none: {},
 };

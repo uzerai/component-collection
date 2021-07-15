@@ -17,7 +17,7 @@ export const SkeletonTextLoader = ({ nLines, styles }) => {
   const lines = [];
 
   for(let i = nLines; i !== 0; i--) {
-    lines.push((<SkeletonTextLoader.Line styles={styles} />));
+    lines.push((<SkeletonTextLoader.Line styles={styles} key={i} />));
   }
 
   return (
@@ -32,13 +32,13 @@ SkeletonTextLoader.Line = ({ styles }) => {
   const classes = (styles + " ").concat("flex-grow h-4 rounded");
 
   // Very basic elements of a single skeleton line.
-  const SkeletonBlob = <span className={classes} />;
-  const EmptyBlob = <span className="flex-grow h-4" />;
+  const SkeletonBlob = () => <span className={classes} />;
+  const EmptyBlob = () => <span className="flex-grow h-4" />;
   const blobs = [];
 
   for(let i = numberOfBlobs; i !== 0; i--) {
     const visible = Math.floor(Math.random() * MAX_BLOBS) < MAX_BLOBS - MIN_BLOBS;
-    visible ? blobs.unshift(SkeletonBlob) : blobs.push(EmptyBlob);
+    visible ? blobs.unshift(<SkeletonBlob key={i} />) : blobs.push(<EmptyBlob key={i} />);
   }
 
   return <div className="flex justify-around flex-wrap space-x-2 py-1">
@@ -47,7 +47,7 @@ SkeletonTextLoader.Line = ({ styles }) => {
 }
 
 SkeletonTextLoader.propTypes = {
-  nLines: PropTypes.numberisRequired,
+  nLines: PropTypes.number.isRequired,
   styles: PropTypes.string,
 };
 

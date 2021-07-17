@@ -1,10 +1,10 @@
-  import React from 'react';
-
-import PropTypes from 'prop-types';
-import { CardHeader } from './components/CardHeader';
-import { CardFooter } from './components/CardFooter';
+  import PropTypes from 'prop-types';
+import React from 'react';
+import { SIZES, VARIATIONS } from './CardVariations';
 import { CardContent } from './components/CardContent';
-import { VARIATIONS, SIZES } from './CardVariations';
+import { CardFooter } from './components/CardFooter';
+import { CardHeader } from './components/CardHeader';
+
 
 /**
  * ##############################################################################

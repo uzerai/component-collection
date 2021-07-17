@@ -1,7 +1,7 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
+import React from 'react';
 import { VARIATIONS } from '../CardVariations';
+
 
 /**
  * A content component for holding any other kind of content within the card.

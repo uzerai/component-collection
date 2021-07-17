@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { ExampleComponent } from './ExampleComponent';
+
 
 export default {
   title: 'Examples/ExampleComponent',

@@ -1,10 +1,10 @@
 import React from 'react';
-
-import { Card } from './Card';
-import { CardHeader } from './components/CardHeader';
-import { CardFooter } from './components/CardFooter';
-import { CardContent } from './components/CardContent';
 import { SkeletonTextLoader } from '../SkeletonLoader/SkeletonTextLoader';
+import { Card } from './Card';
+import { CardContent } from './components/CardContent';
+import { CardFooter } from './components/CardFooter';
+import { CardHeader } from './components/CardHeader';
+
 
 export default {
   title: 'Layout/Card',
@@ -19,13 +19,13 @@ Default.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <CardHeader>
+    <CardHeader key={'header'}>
       <>Something</>
     </CardHeader>,
-    <CardFooter>
+    <CardFooter key={'footer'}>
       <>Footer</>
     </CardFooter>,
-    <CardContent>
+    <CardContent key={'content'}>
       <SkeletonTextLoader nLines={25} />
     </CardContent>
   ],
@@ -36,7 +36,7 @@ Gray.args = {
   size: 'default',
   variation: 'gray',
   children: [
-    <CardContent variation={'gray'} styles={'py-2'}>
+    <CardContent variation={'gray'} styles={'py-2'} key={'content'}>
       <SkeletonTextLoader nLines={25} styles={'bg-slate dark:bg-dark-3'}/>
     </CardContent>
   ],
@@ -47,7 +47,7 @@ Nested.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <CardContent styles='p-5'>
+    <CardContent styles='p-5' key={'content'}>
       <Card variation={'nested'}>
         <CardContent variation={'nested'}>
           <SkeletonTextLoader nLines={25} />

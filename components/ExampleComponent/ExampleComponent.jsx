@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const VARIATIONS = {
   default: [
@@ -20,7 +20,10 @@ export const ExampleComponent = ({ variation, size, styles, children }) => {
     .concat(styles);
     
   return (
-    <div className={classNames}>Example Component</div>
+    <>
+      <div className={classNames}>Example Component</div>
+      {children}
+    </>
   );
 };
 
@@ -28,7 +31,9 @@ ExampleComponent.propTypes = {
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   size: PropTypes.oneOf(Object.keys(SIZES)),
   styles: PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.element)
+  children: PropTypes.oneOfType(
+    [PropTypes.arrayOf(PropTypes.node), PropTypes.node]
+  )
 };
 
 ExampleComponent.defaultProps = {

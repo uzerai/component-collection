@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { SkeletonAvatarLoader } from './SkeletonAvatarLoader';
 import { SkeletonTextLoader } from './SkeletonTextLoader';
+
 
 export default {
   title: 'Loading/SkeletonLoader',

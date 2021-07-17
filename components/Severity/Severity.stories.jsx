@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { Severity } from './Severity';
+
 
 export default {
   title: 'Indicators/Severity',

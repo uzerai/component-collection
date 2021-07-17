@@ -1,9 +1,9 @@
 import React from 'react';
-
-import { ButtonGroup } from './ButtonGroup';
 import { Button } from '../Button/Button';
 import BackArrow from './assets/navigation-back-arrow.svg';
 import ForwArrow from './assets/navigation-forward-arrow.svg';
+import { ButtonGroup } from './ButtonGroup';
+
 
 export default {
   title: 'Interactive/ButtonGroup',
@@ -16,9 +16,9 @@ export const Default = Template.bind({});
 Default.args = {
   size: 'full',
   children: [
-    <Button label="Left button" />,
-    <Button label='Middle button'/>,
-    <Button label="Right button" />
+    <Button label="Left button" key={'left-button'}/>,
+    <Button label='Middle button'key={'middle-button'}/>,
+    <Button label="Right button" key={'right-button'}/>
   ],
 };
 
@@ -28,9 +28,9 @@ Separated.args = {
   variation: 'separated',
   justify: 'around',
   children: [
-    <Button label="Left button" />,
-    <Button label='Middle button'/>,
-    <Button label="Right button" />
+    <Button label="Left button" key={'left-button'}/>,
+    <Button label='Middle button'key={'middle-button'}/>,
+    <Button label="Right button" key={'right-button'}/>
   ],
 };
 
@@ -38,20 +38,19 @@ export const Pagination = Template.bind({});
 Pagination.args = {
   size: 'full',
   children: [
-    <Button>
-      <div class="flex flex-row items-center text-center">
+    <Button key={'back'}>
+      <div className="flex flex-row items-center text-center">
         <BackArrow class="w-6 fill-current" />
-        <div class="flex-grow">Back</div>
+        <div className="flex-grow">Back</div>
       </div>
     </Button>,
-    <Button label='1'></Button>,
-    <Button label='2'></Button>,
-    <Button label='3'></Button>,
-    <Button label='4'></Button>,
-    <Button label='... 41'></Button>,
-    <Button>
-      <div class="flex flex-row items-center text-center">
-        <div class="flex-grow">Next</div>
+    <Button label='1' key={1}></Button>,
+    <Button label='2' key={2}></Button>,
+    <Button label='3' key={3}></Button>,
+    <Button label='4' key={4}></Button>,
+    <Button key={'next'}>
+      <div className="flex flex-row items-center text-center">
+        <div className="flex-grow">Next</div>
         <ForwArrow class="w-6 fill-current" />
       </div>
     </Button>

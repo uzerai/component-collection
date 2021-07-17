@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * The maximum number of 'loading blobs' on a single line (see SkeletonTextLoader.Line)
@@ -27,6 +27,26 @@ export const SkeletonTextLoader = ({ nLines, styles }) => {
   );
 };
 
+SkeletonTextLoader.propTypes = {
+  nLines: PropTypes.number.isRequired,
+  styles: PropTypes.string
+};
+
+SkeletonTextLoader.defaultProps = {
+  nLines: 5,
+  styles: 'bg-steam dark:bg-dark-3'
+};
+
+/**
+ * A component designating a single line which is loading.
+ * 
+ * This component randomly generates between MIN_BLOBS and MAX_BLOBS blobs of
+ * skeleton-text (which are separated like a space), and places the blanks on
+ * the end to randomly generate a less-uniform and more paragraph-like look.
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 SkeletonTextLoader.Line = ({ styles }) => {
   const numberOfBlobs = Math.floor(Math.random() * MAX_BLOBS) + MIN_BLOBS;
   const classes = (styles + " ").concat("flex-grow h-4 rounded");
@@ -46,12 +66,7 @@ SkeletonTextLoader.Line = ({ styles }) => {
   </div>;
 }
 
-SkeletonTextLoader.propTypes = {
-  nLines: PropTypes.number.isRequired,
-  styles: PropTypes.string,
-};
-
-SkeletonTextLoader.defaultProps = {
-  nLines: 5,
-  styles: 'bg-steam dark:bg-dark-3'
-};
+SkeletonTextLoader.Line.displayName = 'SkeletonTextLoader';
+SkeletonTextLoader.Line.propTypes = {
+  styles: PropTypes.string
+}

@@ -1,11 +1,10 @@
 import React from 'react';
-
-import { Timeline } from './Timeline';
 import { Card } from '../Card/Card';
-import { CardHeader } from '../Card/components/CardHeader';
-import { CardFooter } from '../Card/components/CardFooter'; 
 import { CardContent } from '../Card/components/CardContent';
+import { CardFooter } from '../Card/components/CardFooter';
+import { CardHeader } from '../Card/components/CardHeader';
 import { SkeletonTextLoader } from '../SkeletonLoader/SkeletonTextLoader';
+import { Timeline } from './Timeline';
 
 export default {
   title: 'Layout/Timeline',
@@ -13,29 +12,42 @@ export default {
 };
 
 const Template = (args) => <Timeline {...args} />;
+const DefaultContent = () => <p 
+  className="p-10 border border-steam dark:border-dark-3 rounded bg-white dark:bg-dark-1 dark:text-white">
+    Some random content
+</p>;
 
 export const Default = Template.bind({});
 Default.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <Timeline.Head key={'timeline-header'}>
+    <Timeline.Head key="timeline-header">
       <Card>
         <CardContent>
-        <p className="font-thin">This is the Timeline.Head</p>
+          <p className="font-thin">This is the Timeline.Head</p>
         </CardContent>
       </Card>
     </Timeline.Head>,
-    <Timeline.Tail key={'timeline-tail'}>
+    <Timeline.Tail key="timeline-tail">
       <Card>
         <CardContent>
           <p className="font-thin">This is the Timeline.Tail</p>
         </CardContent>
       </Card>
     </Timeline.Tail>,
-    <Timeline.Item key={'custom-content'}>
-      <p className="p-10 border border-steam rounded">Some random content</p>
-    </Timeline.Item>
+    <Timeline.Item key="custom-content">
+      <DefaultContent />
+    </Timeline.Item>,
+    <Timeline.Item key="custom-content" variation='noIndicator'>
+      <DefaultContent />
+    </Timeline.Item>,
+    <Timeline.Item key="custom-content" variation='smallIndicator'>
+      <DefaultContent />
+    </Timeline.Item>,
+    <Timeline.Item key="custom-content" variation={'interwoven'}>
+      <DefaultContent />
+    </Timeline.Item>,
   ],
 };
 
@@ -44,10 +56,21 @@ NoIndicator.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <Timeline.Item key={'custom-content'}>
+    <Timeline.Item key="custom-content">
       <Timeline.Indicator><></></Timeline.Indicator>
-      <p className="p-10 border border-steam rounded">Some random content</p>
-    </Timeline.Item>
+      <DefaultContent />
+    </Timeline.Item>,
+  ],
+};
+
+export const Interwoven = Template.bind({});
+Interwoven.args = {
+  size: 'default',
+  variation: 'default',
+  children: [
+    <Timeline.Item key="custom-content" variation={'interwoven'}>
+      <DefaultContent />
+    </Timeline.Item>,
   ],
 };
 
@@ -56,21 +79,21 @@ CardsTimeline.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <Timeline.Head key={'timeline-header'}>
+    <Timeline.Head key="timeline-header">
       <Card>
         <CardContent>
-        <p className="font-thin">This is the Timeline.Head</p>
+          <p className="font-thin">This is the Timeline.Head</p>
         </CardContent>
       </Card>
     </Timeline.Head>,
-    <Timeline.Tail key={'timeline-tail'}>
+    <Timeline.Tail key="timeline-tail">
       <Card>
         <CardContent>
           <p className="font-thin">This is the Timeline.Tail</p>
         </CardContent>
       </Card>
     </Timeline.Tail>,
-    <Timeline.Item key={'header-content'}>
+    <Timeline.Item key="header-content">
       <Card>
         <CardHeader>
           <p className="font-bold">Header and Content</p>
@@ -80,21 +103,21 @@ CardsTimeline.args = {
         </CardContent>
       </Card>
     </Timeline.Item>,
-    <Timeline.Item key={'content'}>
+    <Timeline.Item key="content">
       <Card>
         <CardContent>
           <SkeletonTextLoader nLines={5} />
         </CardContent>
       </Card>
     </Timeline.Item>,
-    <Timeline.Item key={'gray'}>
+    <Timeline.Item key="gray">
       <Card>
-        <CardContent variation="gray" >
-          <SkeletonTextLoader nLines={5} styles={'bg-slate dark:bg-dark-3'}/>
+        <CardContent variation="gray">
+          <SkeletonTextLoader nLines={5} styles="bg-slate dark:bg-dark-3" />
         </CardContent>
       </Card>
     </Timeline.Item>,
-    <Timeline.Item key={'footer-content'}>
+    <Timeline.Item key="footer-content">
       <Card>
         <CardContent>
           <SkeletonTextLoader nLines={3} />
@@ -103,7 +126,7 @@ CardsTimeline.args = {
           <p className="font-bold text-sm">Footer and Content</p>
         </CardFooter>
       </Card>
-    </Timeline.Item>
+    </Timeline.Item>,
   ],
 };
 
@@ -112,17 +135,14 @@ CustomIndicator.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <Timeline.Item key={'content'}>
+    <Timeline.Item key="content">
       <Card>
         <CardContent>
           <SkeletonTextLoader nLines={5} />
         </CardContent>
       </Card>
     </Timeline.Item>,
-    <Timeline.Item>
-      <Timeline.Indicator>
-        <figure className="w-5 h-5 rounded-full bg-slate dark:bg-white z-10" />
-      </Timeline.Indicator>
+    <Timeline.Item variation={'smallIndicator'} key={'small-indicator'}>
       <Card>
         <CardHeader>
           <p className="font-bold">Small indicator</p>
@@ -132,25 +152,25 @@ CustomIndicator.args = {
         </CardContent>
       </Card>
     </Timeline.Item>,
-    <Timeline.Item>
-    <Timeline.Indicator>
-      <figure className="w-9 h-9 rounded-sm bg-green dark:bg-green-dark z-10" />
-    </Timeline.Indicator>
-    <Card>
-      <CardHeader>
-        <p className="font-bold">Square indicator</p>
-      </CardHeader>
-      <CardContent>
-        <SkeletonTextLoader nLines={3} />
-      </CardContent>
-    </Card>
-  </Timeline.Item>,
-    <Timeline.Item key={'content'}>
-    <Card>
-      <CardContent>
-        <SkeletonTextLoader nLines={5} />
-      </CardContent>
-    </Card>
-  </Timeline.Item>,
-  ]
-}
+    <Timeline.Item key={'custom-provided-indicator'}>
+      <Timeline.Indicator>
+        <figure className="w-9 h-9 rounded-sm bg-green dark:bg-green-dark z-10" />
+      </Timeline.Indicator>
+      <Card>
+        <CardHeader>
+          <p className="font-bold">Square indicator</p>
+        </CardHeader>
+        <CardContent>
+          <SkeletonTextLoader nLines={3} />
+        </CardContent>
+      </Card>
+    </Timeline.Item>,
+    <Timeline.Item key="content">
+      <Card>
+        <CardContent>
+          <SkeletonTextLoader nLines={5} />
+        </CardContent>
+      </Card>
+    </Timeline.Item>,
+  ],
+};

@@ -1,115 +1,49 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import mergedStyles from '../../helpers/style_merge_helper';
+import { SIZES, VARIATIONS } from './TimelineVariations';
 
-const VARIATIONS = {
-  default: {
-    container: [
-      "flex",
-      "relative",
-      "group"
-    ],
-    item: [
-      "flex-grow"
-    ],
-    itemLeft: [
-      "flex",
-      "justify-center"
-    ],
-    itemIndicator: [
-      'rounded-full',
-      'bg-pink',
-      'z-10',
-    ],
-    timelineLine: [
-      'h-full',
-      'bg-slate',
-      'dark:bg-white',
-      'absolute',
-      'z-0'
-    ],
-    timelineContainer: [
-      'z-10',
-    ],
-  },
-  noIndicator: {
-    itemIndicator: [
-      'hidden'
-    ],
-  },
-  interwoven: {
-    itemIndicator: [
-      'hidden'
-    ],
-    itemLeft: [
-      'absolute',
-      'z-0',
-      'flex',
-      'justify-center',
-    ],
-    item: [
-      'flex-grow',
-      'bg-inherit',
-      'z-10'
-    ]
-  },
-  smallIndicator: {
-    itemIndicator: [
-      "rounded-full",
-      "bg-slate",
-      "dark:bg-white",
-      "z-10"
-    ]
-  },
-  noLink: {},
-  noContinue: {},
-  noGap: {},
-};
+/** 
+ *  ######################################################
+ *  #            VARIATION and STYLE controls            #
+ *  ######################################################
+ */
 
-const SIZES = {
-  default: {
-    container: [
-      "gap-5"
-    ],
-    item: [
-      "pb-5", 
-      "group-last:pb-5",
-      "group-first:pt-5"
-    ],
-    itemIndicator: [
-      'h-10',
-      'w-10',
-    ],
-    itemLeft: [
-      "w-10"
-    ],
-    timelineLine: [
-      'w-0.5'
-    ],
-    timelineContainer: [
-      "mt-2",
-      "group-first:pt-5"
-    ]
-  },
-  interwoven: {
-    itemLeft: [
-      'h-full',
-      'w-10'
-    ]
-  },
-  smallIndicator: {
-    itemIndicator: [
-      'h-5',
-      'w-5',
-    ]
-  }  
-};
+/**
+ * Merging helper to simplify class construction for components
+ * 
+ * @param {*} variation 
+ * @param {*} size 
+ * @returns 
+ */
+  const mergedStyles = (variation, size) => {
+  const output = {};
+  const mergedArray = [
+    ({ ...VARIATIONS.default, ...VARIATIONS[variation] }),
+    (size ? {...SIZES.default, ...SIZES[size] } : { ...SIZES.default, ...SIZES[variation] })
+  ];
+  mergedArray.forEach((stylesObject)  => {
+    Object.keys(stylesObject).forEach((key) => {
+      output[key] = (output[key] || []).concat(stylesObject[key])
+    })
+  })
+
+  return output;
+}
+
+/** 
+ *  ######################################################
+ *  #                  Component logic                   #
+ *  ######################################################
+ */
 
 /**
  * A timeline component to serve as the main content of a page requiring things to be displayed
  * in order, downward.
  */
-export const Timeline = ({ children }) => {
+export const Timeline = ({ children, variation, size }) => {
+  // if no default size is set, use same key as variation
+  const finalSize = size ? size : variation;
+
   return (
     <div className="flex flex-col">
       {
@@ -119,10 +53,16 @@ export const Timeline = ({ children }) => {
       }
       <section>
         {
-        React.Children.toArray(children).filter(
-          (element) => element.props.__TYPENAME === 'TimelineItem',
-        ).map((child, index) => React.cloneElement(child, { key: `timeline-item-${index}` }))
-      }
+          React.Children.toArray(children).filter(
+            (element) => element.props.__TYPENAME === 'TimelineItem',
+          ).map((child, index) => React.cloneElement(child, { 
+            key: `timeline-item-${index}`,
+            // Variation of the child overrides the variation given to the entire timeline.
+            variation: (child.props.variation || variation),
+            // if no default size is set on the child, we use the variation name
+            size: ((child.props.size || child.props.variation)  || finalSize) 
+          }))
+        }
       </section>
       {
         React.Children.toArray(children).find(
@@ -134,75 +74,21 @@ export const Timeline = ({ children }) => {
 };
 
 Timeline.propTypes = {
+  variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
+  size: PropTypes.oneOf(Object.keys(SIZES)),
   children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element), PropTypes.string, PropTypes.element
+    PropTypes.arrayOf(PropTypes.node), PropTypes.node
   ]),
 };
 
 Timeline.defaultProps = {
+  variation: 'default',
+  size: undefined,
   children: undefined,
 };
 
-/**
- * Helper element for positioning a specific item as the HEADER of the timeline.
- *
- * Will have the same effect as an external div preceding the timeline.
- *
- * @param {*} param0
- * @returns
- */
-Timeline.Head = ({ children }) => <>{children}</>;
-Timeline.Head.displayName = 'TimelineHead';
-
-Timeline.Head.propTypes = {
-  __TYPENAME: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element), PropTypes.string, PropTypes.element
-  ]),
-};
-
-Timeline.Head.defaultProps = {
-  __TYPENAME: 'TimelineHead',
-};
-
-/**
- * Helper element for positioning a specific item as the TAIL/FOOTER of the timeline.
- *
- * Will have the same effect as an external div preceding the timeline.
- *
- * @param {*} param0
- * @returns
- */
-Timeline.Tail = ({ children }) => <>{children}</>;
-Timeline.Tail.displayName = 'TimelineTail';
-
-Timeline.Tail.propTypes = {
-  __TYPENAME: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element), PropTypes.string, PropTypes.element
-  ]),
-};
-
-Timeline.Tail.defaultProps = {
-  __TYPENAME: 'TimelineTail',
-};
-
-Timeline.Indicator = ({ children }) => <>{children}</>;
-Timeline.Indicator.displayName = 'TimelineIndicator';
-
-Timeline.Indicator.propTypes = {
-  __TYPENAME: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element), PropTypes.string, PropTypes.element
-  ]),
-};
-
-Timeline.Indicator.defaultProps = {
-  __TYPENAME: 'TimelineIndicator',
-};
-
 Timeline.Item = ({
-  children, id, variation, size, key,
+  children, id, variation, size,
 }) => {
 
   const {
@@ -212,7 +98,7 @@ Timeline.Item = ({
     itemLeft: itemLeftStyles,
     timelineLine: timelineStyles,
     timelineContainer: timelineContainerStyles,
-  } = mergedStyles(variation, size, VARIATIONS, SIZES);
+  } = mergedStyles(variation, size);
 
   /**
    * Here is selected the <Timeline.Indicator> indicator which will represent the item on the timeline-line.
@@ -222,10 +108,10 @@ Timeline.Item = ({
    */
   const timelineIndicator = React.Children.toArray(children)
     .find((element) => element.props.__TYPENAME === 'TimelineIndicator')
-    || <figure className={indicatorStyles.join(' ')} />; /* Default circle component */
+    || <figure className={indicatorStyles.join(' ')} />; /* Default timeline indicator component */
 
   return (
-    <div className={containerStyles.join(' ')} id={id} key={key}>
+    <div className={containerStyles.join(' ')} id={id}>
       {/* This is the left-side segment of each item, containing the timeline-line and the indicator */}
       <div className={itemLeftStyles.join(' ')}>
         <figure className={timelineStyles.join(' ')} />
@@ -253,12 +139,11 @@ Timeline.Item.displayName = 'TimelineItem';
 Timeline.Item.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
-  key: PropTypes.string,
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   size: PropTypes.oneOf(Object.keys(SIZES)),
   __TYPENAME: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element), PropTypes.string, PropTypes.element
+    PropTypes.arrayOf(PropTypes.node), PropTypes.node
   ]),
 };
 
@@ -266,3 +151,61 @@ Timeline.Item.defaultProps = {
   __TYPENAME: 'TimelineItem',
   variation: 'default'
 };
+
+/**
+ * Helper element for positioning a specific item as the HEADER of the timeline.
+ *
+ * Will have the same effect as an external div preceding the timeline.
+ *
+ * @param {*} param0
+ * @returns
+ */
+ Timeline.Head = ({ children }) => <>{children}</>;
+ Timeline.Head.displayName = 'TimelineHead';
+ 
+ Timeline.Head.propTypes = {
+   __TYPENAME: PropTypes.string,
+   children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node), PropTypes.node
+  ]),
+ };
+ 
+ Timeline.Head.defaultProps = {
+   __TYPENAME: 'TimelineHead',
+ };
+ 
+ /**
+  * Helper element for positioning a specific item as the TAIL/FOOTER of the timeline.
+  *
+  * Will have the same effect as an external div preceding the timeline.
+  *
+  * @param {*} param0
+  * @returns
+  */
+ Timeline.Tail = ({ children }) => <>{children}</>;
+ Timeline.Tail.displayName = 'TimelineTail';
+ 
+ Timeline.Tail.propTypes = {
+   __TYPENAME: PropTypes.string,
+   children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node), PropTypes.node
+  ]),
+ };
+ 
+ Timeline.Tail.defaultProps = {
+   __TYPENAME: 'TimelineTail',
+ };
+ 
+ Timeline.Indicator = ({ children }) => <>{children}</>;
+ Timeline.Indicator.displayName = 'TimelineIndicator';
+ 
+ Timeline.Indicator.propTypes = {
+   __TYPENAME: PropTypes.string,
+   children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node), PropTypes.node
+  ]),
+ };
+ 
+ Timeline.Indicator.defaultProps = {
+   __TYPENAME: 'TimelineIndicator',
+ };

@@ -81,6 +81,9 @@ CardsTimeline.args = {
   children: [
     <Timeline.Head key="timeline-header">
       <Card>
+        <CardHeader>
+          <p className="font-bold">Timeline Head</p>
+        </CardHeader>
         <CardContent>
           <p className="font-thin">This is the Timeline.Head</p>
         </CardContent>
@@ -88,6 +91,9 @@ CardsTimeline.args = {
     </Timeline.Head>,
     <Timeline.Tail key="timeline-tail">
       <Card>
+        <CardFooter>
+          <p className="font-bold">Timeline Tail</p>
+        </CardFooter>
         <CardContent>
           <p className="font-thin">This is the Timeline.Tail</p>
         </CardContent>

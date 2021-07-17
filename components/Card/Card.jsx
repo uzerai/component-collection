@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 
 import PropTypes from 'prop-types';
 import { CardHeader } from './components/CardHeader';
@@ -14,7 +14,7 @@ import { VARIATIONS, SIZES } from './CardVariations';
  * @param {*} param0 
  * @returns 
  */
-export const Card = ({ variation, size, styles, children }) => {
+export const Card = ({ variation, styles, children }) => {
   const classes = (styles || "").concat(VARIATIONS[variation]?.container?.join(' '))
 
   return <section className={classes}>

@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const VARIATIONS = {
-  default: []
+  default: [
+    'dark:text-white'
+  ]
 };
 
 const SIZES = {
@@ -16,8 +18,9 @@ export const ExampleComponent = ({ variation, size, styles, children }) => {
   const classNames = SIZES[size]
     .concat(VARIATIONS[variation])
     .concat(styles);
+    
   return (
-    <div>Example Component</div>
+    <div className={classNames}>Example Component</div>
   );
 };
 

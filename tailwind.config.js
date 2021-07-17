@@ -90,7 +90,18 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      borderColor: ['dark'],
+      borderWidth: ['dark'],
+      margin: ['first'],
+      padding: ['first']
+    },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-group-variants'),
+  ],
+  groupVariants: {
+    'group-first': ['group', 'first', ':first-child'],
+    'group-last': ['group', 'last', ':last-child'],
+  }
 }

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'Effra';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Effra'), url('./fonts/Effra_Std_Rg.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Varta';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Varta-Regular'), url('./fonts/Varta-Regular.ttf') format('truetype');
+}

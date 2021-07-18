@@ -7,6 +7,10 @@ module.exports = {
   ],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
+    fontFamily: {
+      effra: ['Effra'],
+      varta: ['Varta']
+    },
     // These are the H1 colours
     colors: {
       transparent: 'transparent',
@@ -85,14 +89,17 @@ module.exports = {
         dark: "#077f57",
         darker: "#5d290d"
       }
-    
     },
-    extend: {},
+    extend: {
+      
+    },
   },
   variants: {
     extend: {
-      borderColor: ['dark'],
-      borderWidth: ['dark'],
+      backgroundColor: ['disabled', 'checked'],
+      borderColor: ['dark', 'disabled', 'checked'],
+      borderWidth: ['dark', 'disabled'],
+      display: ['checked', 'responsive'],
       margin: ['first'],
       padding: ['first']
     },

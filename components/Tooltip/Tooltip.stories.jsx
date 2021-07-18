@@ -7,7 +7,7 @@ export default {
   component: Tooltip,
 };
 
-const Template = (args) => <div className="dark:text-white">
+const Template = (args) => <div className="dark:text-white font-varta">
   <div>Some text: <Tooltip {...args}>tooltip text</Tooltip> other text </div>
   <div>More text to take up some space underneath the text above this text</div>
   <div>Even more text haha, but don&#39;t be fooled </div>
@@ -15,10 +15,10 @@ const Template = (args) => <div className="dark:text-white">
 </div>;
 
 const LargeTextTemplate = (args) => <div className="text-2xl dark:text-white">
-    <div>Some text: <Tooltip {...args}>tooltip text</Tooltip> other text </div>
-    <div>More text to take up some space underneath the text above this text</div>
-    <div>Even more text haha, but don&#39;t be fooled </div>
-    <div>The text never ends </div>
+  <div>Some text: <Tooltip {...args}>tooltip text</Tooltip> other text </div>
+  <div>More text to take up some space underneath the text above this text</div>
+  <div>Even more text haha, but don&#39;t be fooled </div>
+  <div>The text never ends </div>
 </div>;
 
 export const Default = Template.bind({});

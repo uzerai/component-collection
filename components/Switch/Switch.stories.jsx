@@ -7,7 +7,14 @@ export default {
   component: Switch,
 };
 
-const Template = (args) => <Switch {...args} />;
+const Template = (args) => <div className="flex flex-col gap-3">
+  <p className='dark:text-white'>Enabled:</p>
+  <Switch {...args} checked={true} />
+  <Switch {...args} checked={false} />
+  <p className='dark:text-white'>Disabled:</p>
+  <Switch {...args} checked={true} disabled={true} />
+  <Switch {...args} checked={false} disabled={true} />
+</div>;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -15,58 +22,30 @@ Default.args = {
   id: 'checkbox',
   size: 'default',
   variation: 'default',
-  checked: false,
-  disabled: false
-};
-
-export const On = Template.bind({});
-On.args = {
-  name: 'checkbox',
-  id: 'checkbox',
-  size: 'default',
-  variation: 'default',
   checked: true,
   disabled: false
 };
 
-export const DisabledOn = Template.bind({});
-DisabledOn.args = {
+export const Textless = Template.bind({});
+Textless.args = {
   name: 'checkbox',
   id: 'checkbox',
   size: 'default',
-  variation: 'default',
-  checked: true,
-  disabled: true
+  variation: 'noText',
 };
 
-export const DisabledOff = Template.bind({});
-DisabledOff.args = {
-  name: 'checkbox',
-  id: 'checkbox',
-  size: 'default',
-  variation: 'default',
-  checked: false,
-  disabled: true
-};
-
-
-export const DisabledOnBlue = Template.bind({});
-DisabledOnBlue.args = {
+export const Blue = Template.bind({});
+Blue.args = {
   name: 'checkbox',
   id: 'checkbox',
   size: 'default',
   variation: 'blue',
-  checked: true,
-  disabled: true
 };
 
-export const OnGreen = Template.bind({});
-OnGreen.args = {
+export const Green = Template.bind({});
+Green.args = {
   name: 'checkbox',
   id: 'checkbox',
   size: 'default',
   variation: 'green',
-  checked: true,
-  disabled: false
 };
-

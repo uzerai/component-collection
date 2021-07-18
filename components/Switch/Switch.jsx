@@ -3,62 +3,131 @@ import React, { useState } from 'react';
 
 const VARIATIONS = {
   default: {
-    styles: [
+    switchText: [
+      "flex-grow",
+      "text-white",
+      "text-sm",
+      "peer-checked:ml-2",
+    ],
+    background: [ // This is the div responsible for colouring in the switch
+      "absolute",
+      'peer-checked:bg-pink',
+      'peer-disabled:peer-checked:bg-pink-lighter',
+      'peer-disabled',
+      'bg-stone',
+      "h-full",
+      "w-full",
+    ],
+    body: [ // This div holds all the other ones
+      'relative',
       "rounded-full",
       "items-center",
-      "flex",
+      'flex',
       "cursor-pointer",
-      "text-white",
-      "font-normal",
-      "text-sm",
-      "select-none"
+      "select-none",
+      'overflow-hidden'
     ],
-    activeColor: "pink"
+    dot: [
+      "appearance-none",
+      "rounded-full",
+      "bg-white",
+      "checked:border-pink",
+      "disabled:checked:border-pink-lighter",
+      "disabled:border-stone",
+      "border-stone",
+      "border-2",
+      "cursor-pointer",
+      'peer'
+    ]
   },
   blue: {
-    styles: [
-      "rounded-full",
-      "items-center",
-      "flex",
-      "cursor-pointer",
-      "text-white",
-      "font-normal",
-      "text-sm",
-      "select-none"
+    background: [
+      "absolute",
+      'peer-checked:bg-blue',
+      'peer-disabled:peer-checked:bg-blue-lighter',
+      'peer-disabled',
+      'bg-stone',
+      "h-full",
+      "w-full",
     ],
-    activeColor: 'blue'
+    dot: [
+      "appearance-none",
+      "rounded-full",
+      "bg-white",
+      "checked:border-blue",
+      "disabled:checked:border-blue-lighter",
+      "disabled:border-stone",
+      "border-stone",
+      "border-2",
+      "cursor-pointer",
+      'peer'
+    ]
   },
   green: {
-    styles: [
-      "rounded-full",
-      "items-center",
-      "flex",
-      "cursor-pointer",
-      "text-white",
-      "font-normal",
-      "text-sm",
-      "select-none"
+    background: [
+      "absolute",
+      'peer-checked:bg-green',
+      'peer-disabled:peer-checked:bg-green-lighter',
+      'peer-disabled',
+      'bg-stone',
+      "h-full",
+      "w-full",
     ],
-    activeColor: 'green'
+    dot: [
+      "appearance-none",
+      "rounded-full",
+      "bg-white",
+      "checked:border-green",
+      "disabled:checked:border-green-lighter",
+      "disabled:border-stone",
+      "border-stone",
+      "border-2",
+      "cursor-pointer",
+      'peer'
+    ]
   },
-  none: {
-    styles: [],
-    activeColor: 'pink'
-  }
+  noText: {
+    switchText: [
+      'hidden'
+    ]
+  },
+  none: {}
 };
 
 const SIZES = {
   default: {
-    outer: [
+    body: [
       "h-6",
-      "w-16"
+      "w-14"
     ],
-    inner: [
+    dot: [
       "w-6",
       "h-6"
     ]
   }
 };
+
+/**
+ * Merging helper to simplify class construction for components
+ * 
+ * @param {*} variation 
+ * @param {*} size 
+ * @returns 
+ */
+ const mergedStyles = (variation, size) => {
+  const output = {};
+  const mergedArray = [
+    ({ ...VARIATIONS.default, ...VARIATIONS[variation] }),
+    (size ? {...SIZES.default, ...SIZES[size] } : { ...SIZES.default, ...SIZES[variation] })
+  ];
+  mergedArray.forEach((stylesObject)  => {
+    Object.keys(stylesObject).forEach((key) => {
+      output[key] = (output[key] || []).concat(stylesObject[key])
+    })
+  })
+
+  return output;
+}
 
 /**
  * An checkbox component which will display as an on/off switch.
@@ -78,32 +147,29 @@ export const Switch = ({ name, id, onToggle, checked, disabled, variation, size 
     }
   };
 
-  const classNames = SIZES[size].outer.join(' ')
-    .concat(' ' + VARIATIONS[variation].styles.join(' '))
-  const activeColor = VARIATIONS[variation].activeColor;
-
-  return (
-      <div className={
-        `${value ? `bg-${activeColor}${disabled ? '-lighter' : ''}` : 
-          `${disabled ? 'bg-steam dark:bg-dark-2' : 'bg-slate dark:bg-dark-3'}`
-      } ${classNames}`} 
-        onClick={onClick}>
-        <span className={`flex-1 ml-3 ${!value ? 'hidden' : ''}`}>ON</span>
-        <input type="checkbox"
-          className={`${SIZES[size].inner.join(' ')} `
-            + `rounded-full bg-white dark:bg-smoke appearance-none `
-            + `${value ? `border-${activeColor}${disabled ? '-lighter' : ''}` : 
-              `${disabled ? 'border-steam dark:border-dark-2' : 'border-slate dark:border-dark-3'}`} `
-            + `border-2 cursor-pointer self-end`}
-          checked={value}
-          onChange={onClick}
-          disabled={disabled}
-          name={name}
-          id={id}
-        />
-        <span className={`ml-1 ${value ? 'hidden' : ''}`}>OFF</span>
+  const {
+    body, switchText, dot, background
+  } = mergedStyles(variation, size);
+  
+  return <>
+    {/** mainbody container, utilizes flex row-reversal for on/off effect */}
+    <div className={body.join(' ').concat(` ${value ? 'flex-row-reverse' :'flex-row'}`)} onClick={onClick}>
+      {/** The white dot which indicated status (along with text) */}
+      <input type="checkbox"
+        className={dot.join(' ').concat(' z-10')}
+        checked={value}
+        onChange={onClick}
+        disabled={disabled}
+        name={name}
+        id={id}
+      />
+      {/** Internal ON/OFF text within the button*/}
+      <div className={switchText.join(' ').concat(' z-10')}>
+        <span>{value ? "ON" : "OFF"}</span>
       </div>
-  );
+      <div className={background.join(' ').concat(' z-0')} />
+    </div>
+  </>;
 };
 
 Switch.propTypes = {
@@ -117,12 +183,9 @@ Switch.propTypes = {
 };
 
 Switch.defaultProps = {
-  name: undefined,
-  id: undefined,
   onToggle: (value) => value,
   checked: false,
   disabled: false,
   variation: 'default',
   size: 'default',
-  styles: undefined
 };

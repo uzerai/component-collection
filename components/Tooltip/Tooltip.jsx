@@ -3,6 +3,12 @@ import React from 'react';
 import { generateStyles } from '../../shared/variationsHelper';
 import './Tooltip.css';
 
+/** 
+ *  ######################################################
+ *  #            VARIATION and SIZE controls             #
+ *  ######################################################
+ */
+
 const COMMON = {
   tooltipIndicatorTriangle: [],
   tooltipWrapper: [
@@ -74,6 +80,13 @@ const SIZES = {
     ],
   }
 }
+
+
+/** 
+ *  ######################################################
+ *  #                  Component logic                   #
+ *  ######################################################
+ */
 
 /**
  * A component for enabling a tooltip within another component.

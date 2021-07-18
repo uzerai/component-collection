@@ -49,6 +49,9 @@ const RATINGS = {
 
 /**
  * A component to represent the severity and score (in both colour and label) of a CVSS score.
+ * 
+ * This component _does not_ adhere to the VARIATIONS/SIZES pattern, as this component will only have
+ * one variant; with several values possible.
  */
 export const Severity = ({size, rating, score}) => {
   const barClasses = RATINGS[rating].styles.join(' ').concat(' flex-grow rounded-full');
@@ -61,7 +64,7 @@ export const Severity = ({size, rating, score}) => {
       <div className={barContainerClasses}>
         <div className={barClasses} />
       </div>
-      <label className="font-sans font-light capitalize dark:text-white">{rating} ({labelScore})</label>
+      <label className="font-varta font-light capitalize dark:text-white">{rating} ({labelScore})</label>
     </div>
   );
 };

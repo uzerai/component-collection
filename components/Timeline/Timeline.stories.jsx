@@ -1,8 +1,5 @@
 import React from 'react';
-import { Card } from '../Card/Card';
-import { CardContent } from '../Card/components/CardContent';
-import { CardFooter } from '../Card/components/CardFooter';
-import { CardHeader } from '../Card/components/CardHeader';
+import { Card, CardContent, CardFooter, CardHeader } from '../Card/Card';
 import { SkeletonTextLoader } from '../SkeletonLoader/SkeletonTextLoader';
 import { Timeline } from './Timeline';
 

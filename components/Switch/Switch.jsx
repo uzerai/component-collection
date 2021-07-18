@@ -1,5 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { generateStyles } from '../../shared/variationsHelper';
+
+/** 
+ *  ######################################################
+ *  #            VARIATION and SIZE controls             #
+ *  ######################################################
+ */
 
 const COMMON = {
   switchText: [
@@ -112,28 +119,6 @@ const SIZES = {
 };
 
 /**
- * Merging helper to simplify class construction for components
- * 
- * @param {*} variation 
- * @param {*} size 
- * @returns 
- */
-const mergedStyles = (variation, size) => {
-  const output = {};
-  const mergedArray = [
-    ({ ...VARIATIONS.default, ...VARIATIONS[variation] }),
-    (size ? {...SIZES.default, ...SIZES[size] } : { ...SIZES.default, ...SIZES[variation] })
-  ];
-  mergedArray.forEach((stylesObject)  => {
-    Object.keys(stylesObject).forEach((key) => {
-      output[key] = (output[key] || []).concat(stylesObject[key])
-    })
-  })
-
-  return output;
-}
-
-/**
  * An checkbox component which will display as an on/off switch.
  * 
  * As a note; the onToggle prop function will receive the _PREVIOUS VALUE_ of the checkbox.
@@ -153,7 +138,7 @@ export const Switch = ({ name, id, onToggle, checked, disabled, variation, size 
 
   const {
     body, switchText, dot, background
-  } = mergedStyles(variation, size);
+  } = generateStyles(variation, size, VARIATIONS, SIZES);
   
   return <>
     {/** mainbody container, utilizes flex row-reversal for on/off effect */}
@@ -162,9 +147,9 @@ export const Switch = ({ name, id, onToggle, checked, disabled, variation, size 
       <input type="checkbox"
         className={dot.join(' ').concat(' z-10')}
         checked={value}
-        onChange={onClick}
         disabled={disabled}
         name={name}
+        readOnly
         id={id}
       />
       {/** Internal ON/OFF text within the button*/}

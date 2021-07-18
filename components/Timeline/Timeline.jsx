@@ -1,34 +1,130 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { SIZES, VARIATIONS } from './TimelineVariations';
+import { generateStyles } from '../../shared/variationsHelper';
 
 /** 
  *  ######################################################
  *  #            VARIATION and STYLE controls            #
  *  ######################################################
  */
-
-/**
- * Merging helper to simplify class construction for components
- * 
- * @param {*} variation 
- * @param {*} size 
- * @returns 
- */
-const mergedStyles = (variation, size) => {
-  const output = {};
-  const mergedArray = [
-    ({ ...VARIATIONS.default, ...VARIATIONS[variation] }),
-    (size ? {...SIZES.default, ...SIZES[size] } : { ...SIZES.default, ...SIZES[variation] })
-  ];
-  mergedArray.forEach((stylesObject)  => {
-    Object.keys(stylesObject).forEach((key) => {
-      output[key] = (output[key] || []).concat(stylesObject[key])
-    })
-  })
-
-  return output;
+const COMMON = {
+  container: [],
+  item: [
+    'flex-grow'
+  ],
+  itemLeft: [
+    'flex',
+    'justify-center'
+  ],
+  itemIndicator: [
+    'z-10',
+  ],
+  timelineLine: [
+    'h-full',
+  ],
+  timelineContainer: [],
 }
+const VARIATIONS = {
+  default: {
+    container: [
+      'flex',
+      'relative',
+      'group'
+    ],
+    item: [
+      ...COMMON.item
+    ],
+    itemLeft: [
+      ...COMMON.itemLeft
+    ],
+    itemIndicator: [
+      ...COMMON.itemIndicator,
+      'rounded-full',
+      'bg-pink',
+    ],
+    timelineLine: [
+      ...COMMON.timelineLine,
+      'bg-slate',
+      'dark:bg-white',
+      'absolute',
+      'z-0'
+    ],
+    timelineContainer: [
+      'z-10',
+    ],
+  },
+  noIndicator: {
+    itemIndicator: [
+      'hidden'
+    ],
+  },
+  interwoven: {
+    itemIndicator: [
+      'hidden'
+    ],
+    itemLeft: [
+      ...COMMON.itemLeft,
+      'absolute',
+      'z-0',
+    ],
+    item: [
+      ...COMMON.item,
+      'bg-inherit',
+      'z-10'
+    ]
+  },
+  smallIndicator: {
+    itemIndicator: [
+      ...COMMON.itemIndicator,
+      'rounded-full',
+      'bg-slate',
+      'dark:bg-white',
+    ]
+  },
+  noLink: {},
+  noContinue: {},
+  noGap: {},
+};
+
+const SIZES = {
+  default: {
+    container: [
+      'gap-5'
+    ],
+    item: [
+      'pb-5', 
+      'group-last:pb-5',
+      'group-first:pt-5'
+    ],
+    itemIndicator: [
+      'h-10',
+      'w-10',
+    ],
+    itemLeft: [
+      'w-10'
+    ],
+    timelineLine: [
+      'w-0.5'
+    ],
+    timelineContainer: [
+      'mt-2',
+      'group-first:pt-5'
+    ]
+  },
+  interwoven: {
+    itemLeft: [
+      'h-full',
+      'w-10'
+    ]
+  },
+  noIndicator: {},
+  smallIndicator: {
+    itemIndicator: [
+      'h-5',
+      'w-5',
+    ]
+  }  
+};
 
 /** 
  *  ######################################################
@@ -90,7 +186,6 @@ Timeline.defaultProps = {
 Timeline.Item = ({
   children, id, variation, size,
 }) => {
-
   const {
     container: containerStyles,
     item: itemStyles,
@@ -98,7 +193,7 @@ Timeline.Item = ({
     itemLeft: itemLeftStyles,
     timelineLine: timelineStyles,
     timelineContainer: timelineContainerStyles,
-  } = mergedStyles(variation, size);
+  } = generateStyles(variation, size, VARIATIONS, SIZES);
 
   /**
    * Here is selected the <Timeline.Indicator> indicator which will represent the item on the timeline-line.

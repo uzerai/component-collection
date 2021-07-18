@@ -1,9 +1,7 @@
 import React from 'react';
 import { SkeletonTextLoader } from '../SkeletonLoader/SkeletonTextLoader';
-import { Card } from './Card';
-import { CardContent } from './components/CardContent';
-import { CardFooter } from './components/CardFooter';
-import { CardHeader } from './components/CardHeader';
+import { Card, CardContent, CardFooter, CardHeader } from './Card';
+
 
 
 export default {

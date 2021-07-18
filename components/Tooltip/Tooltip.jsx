@@ -1,7 +1,27 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { generateStyles } from '../../shared/variationsHelper';
 import './Tooltip.css';
 
+const COMMON = {
+  tooltipIndicatorTriangle: [],
+  tooltipWrapper: [
+    'invisible',
+    'opacity-0',
+    'group-hover:group',
+    'group-hover:opacity-100',
+    'group-hover:visible',
+    'group-hover:z-50',
+    'duration-300',
+    'absolute',
+    'select-none',
+    'w-full',
+  ],
+  tooltipText: [
+    'flex' ,
+    'justify-center',
+  ]
+}
 
 const VARIATIONS = {
   default: {
@@ -13,47 +33,62 @@ const VARIATIONS = {
       'inline-block',
     ],
     tooltipWrapper: [
-      'opacity-0',
-      'hidden',
-      'group',
-      'group-hover:opacity-100',
-      'group-hover:block',
-      'absolute',
-      'duration-700',
-      '-inset-x-1/2',
-      'select-none'
+      ...COMMON.tooltipWrapper,
     ],
-    tooltipContainer: [
+    tooltipIndicatorTriangle: [
+      ...COMMON.tooltipIndicatorTriangle,
       'bg-dark-3',
-      'dark:bg-dark-1'
+      'tooltip-pointer',
     ],
     tooltipText: [
+      ...COMMON.tooltipText,
       'text-sm',
       'text-white',
       'bg-dark-3',
-      'dark:bg-dark-1',
-      'p-2',
+      'py-2',
+      'px-3',
       'rounded',
-      'flex' ,
-      'justify-center',
+    ]
+  },
+  above: {
+    tooltipIndicatorTriangle: [
+      'bg-dark-3',
+      'tooltip-pointer-down',
     ]
   }
 };
 
+const SIZES = {
+  default: {
+    text: [],
+    tooltipWrapper: [],
+    tooltipIndicatorTriangle: [],
+    tooltipText: [
+      'w-44'
+    ],
+  },
+  large: {
+    tooltipText: [
+      'md:w-64',
+      'w-36'
+    ],
+  }
+}
+
 /**
  * A component for enabling a tooltip within another component.
  */
-export const Tooltip = ({ tooltip, variation, styles, children }) => {
+export const Tooltip = ({ tooltip, variation, size, children }) => {
   const { 
     text: textStyles, 
     tooltipWrapper: tooltipWrapperStyles
-  } = (VARIATIONS[variation], VARIATIONS.default)
+  } = generateStyles(variation, size, VARIATIONS, SIZES);
     
   return (
     <span className={textStyles.join(' ')}>
       {children}
       <div className={tooltipWrapperStyles.join(' ')}>
-        <Tooltip.Popup variation={variation} styles={styles}>
+        <Tooltip.Popup variation={variation} size={size}>
           {tooltip}
         </Tooltip.Popup>
       </div>
@@ -66,8 +101,8 @@ Tooltip.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]),
+  size: PropTypes.oneOf(Object.keys(SIZES)),
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
-  styles: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
@@ -76,23 +111,19 @@ Tooltip.propTypes = {
 
 Tooltip.defaultProps = {
   variation: 'default',
-  styles: undefined,
   children: undefined
 };
 
-Tooltip.Popup = ({ children, variation, styles }) => {
+Tooltip.Popup = ({ children, variation, size }) => {
   const { 
-    tooltipContainer: containerStyles,
+    tooltipIndicatorTriangle: tipStyles,
     tooltipText: textStyles,
-  } = (VARIATIONS[variation] || VARIATIONS.default)
-  
-  if (styles) {
-    containerStyles.push(`${styles}`)
-  }
+  } = generateStyles(variation, size, VARIATIONS, SIZES);
+
 
   return <div className={'flex justify-center gap-0'}>
-    <div className={styles}>
-      <figure className={'tooltip-pointer h-2 '.concat(containerStyles.join(' '))} />
+    <div className='flex-grow'>
+      <figure className={'h-2 '.concat(tipStyles.join(' '))} />
       <div className={textStyles.join(' ')}>
         {children}
       </div>
@@ -104,7 +135,7 @@ Tooltip.Popup.displayName = 'TooltipPopup';
 
 Tooltip.Popup.propTypes = {
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
-  styles: PropTypes.string,
+  size: PropTypes.oneOf(Object.keys(SIZES)),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
@@ -113,6 +144,5 @@ Tooltip.Popup.propTypes = {
 
 Tooltip.Popup.defaultProps = {
   variation: 'default',
-  styles: undefined,
   children: undefined,
 }

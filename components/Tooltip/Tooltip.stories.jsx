@@ -7,61 +7,63 @@ export default {
   component: Tooltip,
 };
 
-const Template = (args) => <div className="dark:text-white font-varta">
-  <div>Some text: <Tooltip {...args}>tooltip text</Tooltip> other text </div>
-  <div>More text to take up some space underneath the text above this text</div>
-  <div>Even more text haha, but don&#39;t be fooled </div>
-  <div>The text never ends </div>
-</div>;
-
-const LargeTextTemplate = (args) => <div className="text-2xl dark:text-white">
-  <div>Some text: <Tooltip {...args}>tooltip text</Tooltip> other text </div>
-  <div>More text to take up some space underneath the text above this text</div>
-  <div>Even more text haha, but don&#39;t be fooled </div>
-  <div>The text never ends </div>
-</div>;
+const Template = (args) => {
+  return <div className="dark:text-white flex flex-col gap-10 items-center">
+    {
+      [
+        'Varta',
+        'Effra',
+        ''
+      ].map((font) => {
+        return <div className={'flex flex-col gap-2'} key={font}>
+          <p className="text-3xl">{font === '' ? 'Default': null } Font: {font}</p>
+          <hr />
+          {
+            [
+              'text-xs',
+              'text-sm',
+              'text-base',
+              'text-lg',
+              'text-xl',
+              'text-2xl',
+              'text-3xl',
+              'text-4xl',
+              'text-5xl',
+              'text-6xl',
+            ].map((textClass) => {
+              return <div className={textClass} key={textClass}>This is normal text and this is the <Tooltip {...args} />. Hope it helps!</div>
+            })
+          }
+        </div>
+      }
+      )
+    }
+  </div>;
+};
 
 export const Default = Template.bind({});
 Default.args = {
   variation: 'default',
   children: [
-    'tooltip text'
+    'tooltip'
   ],
   tooltip: [
     <p key="tooltip">More explanation here</p>
   ]
 };
 
-export const LongDefault = Template.bind({});
-LongDefault.args = {
+export const Large = Template.bind({});
+Large.args = {
   variation: 'default',
+  size: 'large',
   children: [
-    'tooltip text'
+    'tooltip'
   ],
   tooltip: [
-    <p key="tooltip">More explanation here</p>
-  ],
-};
-
-export const LargeText = LargeTextTemplate.bind({});
-LargeText.args = {
-  variation: 'default',
-  children: [
-    'tooltip text'
-  ],
-  tooltip: [
-    <p key="tooltip">More explanation here</p>
+    <p key="tooltip">
+      A larger tooltip should warrant a larger tooltip text,
+      and that text should go into possibly more
+      details on exactly what the tooltip should be besides.
+    </p>
   ]
-};
-
-export const LargeTextLong = LargeTextTemplate.bind({});
-LargeTextLong.args = {
-  variation: 'default',
-  children: [
-    'tooltip text'
-  ],
-  tooltip: [
-    <p key="tooltip">More explanation here</p>
-  ],
-  styles: 'w-64'
 };

@@ -15,7 +15,7 @@ import { SIZES, VARIATIONS } from './TimelineVariations';
  * @param {*} size 
  * @returns 
  */
-  const mergedStyles = (variation, size) => {
+const mergedStyles = (variation, size) => {
   const output = {};
   const mergedArray = [
     ({ ...VARIATIONS.default, ...VARIATIONS[variation] }),
@@ -160,21 +160,21 @@ Timeline.Item.defaultProps = {
  * @param {*} param0
  * @returns
  */
- Timeline.Head = ({ children }) => <>{children}</>;
- Timeline.Head.displayName = 'TimelineHead';
+Timeline.Head = ({ children }) => <>{children}</>;
+Timeline.Head.displayName = 'TimelineHead';
  
- Timeline.Head.propTypes = {
-   __TYPENAME: PropTypes.string,
-   children: PropTypes.oneOfType([
+Timeline.Head.propTypes = {
+  __TYPENAME: PropTypes.string,
+  children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node), PropTypes.node
   ]),
- };
+};
  
- Timeline.Head.defaultProps = {
-   __TYPENAME: 'TimelineHead',
- };
+Timeline.Head.defaultProps = {
+  __TYPENAME: 'TimelineHead',
+};
  
- /**
+/**
   * Helper element for positioning a specific item as the TAIL/FOOTER of the timeline.
   *
   * Will have the same effect as an external div preceding the timeline.
@@ -182,30 +182,30 @@ Timeline.Item.defaultProps = {
   * @param {*} param0
   * @returns
   */
- Timeline.Tail = ({ children }) => <>{children}</>;
- Timeline.Tail.displayName = 'TimelineTail';
+Timeline.Tail = ({ children }) => <>{children}</>;
+Timeline.Tail.displayName = 'TimelineTail';
  
- Timeline.Tail.propTypes = {
-   __TYPENAME: PropTypes.string,
-   children: PropTypes.oneOfType([
+Timeline.Tail.propTypes = {
+  __TYPENAME: PropTypes.string,
+  children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node), PropTypes.node
   ]),
- };
+};
  
- Timeline.Tail.defaultProps = {
-   __TYPENAME: 'TimelineTail',
- };
+Timeline.Tail.defaultProps = {
+  __TYPENAME: 'TimelineTail',
+};
  
- Timeline.Indicator = ({ children }) => <>{children}</>;
- Timeline.Indicator.displayName = 'TimelineIndicator';
+Timeline.Indicator = ({ children }) => <>{children}</>;
+Timeline.Indicator.displayName = 'TimelineIndicator';
  
- Timeline.Indicator.propTypes = {
-   __TYPENAME: PropTypes.string,
-   children: PropTypes.oneOfType([
+Timeline.Indicator.propTypes = {
+  __TYPENAME: PropTypes.string,
+  children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node), PropTypes.node
   ]),
- };
+};
  
- Timeline.Indicator.defaultProps = {
-   __TYPENAME: 'TimelineIndicator',
- };
+Timeline.Indicator.defaultProps = {
+  __TYPENAME: 'TimelineIndicator',
+};

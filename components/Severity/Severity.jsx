@@ -14,28 +14,28 @@ const RATINGS = {
       'w-2/12',
       'bg-green',
     ],
-    range: "0.0",
+    range: '0.0',
   },
   low: {
     styles: [
       'w-1/3',
       'bg-yellow'
     ],
-    range: "0.1 ~ 3.9"
+    range: '0.1 ~ 3.9'
   },
   medium: {
     styles: [
       'w-1/2',
       'bg-orange'
     ],
-    range: "4.0 ~ 6.9"
+    range: '4.0 ~ 6.9'
   },
   high: {
     styles: [
       'w-3/4',
       'bg-pink'
     ],
-    range: "7.0 ~ 8.9"
+    range: '7.0 ~ 8.9'
   },
   critical: {
     styles: [
@@ -43,7 +43,7 @@ const RATINGS = {
       'min-h-full',
       'bg-red'
     ],
-    range: "9.0 ~ 10.0"
+    range: '9.0 ~ 10.0'
   },
 };
 
@@ -53,7 +53,7 @@ const RATINGS = {
 export const Severity = ({size, rating, score}) => {
   const barClasses = RATINGS[rating].styles.join(' ').concat(' flex-grow rounded-full');
   const barContainerClasses = (SIZES[size] || SIZES['default']).join(' ')
-    .concat(" rounded-full bg-smoke dark:bg-dark-3 overflow-hidden flex flex-col flex-none")
+    .concat(' rounded-full bg-smoke dark:bg-dark-3 overflow-hidden flex flex-col flex-none')
   const labelScore = score ? score : RATINGS[rating].range
 
   return (

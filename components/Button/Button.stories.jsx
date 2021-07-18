@@ -19,7 +19,7 @@ Primary.args = {
 
 export const PrimaryWithLogo = Template.bind({});
 PrimaryWithLogo.args = {
-  label: <TrashIcon class="w-6 fill-current" />,
+  label: <TrashIcon className="w-6 fill-current" />,
   size: 'default',
   variation: 'primary'
 };

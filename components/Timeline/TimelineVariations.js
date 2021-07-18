@@ -1,16 +1,16 @@
 export const VARIATIONS = {
   default: {
     container: [
-      "flex",
-      "relative",
-      "group"
+      'flex',
+      'relative',
+      'group'
     ],
     item: [
-      "flex-grow"
+      'flex-grow'
     ],
     itemLeft: [
-      "flex",
-      "justify-center"
+      'flex',
+      'justify-center'
     ],
     itemIndicator: [
       'rounded-full',
@@ -51,10 +51,10 @@ export const VARIATIONS = {
   },
   smallIndicator: {
     itemIndicator: [
-      "rounded-full",
-      "bg-slate",
-      "dark:bg-white",
-      "z-10"
+      'rounded-full',
+      'bg-slate',
+      'dark:bg-white',
+      'z-10'
     ]
   },
   noLink: {},
@@ -65,26 +65,26 @@ export const VARIATIONS = {
 export const SIZES = {
   default: {
     container: [
-      "gap-5"
+      'gap-5'
     ],
     item: [
-      "pb-5", 
-      "group-last:pb-5",
-      "group-first:pt-5"
+      'pb-5', 
+      'group-last:pb-5',
+      'group-first:pt-5'
     ],
     itemIndicator: [
       'h-10',
       'w-10',
     ],
     itemLeft: [
-      "w-10"
+      'w-10'
     ],
     timelineLine: [
       'w-0.5'
     ],
     timelineContainer: [
-      "mt-2",
-      "group-first:pt-5"
+      'mt-2',
+      'group-first:pt-5'
     ]
   },
   interwoven: {

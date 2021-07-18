@@ -1,4 +1,4 @@
-  import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { SIZES, VARIATIONS } from './CardVariations';
 import { CardContent } from './components/CardContent';
@@ -15,7 +15,7 @@ import { CardHeader } from './components/CardHeader';
  * @returns 
  */
 export const Card = ({ variation, styles, children }) => {
-  const classes = (styles || "").concat(VARIATIONS[variation]?.container?.join(' '))
+  const classes = (styles || '').concat(VARIATIONS[variation]?.container?.join(' '))
 
   return <section className={classes}>
     {
@@ -46,7 +46,7 @@ Card.propTypes = {
 Card.defaultProps = {
   variation: 'default',
   size: 'default',
-  styles: "",
+  styles: '',
   children: undefined
 };
 

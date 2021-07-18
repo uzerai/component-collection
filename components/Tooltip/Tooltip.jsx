@@ -13,29 +13,29 @@ const VARIATIONS = {
       'inline-block',
     ],
     tooltipWrapper: [
-      "opacity-0",
-      "hidden",
-      "group",
-      "group-hover:opacity-100",
-      "group-hover:block",
-      "absolute",
-      "duration-700",
-      "-inset-x-1/2",
-      "select-none"
+      'opacity-0',
+      'hidden',
+      'group',
+      'group-hover:opacity-100',
+      'group-hover:block',
+      'absolute',
+      'duration-700',
+      '-inset-x-1/2',
+      'select-none'
     ],
     tooltipContainer: [
-      "bg-dark-3",
-      "dark:bg-dark-1"
+      'bg-dark-3',
+      'dark:bg-dark-1'
     ],
     tooltipText: [
-      "text-sm",
-      "text-white",
-      "bg-dark-3",
-      "dark:bg-dark-1",
-      "p-2",
-      "rounded",
-      "flex" ,
-      "justify-center",
+      'text-sm',
+      'text-white',
+      'bg-dark-3',
+      'dark:bg-dark-1',
+      'p-2',
+      'rounded',
+      'flex' ,
+      'justify-center',
     ]
   }
 };
@@ -84,15 +84,15 @@ Tooltip.Popup = ({ children, variation, styles }) => {
   const { 
     tooltipContainer: containerStyles,
     tooltipText: textStyles,
-   } = (VARIATIONS[variation] || VARIATIONS.default)
+  } = (VARIATIONS[variation] || VARIATIONS.default)
   
   if (styles) {
     containerStyles.push(`${styles}`)
   }
 
-  return <div className={"flex justify-center gap-0"}>
+  return <div className={'flex justify-center gap-0'}>
     <div className={styles}>
-      <figure className={"tooltip-pointer h-2 ".concat(containerStyles.join(' '))} />
+      <figure className={'tooltip-pointer h-2 '.concat(containerStyles.join(' '))} />
       <div className={textStyles.join(' ')}>
         {children}
       </div>

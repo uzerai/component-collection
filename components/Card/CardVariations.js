@@ -1,56 +1,73 @@
+const COMMON = {
+  header: [
+    'w-full',
+    'px-6',
+    'py-4',
+  ],
+  content: [
+    'px-6',
+    'py-4',
+  ],
+  footer: [
+    'w-full',
+    'px-6',
+    'py-2',
+  ],
+  container: [
+    'w-full',
+    'rounded',
+    'overflow-hidden',
+    'shadow',
+  ]
+}
+
 export const VARIATIONS = {
   default: {
     header: [
-      "w-full",
-      "px-6",
-      "py-4",
+      ...COMMON.header,
       'dark:border-b',
       'dark:border-charcoal',
     ],
     content: [
-      'px-6',
-      'py-4',
+      ...COMMON.content,
       'bg-white',
       'dark:bg-dark-1'
     ],
     footer: [
-      "w-full",
-      "px-6",
-      "py-2",
+      ...COMMON.footer,
       'dark:border-t',
       'dark:border-charcoal',
     ],
     container: [
-      "w-full",
-      "rounded",
-      "overflow-hidden",
-      "shadow",
-      "bg-steam",
-      "dark:bg-dark-2",
-      "dark:text-steam",
+      ...COMMON.container,
+      'bg-steam',
+      'dark:bg-dark-2',
+      'dark:text-steam',
       'dark:border-charcoal',
       'dark:border'
     ]
   },
   gray: {
     content: [
-      'px-6',
-      'py-4',
+      ...COMMON.content,
       'dark:bg-dark-2',
     ],
     container: [
-      'w-full',
-      'rounded',
-      'shadow',
-      "bg-steam",
-      'overflow-hidden',
-      "dark:bg-dark-3",
+      ...COMMON.container,
+      'bg-steam',
+      'dark:bg-dark-3',
       'dark:border-charcoal',
       'dark:border',
     ]
   },
   nested: {
-    container: ['w-full', 'rounded-md', 'border', 'border-smoke', 'dark:border-charcoal'],
+    container: [
+      'w-full',
+      'rounded-md',
+      'border',
+      'border-smoke',
+      'dark:border-charcoal'
+    ],
   },
   none: {},
 };

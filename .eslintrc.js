@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = { // eslint-disable-line no-undef
   env: {
     browser: true,
     es2021: true,
@@ -17,6 +17,17 @@ module.exports = {
   plugins: [
     'react',
   ],
+  ignorePatterns: [
+    '*.config.js'
+  ],
   rules: {
+    quotes: [1, 'single'],
+    'array-bracket-newline': [1, 'consistent'],
+    indent: [1, 2]
   },
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  }
 };

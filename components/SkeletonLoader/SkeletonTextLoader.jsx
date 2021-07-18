@@ -49,7 +49,7 @@ SkeletonTextLoader.defaultProps = {
  */
 SkeletonTextLoader.Line = ({ styles }) => {
   const numberOfBlobs = Math.floor(Math.random() * MAX_BLOBS) + MIN_BLOBS;
-  const classes = (styles + " ").concat("flex-grow h-4 rounded");
+  const classes = (styles + ' ').concat('flex-grow h-4 rounded');
 
   // Very basic elements of a single skeleton line.
   const SkeletonBlob = () => <span className={classes} />;

@@ -6,7 +6,7 @@ import { VARIATIONS } from '../CardVariations';
 /**
  * A content component for holding any other kind of content within the card.
  */
- export const CardContent = ({ styles, children, variation }) => {
+export const CardContent = ({ styles, children, variation }) => {
   const classes = (styles + ' ')
     .concat(VARIATIONS[variation]?.content?.join(' '))
 
@@ -25,7 +25,7 @@ CardContent.propTypes = {
 }
 
 CardContent.defaultProps = {
-  __TYPENAME: "CardContent",
-  variation: "default",
-  styles: ""
+  __TYPENAME: 'CardContent',
+  variation: 'default',
+  styles: ''
 }

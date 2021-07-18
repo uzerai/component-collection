@@ -29,7 +29,7 @@ CardFooter.propTypes = {
 }
 
 CardFooter.defaultProps = {
-  __TYPENAME: "CardFooter",
-  variation: "default",
-  styles: ""
+  __TYPENAME: 'CardFooter',
+  variation: 'default',
+  styles: ''
 }

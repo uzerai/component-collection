@@ -10,64 +10,64 @@ const SIZES = {
 
 const JUSTIFY = {
   center: [
-    "justify-center",
+    'justify-center',
   ],
   around: [
-    "justify-around"
+    'justify-around'
   ],
   right: [
-    "justify-end"
+    'justify-end'
   ],
   left: [
-    "justify-start"
+    'justify-start'
   ]
 }
 
 // Default classes we want applied across all variations.
 const GROUP_CLASSES = {
   default: [
-    "flex",
-    "items-baseline",
+    'flex',
+    'items-baseline',
   ]
 }
 
 const BUTTON_CLASSES = {
   default: [
-    "py-3",
-    "font-bold",
-    "text-blue",
-    "dark:text-steam",
-    "flex-grow",
-    "border",
-    "border-blue",
-    "dark:hover:border-dark-3",
-    "focus:bg-blue",
-    "active:bg-blue",
-    "focus:text-white",
-    "active:text-white",
-    "transition",
-    "duration-500",
-    "last:rounded-r",
-    "last:!border-r",
-    "first:rounded-l",
-    "first:!border-l",
-    "even:border-l-0",
-    "even:border-r-0"
+    'py-3',
+    'font-bold',
+    'text-blue',
+    'dark:text-steam',
+    'flex-grow',
+    'border',
+    'border-blue',
+    'dark:hover:border-dark-3',
+    'focus:bg-blue',
+    'active:bg-blue',
+    'focus:text-white',
+    'active:text-white',
+    'transition',
+    'duration-500',
+    'last:rounded-r',
+    'last:!border-r',
+    'first:rounded-l',
+    'first:!border-l',
+    'even:border-l-0',
+    'even:border-r-0'
   ],
   separated: [
-    "py-3",
-    "font-bold",
-    "text-blue",
-    "dark:text-steam",
-    "border",
-    "border-blue",
-    "dark:hover:border-dark-3",
-    "focus:bg-blue",
-    "active:bg-blue",
-    "focus:text-white",
-    "active:text-white",
-    "transition",
-    "duration-350"
+    'py-3',
+    'font-bold',
+    'text-blue',
+    'dark:text-steam',
+    'border',
+    'border-blue',
+    'dark:hover:border-dark-3',
+    'focus:bg-blue',
+    'active:bg-blue',
+    'focus:text-white',
+    'active:text-white',
+    'transition',
+    'duration-350'
   ]
 }
 

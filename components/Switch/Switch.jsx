@@ -1,89 +1,93 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
+const COMMON = {
+  switchText: [
+    'flex-grow',
+    'text-white',
+    'text-sm',
+    'peer-checked:ml-2',
+  ],
+  background: [ // This is the div responsible for colouring in the switch
+    'absolute',
+    'h-full',
+    'w-full',
+  ],
+  body: [ // This div holds all the other ones
+    'relative',
+    'rounded-full',
+    'items-center',
+    'flex',
+    'cursor-pointer',
+    'select-none',
+    'overflow-hidden'
+  ],
+  dot: [
+    'appearance-none',
+    'rounded-full',
+    'cursor-pointer',
+    'peer'
+  ]
+}
+
 const VARIATIONS = {
   default: {
     switchText: [
-      "flex-grow",
-      "text-white",
-      "text-sm",
-      "peer-checked:ml-2",
+      ...COMMON.switchText
     ],
     background: [ // This is the div responsible for colouring in the switch
-      "absolute",
+      ...COMMON.background,
       'peer-checked:bg-pink',
       'peer-disabled:peer-checked:bg-pink-lighter',
-      'peer-disabled',
       'bg-stone',
-      "h-full",
-      "w-full",
     ],
     body: [ // This div holds all the other ones
-      'relative',
-      "rounded-full",
-      "items-center",
-      'flex',
-      "cursor-pointer",
-      "select-none",
-      'overflow-hidden'
+      ...COMMON.body
     ],
     dot: [
-      "appearance-none",
-      "rounded-full",
-      "bg-white",
-      "checked:border-pink",
-      "disabled:checked:border-pink-lighter",
-      "disabled:border-stone",
-      "border-stone",
-      "border-2",
-      "cursor-pointer",
-      'peer'
+      ...COMMON.dot,
+      'bg-white',
+      'checked:border-pink',
+      'disabled:checked:border-pink-lighter',
+      'disabled:border-stone',
+      'border-stone',
+      'border-2',
     ]
   },
   blue: {
     background: [
-      "absolute",
+      ...COMMON.background,
       'peer-checked:bg-blue',
       'peer-disabled:peer-checked:bg-blue-lighter',
       'peer-disabled',
       'bg-stone',
-      "h-full",
-      "w-full",
     ],
     dot: [
-      "appearance-none",
-      "rounded-full",
-      "bg-white",
-      "checked:border-blue",
-      "disabled:checked:border-blue-lighter",
-      "disabled:border-stone",
-      "border-stone",
-      "border-2",
-      "cursor-pointer",
-      'peer'
+      ...COMMON.dot,
+      'bg-white',
+      'checked:border-blue',
+      'disabled:checked:border-blue-lighter',
+      'disabled:border-stone',
+      'border-stone',
+      'border-2',
     ]
   },
   green: {
     background: [
-      "absolute",
+      ...COMMON.background,
       'peer-checked:bg-green',
       'peer-disabled:peer-checked:bg-green-lighter',
       'peer-disabled',
       'bg-stone',
-      "h-full",
-      "w-full",
     ],
     dot: [
-      "appearance-none",
-      "rounded-full",
-      "bg-white",
-      "checked:border-green",
-      "disabled:checked:border-green-lighter",
-      "disabled:border-stone",
-      "border-stone",
-      "border-2",
-      "cursor-pointer",
-      'peer'
+      ...COMMON.dot,
+      'bg-white',
+      'checked:border-green',
+      'disabled:checked:border-green-lighter',
+      'disabled:border-stone',
+      'border-stone',
+      'border-2',
     ]
   },
   noText: {
@@ -97,12 +101,12 @@ const VARIATIONS = {
 const SIZES = {
   default: {
     body: [
-      "h-6",
-      "w-14"
+      'h-6',
+      'w-14'
     ],
     dot: [
-      "w-6",
-      "h-6"
+      'w-6',
+      'h-6'
     ]
   }
 };
@@ -114,7 +118,7 @@ const SIZES = {
  * @param {*} size 
  * @returns 
  */
- const mergedStyles = (variation, size) => {
+const mergedStyles = (variation, size) => {
   const output = {};
   const mergedArray = [
     ({ ...VARIATIONS.default, ...VARIATIONS[variation] }),
@@ -165,7 +169,7 @@ export const Switch = ({ name, id, onToggle, checked, disabled, variation, size 
       />
       {/** Internal ON/OFF text within the button*/}
       <div className={switchText.join(' ').concat(' z-10')}>
-        <span>{value ? "ON" : "OFF"}</span>
+        <span>{value ? 'ON' : 'OFF'}</span>
       </div>
       <div className={background.join(' ').concat(' z-0')} />
     </div>

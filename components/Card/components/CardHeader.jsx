@@ -29,7 +29,7 @@ CardHeader.propTypes = {
 }
 
 CardHeader.defaultProps = {
-  __TYPENAME: "CardHeader",
-  variation: "default",
-  styles: ""
+  __TYPENAME: 'CardHeader',
+  variation: 'default',
+  styles: ''
 }

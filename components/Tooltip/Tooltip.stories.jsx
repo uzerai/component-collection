@@ -25,7 +25,7 @@ export const Default = Template.bind({});
 Default.args = {
   variation: 'default',
   children: [
-    "tooltip text"
+    'tooltip text'
   ],
   tooltip: [
     <p key="tooltip">More explanation here</p>
@@ -36,7 +36,7 @@ export const LongDefault = Template.bind({});
 LongDefault.args = {
   variation: 'default',
   children: [
-    "tooltip text"
+    'tooltip text'
   ],
   tooltip: [
     <p key="tooltip">More explanation here</p>
@@ -47,7 +47,7 @@ export const LargeText = LargeTextTemplate.bind({});
 LargeText.args = {
   variation: 'default',
   children: [
-    "tooltip text"
+    'tooltip text'
   ],
   tooltip: [
     <p key="tooltip">More explanation here</p>
@@ -58,7 +58,7 @@ export const LargeTextLong = LargeTextTemplate.bind({});
 LargeTextLong.args = {
   variation: 'default',
   children: [
-    "tooltip text"
+    'tooltip text'
   ],
   tooltip: [
     <p key="tooltip">More explanation here</p>

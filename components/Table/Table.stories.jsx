@@ -1,6 +1,6 @@
 import React from 'react';
 import { ColorIndicator } from '../ColorIndicator/ColorIndicator';
-import { Table } from './Table';
+import { Table, VARIATIONS } from './Table';
 
 
 export default {
@@ -8,7 +8,7 @@ export default {
   component: Table,
 };
 
-const Template = (args) => <Table {...args}>
+const SimpleTableTemplate = (args) => <Table {...args}>
   <Table.Header>
     <Table.Row>
       <Table.Cell><p>Report</p></Table.Cell>
@@ -34,9 +34,35 @@ const Template = (args) => <Table {...args}>
   </Table.Row>
 </Table>;
 
-export const Default = Template.bind({});
-Default.args = {
+const AllRowTemplate = (args) => <Table {...args}>
+  <Table.Header>
+    <Table.Row>
+      <Table.Cell><p>Variation</p></Table.Cell>
+      <Table.Cell><p>Col 1</p></Table.Cell>
+      <Table.Cell><p>Col 2</p></Table.Cell>
+      <Table.Cell><p>Col 3</p></Table.Cell>
+      <Table.Cell><p>Col 4</p></Table.Cell>
+    </Table.Row>
+  </Table.Header>
+  {
+    Object.keys(VARIATIONS).map((variation) => <Table.Row variation={variation} key={`${variation}-row`}>
+      <Table.Cell><p className='capitalize'>{variation}</p></Table.Cell>
+      <Table.Cell><p>Cell 1</p></Table.Cell>
+      <Table.Cell><p>Cell 2</p></Table.Cell>
+      <Table.Cell><p>Cell 3</p></Table.Cell>
+      <Table.Cell><p>Cell 4</p></Table.Cell>
+    </Table.Row>)
+  }
+</Table>;
+
+export const SimpleTable = SimpleTableTemplate.bind({});
+SimpleTable.args = {
   size: 'default',
   variation: 'default',
-  children: [],
+};
+
+export const RowVariations = AllRowTemplate.bind({});
+RowVariations.args = {
+  size: 'default',
+  variation: 'default',
 };

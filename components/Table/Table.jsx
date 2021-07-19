@@ -21,21 +21,21 @@ const COMMON = {
     'dark:border-dark-3'
   ],
   body: [],
-  row: [
+  row: [],
+  headerCell: [],
+  cell: [
     'border-b',
     'border-smoke',
     'dark:border-dark-3',
   ],
-  headerCell: [
-    'p-5'
-  ],
-  cell: [
-    'py-3',
-    'px-5'
-  ],
+  coloredCell: [
+    'border-charcoal',
+    'border-b',
+    'dark:border-dark-2'
+  ]
 }
 
-const VARIATIONS = {
+export const VARIATIONS = {
   default: {
     container: [
       ...COMMON.container,
@@ -67,23 +67,34 @@ const VARIATIONS = {
     ]
   },
   fixed: {
-    container: [
-      'table-fixed'
-    ],
-    body: [],
-    head: [
-      ''
-    ]
+    container: [ ...COMMON.container, 'table-fixed' ],
+  },
+  red: {
+    row: [ ...COMMON.row, 'bg-red' ],
+    cell: [ ...COMMON.coloredCell, 'text-white' ]
+  },
+  blue: {
+    row: [ ...COMMON.row, 'bg-blue' ],
+    cell: [ ...COMMON.coloredCell, 'text-white' ]
+  },
+  green: {
+    row: [ ...COMMON.row, 'bg-green' ],
+    cell: [ ...COMMON.coloredCell, 'text-white' ]
   }
 }
 
-const SIZES = {
+// Currently all tables use default sizes
+export const SIZES = {
   default: {
     container: [],
     body: [],
     head: [],
+    headerCell: ['p-5'],
     row: [],
-    cell: []
+    cell: [
+      'py-3',
+      'px-5'
+    ]
   }
 }
 
@@ -94,7 +105,18 @@ const SIZES = {
  */
 
 /**
- * The default button which comes in a number of variations.
+ * A table component for containing related react nodes.
+ *
+ * This table will only display child <Table.Header> and <Table.Row> elements as direct descendants, 
+ * all other components will be ignored
+ * 
+ *  - <Table.Row> elements as direct children will be regarded as part of the <tbody>.
+ * 
+ *  - Only a single (the first) <Table.Header> element will be rendered as the table's header.
+ * 
+ *  - This table ensures that all child <Table.*> elements inherit from it's variation/size props,
+ *    unless specified on the child <Table.*> element.
+ * 
  */
 export const Table = ({ variation, size, children }) => {
   const { 
@@ -109,7 +131,7 @@ export const Table = ({ variation, size, children }) => {
         React.Children.toArray(children)
           .filter((node) => {
             return node.type.displayName === 'TableHeader'
-          })
+          })[0]
       }
     </thead>
     <tbody className={bodyStyles.join(' ')}>
@@ -163,10 +185,7 @@ Table.Header.propTypes = {
   ]),
 }
 
-Table.Header.defaultProps = {
-  size: 'default',
-  variation: 'default'
-}
+Table.Header.defaultProps = {}
 
 Table.Row = ({  variation, size, children, }) => {
   const { row: rowStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
@@ -193,10 +212,7 @@ Table.Row.propTypes = {
   ]),
 };
 
-Table.Row.defaultProps = {
-  size: 'default',
-  variation: 'default'
-}
+Table.Row.defaultProps = {}
 
 Table.Cell = ({  variation, size, children, }) => {
   const { cell: cellStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
@@ -216,7 +232,4 @@ Table.Cell.propTypes = {
   ]),
 };
 
-Table.Cell.defaultProps = {
-  size: 'default',
-  variation: 'default'
-}
+Table.Cell.defaultProps = {}

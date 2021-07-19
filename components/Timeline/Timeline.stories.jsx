@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardFooter, CardHeader } from '../Card/Card';
 import { SkeletonTextLoader } from '../SkeletonLoader/SkeletonTextLoader';
-import { Timeline } from './Timeline';
+import { Timeline, TimelineHead, TimelineIndicator, TimelineItem, TimelineTail } from './Timeline';
 
 export default {
   title: 'Layout/Timeline',
@@ -19,32 +19,32 @@ Default.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <Timeline.Head key="timeline-header">
+    <TimelineHead key="timeline-header">
       <Card>
         <CardContent>
-          <p className="font-thin">This is the Timeline.Head</p>
+          <p className="font-thin">This is the TimelineHead</p>
         </CardContent>
       </Card>
-    </Timeline.Head>,
-    <Timeline.Tail key="timeline-tail">
+    </TimelineHead>,
+    <TimelineTail key="timeline-tail">
       <Card>
         <CardContent>
-          <p className="font-thin">This is the Timeline.Tail</p>
+          <p className="font-thin">This is the TimelineTail</p>
         </CardContent>
       </Card>
-    </Timeline.Tail>,
-    <Timeline.Item key="custom-content">
+    </TimelineTail>,
+    <TimelineItem key="custom-content">
       <DefaultContent />
-    </Timeline.Item>,
-    <Timeline.Item key="custom-content" variation='noIndicator'>
+    </TimelineItem>,
+    <TimelineItem key="custom-content" variation='noIndicator'>
       <DefaultContent />
-    </Timeline.Item>,
-    <Timeline.Item key="custom-content" variation='smallIndicator'>
+    </TimelineItem>,
+    <TimelineItem key="custom-content" variation='smallIndicator' size='smallIndicator'>
       <DefaultContent />
-    </Timeline.Item>,
-    <Timeline.Item key="custom-content" variation={'interwoven'}>
+    </TimelineItem>,
+    <TimelineItem key="custom-content" variation='interwoven' size='interwoven'>
       <DefaultContent />
-    </Timeline.Item>,
+    </TimelineItem>,
   ],
 };
 
@@ -53,10 +53,10 @@ NoIndicator.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <Timeline.Item key="custom-content">
-      <Timeline.Indicator><></></Timeline.Indicator>
+    <TimelineItem key="custom-content">
+      <TimelineIndicator><></></TimelineIndicator>
       <DefaultContent />
-    </Timeline.Item>,
+    </TimelineItem>,
   ],
 };
 
@@ -65,9 +65,9 @@ Interwoven.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <Timeline.Item key="custom-content" variation={'interwoven'}>
+    <TimelineItem key="custom-content" variation='interwoven' size='interwoven'>
       <DefaultContent />
-    </Timeline.Item>,
+    </TimelineItem>,
   ],
 };
 
@@ -76,27 +76,27 @@ CardsTimeline.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <Timeline.Head key="timeline-header">
+    <TimelineHead key="timeline-header">
       <Card>
         <CardHeader>
-          <p className="font-bold">Timeline Head</p>
+          <p className="font-bold">TimelineHead</p>
         </CardHeader>
         <CardContent>
-          <p className="font-thin">This is the Timeline.Head</p>
+          <p className="font-thin">This is the TimelineHead</p>
         </CardContent>
       </Card>
-    </Timeline.Head>,
-    <Timeline.Tail key="timeline-tail">
+    </TimelineHead>,
+    <TimelineTail key="timeline-tail">
       <Card>
         <CardFooter>
           <p className="font-bold">Timeline Tail</p>
         </CardFooter>
         <CardContent>
-          <p className="font-thin">This is the Timeline.Tail</p>
+          <p className="font-thin">This is the TimelineTail</p>
         </CardContent>
       </Card>
-    </Timeline.Tail>,
-    <Timeline.Item key="header-content">
+    </TimelineTail>,
+    <TimelineItem key="header-content">
       <Card>
         <CardHeader>
           <p className="font-bold">Header and Content</p>
@@ -105,22 +105,22 @@ CardsTimeline.args = {
           <SkeletonTextLoader nLines={3} />
         </CardContent>
       </Card>
-    </Timeline.Item>,
-    <Timeline.Item key="content">
+    </TimelineItem>,
+    <TimelineItem key="content">
       <Card>
         <CardContent>
           <SkeletonTextLoader nLines={5} />
         </CardContent>
       </Card>
-    </Timeline.Item>,
-    <Timeline.Item key="gray">
+    </TimelineItem>,
+    <TimelineItem key="gray">
       <Card>
         <CardContent variation="gray">
           <SkeletonTextLoader nLines={5} styles="bg-slate dark:bg-dark-3" />
         </CardContent>
       </Card>
-    </Timeline.Item>,
-    <Timeline.Item key="footer-content">
+    </TimelineItem>,
+    <TimelineItem key="footer-content">
       <Card>
         <CardContent>
           <SkeletonTextLoader nLines={3} />
@@ -129,7 +129,7 @@ CardsTimeline.args = {
           <p className="font-bold text-sm">Footer and Content</p>
         </CardFooter>
       </Card>
-    </Timeline.Item>,
+    </TimelineItem>,
   ],
 };
 
@@ -138,14 +138,14 @@ CustomIndicator.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <Timeline.Item key="content">
+    <TimelineItem key="content">
       <Card>
         <CardContent>
           <SkeletonTextLoader nLines={5} />
         </CardContent>
       </Card>
-    </Timeline.Item>,
-    <Timeline.Item variation={'smallIndicator'} key={'small-indicator'}>
+    </TimelineItem>,
+    <TimelineItem variation={'smallIndicator'} size='smallIndicator' key={'small-indicator'}>
       <Card>
         <CardHeader>
           <p className="font-bold">Small indicator</p>
@@ -154,11 +154,11 @@ CustomIndicator.args = {
           <SkeletonTextLoader nLines={3} />
         </CardContent>
       </Card>
-    </Timeline.Item>,
-    <Timeline.Item key={'custom-provided-indicator'}>
-      <Timeline.Indicator>
+    </TimelineItem>,
+    <TimelineItem key={'custom-provided-indicator'}>
+      <TimelineIndicator>
         <figure className="w-9 h-9 rounded-sm bg-green dark:bg-green-dark z-10" />
-      </Timeline.Indicator>
+      </TimelineIndicator>
       <Card>
         <CardHeader>
           <p className="font-bold">Square indicator</p>
@@ -167,13 +167,13 @@ CustomIndicator.args = {
           <SkeletonTextLoader nLines={3} />
         </CardContent>
       </Card>
-    </Timeline.Item>,
-    <Timeline.Item key="content">
+    </TimelineItem>,
+    <TimelineItem key="content">
       <Card>
         <CardContent>
           <SkeletonTextLoader nLines={5} />
         </CardContent>
       </Card>
-    </Timeline.Item>,
+    </TimelineItem>,
   ],
 };

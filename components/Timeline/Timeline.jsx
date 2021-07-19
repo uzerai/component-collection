@@ -24,6 +24,7 @@ const COMMON = {
   ],
   timelineContainer: [],
 }
+
 const VARIATIONS = {
   default: {
     container: [
@@ -60,7 +61,7 @@ const VARIATIONS = {
   },
   interwoven: {
     itemIndicator: [
-      'hidden'
+      'hidden',
     ],
     itemLeft: [
       ...COMMON.itemLeft,
@@ -137,36 +138,23 @@ const SIZES = {
  * in order, downward.
  */
 export const Timeline = ({ children, variation, size }) => {
-  // if no default size is set, use same key as variation
-  const finalSize = size ? size : variation;
-
-  return (
-    <div className="flex flex-col">
+  return <div className="flex flex-col">
+    {
+      React.Children.toArray(children).find((node) => node.type.name === TimelineHead.name)
+    }
+    <section>
       {
-        React.Children.toArray(children).find(
-          (element) => element.props.__TYPENAME === 'TimelineHead',
-        )
+        React.Children.toArray(children).filter(
+          (element) => element.type.name === TimelineItem.name
+        ).map((child, index) => React.cloneElement(child, { 
+          key: `timeline-item-${index}`, variation: variation, size: size, ...child.props
+        }))
       }
-      <section>
-        {
-          React.Children.toArray(children).filter(
-            (element) => element.props.__TYPENAME === 'TimelineItem',
-          ).map((child, index) => React.cloneElement(child, { 
-            key: `timeline-item-${index}`,
-            // Variation of the child overrides the variation given to the entire timeline.
-            variation: (child.props.variation || variation),
-            // if no default size is set on the child, we use the variation name
-            size: ((child.props.size || child.props.variation)  || finalSize) 
-          }))
-        }
-      </section>
-      {
-        React.Children.toArray(children).find(
-          (element) => element.props.__TYPENAME === 'TimelineTail',
-        )
-      }
-    </div>
-  );
+    </section>
+    {
+      React.Children.toArray(children).find((node) => node.type.name === TimelineTail.name)
+    }
+  </div>;
 };
 
 Timeline.propTypes = {
@@ -179,13 +167,11 @@ Timeline.propTypes = {
 
 Timeline.defaultProps = {
   variation: 'default',
-  size: undefined,
+  size: 'default',
   children: undefined,
 };
 
-Timeline.Item = ({
-  children, id, variation, size,
-}) => {
+export const TimelineItem = ({ id, name, variation, size, children }) => {
   const {
     container: containerStyles,
     item: itemStyles,
@@ -196,55 +182,50 @@ Timeline.Item = ({
   } = generateStyles(variation, size, VARIATIONS, SIZES);
 
   /**
-   * Here is selected the <Timeline.Indicator> indicator which will represent the item on the timeline-line.
+   * Here is selected the <TimelineIndicator> indicator which will represent the item on the timeline-line.
    *
-   * A hard limit of w-10 is set by default on the indicator's flex, introducing a custom indicator
+   * A default size of w-10 is set on the indicator's flex container, thus introducing a custom indicator
    * with a width higher than will cause some deformation from the intended look.
    */
   const timelineIndicator = React.Children.toArray(children)
-    .find((element) => element.props.__TYPENAME === 'TimelineIndicator')
+    .find((node) => node.type.name === TimelineIndicator.name)
     || <figure className={indicatorStyles.join(' ')} />; /* Default timeline indicator component */
 
-  return (
-    <div className={containerStyles.join(' ')} id={id}>
-      {/* This is the left-side segment of each item, containing the timeline-line and the indicator */}
-      <div className={itemLeftStyles.join(' ')}>
-        <figure className={timelineStyles.join(' ')} />
-        {/* Timeline-line */}
-        <div className={timelineContainerStyles.join(' ')}>
-          {
-            timelineIndicator // conditionally selected above
-          }
-        </div>
-      </div>
-      {/* This is the container of the children given to the Timeline.Item */}
-      <div className={itemStyles.join(' ')}>
+  return <div className={containerStyles.join(' ')} id={id} name={name}>
+    {/* This is the left-side segment of each item, containing the timeline-line and the indicator */}
+    <div className={itemLeftStyles.join(' ')}>
+      <figure className={timelineStyles.join(' ')} />
+      {/* Timeline-line */}
+      <div className={timelineContainerStyles.join(' ')}>
         {
-          React.Children.toArray(children)
-            .filter((element) => !element.props?.__TYPENAME)
-            .map((element, index) => React.cloneElement(element, { key: `timeline-item-${index}-content` }))
+          timelineIndicator // conditionally selected above
         }
       </div>
     </div>
-  );
+    {/* This is the container of the children given to the TimelineItem */}
+    <div className={itemStyles.join(' ')}>
+      {
+        React.Children.toArray(children)
+          .filter((element) => element.type.name && !element.type.name.includes('Timeline'))
+          .map((element, index) => React.cloneElement(element, { key: `timeline-item-${index}-content` }))
+      }
+    </div>
+  </div>;
 };
 
-Timeline.Item.displayName = 'TimelineItem';
-
-Timeline.Item.propTypes = {
+TimelineItem.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   size: PropTypes.oneOf(Object.keys(SIZES)),
-  __TYPENAME: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node), PropTypes.node
   ]),
 };
 
-Timeline.Item.defaultProps = {
-  __TYPENAME: 'TimelineItem',
-  variation: 'default'
+TimelineItem.defaultProps = {
+  variation: 'default',
+  size: 'default'
 };
 
 /**
@@ -255,19 +236,14 @@ Timeline.Item.defaultProps = {
  * @param {*} param0
  * @returns
  */
-Timeline.Head = ({ children }) => <>{children}</>;
-Timeline.Head.displayName = 'TimelineHead';
+export const TimelineHead = ({ children }) => <>{children}</>;
  
-Timeline.Head.propTypes = {
-  __TYPENAME: PropTypes.string,
+TimelineHead.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node), PropTypes.node
   ]),
 };
- 
-Timeline.Head.defaultProps = {
-  __TYPENAME: 'TimelineHead',
-};
+TimelineHead.defaultProps = {};
  
 /**
   * Helper element for positioning a specific item as the TAIL/FOOTER of the timeline.
@@ -277,30 +253,20 @@ Timeline.Head.defaultProps = {
   * @param {*} param0
   * @returns
   */
-Timeline.Tail = ({ children }) => <>{children}</>;
-Timeline.Tail.displayName = 'TimelineTail';
+export const TimelineTail = ({ children }) => <>{children}</>;
  
-Timeline.Tail.propTypes = {
-  __TYPENAME: PropTypes.string,
+TimelineTail.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node), PropTypes.node
   ]),
 };
+TimelineTail.defaultProps = {};
  
-Timeline.Tail.defaultProps = {
-  __TYPENAME: 'TimelineTail',
-};
+export const TimelineIndicator = ({ children }) => <>{children}</>;
  
-Timeline.Indicator = ({ children }) => <>{children}</>;
-Timeline.Indicator.displayName = 'TimelineIndicator';
- 
-Timeline.Indicator.propTypes = {
-  __TYPENAME: PropTypes.string,
+TimelineIndicator.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node), PropTypes.node
   ]),
 };
- 
-Timeline.Indicator.defaultProps = {
-  __TYPENAME: 'TimelineIndicator',
-};
+TimelineIndicator.defaultProps = {};

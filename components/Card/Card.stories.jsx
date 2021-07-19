@@ -34,7 +34,7 @@ Gray.args = {
   size: 'default',
   variation: 'gray',
   children: [
-    <CardContent variation={'gray'} styles={'py-2'} key={'content'}>
+    <CardContent variation={'gray'} key={'content'}>
       <SkeletonTextLoader nLines={25} styles={'bg-slate dark:bg-dark-3'}/>
     </CardContent>
   ],
@@ -45,12 +45,14 @@ Nested.args = {
   size: 'default',
   variation: 'default',
   children: [
-    <CardContent styles='p-5' key={'content'}>
-      <Card variation={'nested'}>
-        <CardContent variation={'nested'}>
-          <SkeletonTextLoader nLines={25} />
-        </CardContent>
-      </Card>
+    <CardContent key={'content'}>
+      <div className='py-2'>
+        <Card variation={'nested'}>
+          <CardContent variation={'nested'}>
+            <SkeletonTextLoader nLines={25} />
+          </CardContent>
+        </Card>
+      </div>
     </CardContent>
   ],
 };

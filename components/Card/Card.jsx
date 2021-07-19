@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+// Components using this import must follow the VARIATIONS / SIZES pattern. 
+import { generateStyles } from '../../shared/variationsHelper';
 
 
 /** 
@@ -9,22 +11,10 @@ import React from 'react';
  */
 
 const COMMON = {
-  header: [
-    'w-full',
-    'px-6',
-    'py-4',
-  ],
-  content: [
-    'px-6',
-    'py-4',
-  ],
-  footer: [
-    'w-full',
-    'px-6',
-    'py-2',
-  ],
+  header: [],
+  content: [],
+  footer: [],
   container: [
-    'w-full',
     'rounded',
     'overflow-hidden',
     'shadow',
@@ -83,9 +73,28 @@ export const VARIATIONS = {
 };
 
 export const SIZES = {
-  default: [],
+  default: {
+    header: [
+      'w-full',
+      'px-6',
+      'py-4',
+    ],
+    content: [
+      'px-6',
+      'py-4',
+    ],
+    footer: [
+      'w-full',
+      'px-6',
+      'py-2',
+    ],
+    container: [
+      'w-full',
+    ]
+  },
 };
 
+//TODO: Refactor to use generateStyles
 
 /** 
  *  ######################################################
@@ -99,22 +108,22 @@ export const SIZES = {
  * @param {*} param0 
  * @returns 
  */
-export const Card = ({ variation, styles, children }) => {
-  const classes = (styles || '').concat(VARIATIONS[variation]?.container?.join(' '))
+export const Card = ({ variation, size, children }) => {
+  const { container: containerStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
 
-  return <section className={classes}>
+  return <section className={containerStyles.join(' ')}>
     {
       // Ensure that the Card.Header component is always at the top of the card when provided.
-      React.Children.toArray(children).find(element => element.props.__TYPENAME === CardHeader.defaultProps.__TYPENAME)
+      React.Children.toArray(children).find(element => element.type.displayName === CardHeader.displayName)
     }
 
     {
-      React.Children.toArray(children).find(element => element.props.__TYPENAME === CardContent.defaultProps.__TYPENAME)
+      React.Children.toArray(children).find(element => element.type.displayName === CardContent.displayName)
     }
     
     {
       // Ensure that the Card.Footer component is always at the bottom when provided. 
-      React.Children.toArray(children).find(element => element.props.__TYPENAME === CardFooter.defaultProps.__TYPENAME)
+      React.Children.toArray(children).find(element => element.type.displayName === CardFooter.displayName)
     }
   </section>
 };
@@ -123,16 +132,14 @@ export const Card = ({ variation, styles, children }) => {
 Card.propTypes = {
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   size: PropTypes.oneOf(Object.keys(SIZES)),
-  styles: PropTypes.string,
   children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element), PropTypes.string, PropTypes.element
+    PropTypes.arrayOf(PropTypes.node), PropTypes.node
   ]),
 };
 
 Card.defaultProps = {
   variation: 'default',
   size: 'default',
-  styles: '',
   children: undefined
 };
 
@@ -143,52 +150,46 @@ Card.defaultProps = {
  * @param {*} param0 
  * @returns 
  */
-export const CardHeader = ({ styles, children, variation }) => {
-  const classes = (styles + ' ')
-    .concat(VARIATIONS[variation]?.header?.join(' '))
+export const CardHeader = ({ size, variation, children }) => {
+  const { header: headerStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
 
-  return <header data-function="header" className={classes}>
+  return <header data-function="header" className={headerStyles.join(' ')}>
     {children}
   </header>
 }
 CardHeader.propTypes = {
-  __TYPENAME: PropTypes.string.isRequired,
-  styles: PropTypes.string,
+  size: PropTypes.oneOf(Object.keys(SIZES)),
+  variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.element), PropTypes.string, PropTypes.element
-  ]),
-  variation: PropTypes.oneOf(Object.keys(VARIATIONS))
+  ])
 }
 
 CardHeader.defaultProps = {
-  __TYPENAME: 'CardHeader',
   variation: 'default',
-  styles: ''
+  size: 'default'
 }
 
 /**
  * A content component for holding any other kind of content within the card.
  */
-export const CardContent = ({ styles, children, variation }) => {
-  const classes = (styles + ' ')
-    .concat(VARIATIONS[variation]?.content?.join(' '))
+export const CardContent = ({ size, variation, children }) => {
+  const { content: contentStyle } = generateStyles(variation, size, VARIATIONS, SIZES);
 
-  return <div data-function="content" className={classes}>
+  return <div data-function="content" className={contentStyle.join(' ')}>
     {children}
   </div>
 }
 
 CardContent.propTypes = {
-  __TYPENAME: PropTypes.string.isRequired,
-  styles: PropTypes.string,
+  size: PropTypes.oneOf(Object.keys(SIZES)),
+  variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element), PropTypes.string, PropTypes.element
-  ]),
-  variation: PropTypes.oneOf(Object.keys(VARIATIONS))
+    PropTypes.arrayOf(PropTypes.node), PropTypes.node
+  ])
 }
 
 CardContent.defaultProps = {
-  __TYPENAME: 'CardContent',
   variation: 'default',
   styles: ''
 }
@@ -199,25 +200,23 @@ CardContent.defaultProps = {
  * @param {*} param0 
  * @returns 
  */
-export const CardFooter = ({ styles, children, variation }) => {
-  const classes = (styles + ' ').concat(VARIATIONS[variation]?.footer.join(' '));
+export const CardFooter = ({ size, variation, children  }) => {
+  const { footer: footerStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
 
-  return <footer data-function="footer" className={classes}>
+  return <footer data-function="footer" className={footerStyles.join(' ')}>
     {children}
   </footer>
 }
 
 CardFooter.propTypes = {
-  __TYPENAME: PropTypes.string.isRequired,
-  styles: PropTypes.string,
+  size: PropTypes.oneOf(Object.keys(SIZES)),
+  variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element), PropTypes.string, PropTypes.element
-  ]),
-  variation: PropTypes.oneOf(Object.keys(VARIATIONS))
+    PropTypes.arrayOf(PropTypes.node), PropTypes.node
+  ])
 }
 
 CardFooter.defaultProps = {
-  __TYPENAME: 'CardFooter',
   variation: 'default',
   styles: ''
 }

@@ -2,10 +2,19 @@ import PropTypes from 'prop-types';
 import React from 'react';
 // Components using this import must follow the VARIATIONS / SIZES pattern. 
 import { generateStyles } from '../../shared/variationsHelper';
+import Activity from './assets/feather/activity.svg';
+import Airplay from './assets/feather/airplay.svg';
+import AlertCircle from './assets/feather/alert-circle.svg';
+import AlertOctagon from './assets/feather/alert-octagon.svg';
+import BellOff from './assets/feather/bell-off.svg';
+import Bell from './assets/feather/bell.svg';
+import Check from './assets/feather/check.svg';
+import ChevronDown from './assets/feather/chevron-down.svg';
+import Command from './assets/feather/command.svg';
 import Mail from './assets/feather/mail.svg';
 import Search from './assets/feather/search.svg';
 import Trash from './assets/feather/trash.svg';
-
+import Cross from './assets/feather/x.svg';
 
 /** 
  *  ######################################################
@@ -18,11 +27,14 @@ const COMMON = {
     'justify-center',
     'items-center',
   ],
-  symbol: []
+  symbol: [
+    'dark:text-white',
+    'stroke-current',
+  ]
 }
 
 export const VARIATIONS = {
-  default: {
+  circled: {
     body: [
       ...COMMON.body,
       'bg-smoke',
@@ -30,13 +42,17 @@ export const VARIATIONS = {
       'rounded-full',
     ],
     symbol: [
-      ...COMMON.symbol,
+      'stroke-current',
+      'dark:text-smoke'
     ]
   },
-  transparent: {
+  default: {
     body: [
       ...COMMON.body,
       'bg-transparent',
+    ],
+    symbol: [
+      ...COMMON.symbol,
     ]
   }
 }
@@ -51,6 +67,12 @@ export const SIZES = {
       'h-4',
       'w-4'
     ],
+  },
+  fitHeight: {
+    body: [ 'h-full' ],
+  },
+  fitWidth: {
+    body: [ 'w-full' ]
   }
 }
 
@@ -58,7 +80,17 @@ export const SYMBOLS = {
   default: <div />,
   search: <Search />,
   trash: <Trash />,
-  mail: <Mail />
+  mail: <Mail />,
+  alertCircle: <AlertCircle />,
+  activity: <Activity />,
+  airplay: <Airplay />,
+  alertOctagon: <AlertOctagon />,
+  bell: <Bell />,
+  bellOff: <BellOff />,
+  check: <Check />,
+  chevronDown: <ChevronDown />,
+  command: <Command />,
+  cross: <Cross />
 }
 
 /** 

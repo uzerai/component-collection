@@ -1,4 +1,5 @@
 import React from 'react';
+import { Symbol } from '../Symbol/Symbol';
 import { TextField } from './TextField';
 
 
@@ -23,5 +24,15 @@ Disabled.args = {
   placeholder: 'Some placeholder...',
   size: 'default',
   disabled: true,
+  variation: 'default',
+};
+
+export const WithSymbol = Template.bind({});
+WithSymbol.args = {
+  name: 'Input',
+  placeholder: 'Some placeholder...',
+  size: 'default',
+  disabled: false,
+  symbol: <Symbol symbol={'search'} variation={'transparent'} />,
   variation: 'default',
 };

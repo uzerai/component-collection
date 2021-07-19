@@ -17,9 +17,11 @@ const VARIATIONS = {
       'flex',
       'items-baseline',
       'bg-white',
+      'dark:bg-dark-2',
       'relative',
       'border',
       'border-smoke',
+      'dark:border-dark-3',
       'rounded-sm',
       'focus-within:border',
       'focus-within:border-blue',
@@ -27,24 +29,37 @@ const VARIATIONS = {
       'ease-in',
       'shadow-sm',
       'shadow-inner',
-      'py-2',
-      'px-4'
     ],
     input: [
       'group',
       'w-full',
       'appearance-none',
+      'bg-white',
+      'dark:bg-dark-2',
       'focus:outline-none',
       'disabled:cursor-not-allowed',
-      'disabled:bg-white',
+      'dark:caret-white',
+    ],
+    symbol: [
+      'flex',
+      'justify-center',
+      'items-center'
     ]
   }
 }
 
 const SIZES = {
   default: {
-    body: [],
+    body: [
+      'py-2',
+      'px-3'
+    ],
     input: [],
+    symbol: [
+      'w-5',
+      'h-5',
+      'pr-2'
+    ]
   }
 }
 
@@ -57,14 +72,18 @@ const SIZES = {
 /**
  * The default button which comes in a number of variations.
  */
-export const TextField = ({ id, name, placeholder, disabled, maxLength, variation, size }) => {
-  const { body: bodyStyles, input: inputStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
+export const TextField = ({ id, name, placeholder, disabled, maxLength, symbol, variation, size }) => {
+  const { body: bodyStyles, input: inputStyles, symbol: symbolStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
 
-  return <div className={bodyStyles.join(' ')}>
+  return <div className={bodyStyles.join(' ').concat(` ${disabled ? 'cursor-not-allowed' : ''}`)}>
     {/* Left-side area */}
-    <div className={''}>
-      <span>Thing</span>
-    </div>
+    { 
+      symbol && <div className={symbolStyles.join(' ')}>
+        {
+          React.cloneElement(symbol, { ...symbol.props, size: 'fitWidth' })
+        }
+      </div>
+    } 
     <input 
       name={name} 
       placeholder={placeholder} 
@@ -84,6 +103,7 @@ TextField.propTypes = {
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   maxLength: PropTypes.number,
+  symbol: PropTypes.node,
   size: PropTypes.oneOf(Object.keys(SIZES)),
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
 };

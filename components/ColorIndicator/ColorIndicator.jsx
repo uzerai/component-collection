@@ -20,28 +20,16 @@ const COMMON = {
 
 export const VARIATIONS = {
   default: {
-    body: [
-      ...COMMON.body, 
-      'bg-slate'
-    ]
+    body: [ ...COMMON.body, 'bg-slate' ]
   },
   red: {
-    body: [
-      ...COMMON.body, 
-      'bg-red'
-    ]
+    body: [ ...COMMON.body, 'bg-red' ]
   },
   yellow: {
-    body: [
-      ...COMMON.body, 
-      'bg-yellow'
-    ]
+    body: [ ...COMMON.body, 'bg-yellow' ]
   },
   green: {
-    body: [
-      ...COMMON.body, 
-      'bg-green'
-    ]
+    body: [ ...COMMON.body, 'bg-green' ]
   }
 }
 

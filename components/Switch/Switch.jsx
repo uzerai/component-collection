@@ -14,11 +14,13 @@ const COMMON = {
     'text-white',
     'text-sm',
     'peer-checked:ml-2',
+    'peer-disabled:cursor-not-allowed',
   ],
   background: [ // This is the div responsible for colouring in the switch
     'absolute',
     'h-full',
     'w-full',
+    'peer-disabled:cursor-not-allowed'
   ],
   body: [ // This div holds all the other ones
     'relative',
@@ -30,6 +32,7 @@ const COMMON = {
     'overflow-hidden'
   ],
   dot: [
+    'disabled:cursor-not-allowed',
     'appearance-none',
     'rounded-full',
     'cursor-pointer',
@@ -40,7 +43,7 @@ const COMMON = {
 const VARIATIONS = {
   default: {
     switchText: [
-      ...COMMON.switchText
+      ...COMMON.switchText,
     ],
     background: [ // This is the div responsible for colouring in the switch
       ...COMMON.background,
@@ -49,7 +52,7 @@ const VARIATIONS = {
       'bg-stone',
     ],
     body: [ // This div holds all the other ones
-      ...COMMON.body
+      ...COMMON.body,
     ],
     dot: [
       ...COMMON.dot,

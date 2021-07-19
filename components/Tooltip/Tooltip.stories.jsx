@@ -3,7 +3,7 @@ import { Tooltip } from './Tooltip';
 
 
 export default {
-  title: 'Interactive/Tooltip',
+  title: 'Indicators/Tooltip',
   component: Tooltip,
 };
 

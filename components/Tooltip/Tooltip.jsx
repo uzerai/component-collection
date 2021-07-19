@@ -137,9 +137,9 @@ Tooltip.Popup = ({ children, variation, size }) => {
   return <div className={'flex justify-center gap-0'}>
     <div className='flex-grow'>
       <figure className={'h-2 '.concat(tipStyles.join(' '))} />
-      <div className={textStyles.join(' ')}>
+      <span className={textStyles.join(' ')}>
         {children}
-      </div>
+      </span>
     </div>
   </div>
 }

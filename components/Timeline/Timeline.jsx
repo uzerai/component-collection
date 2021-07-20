@@ -66,11 +66,9 @@ const VARIATIONS = {
     itemLeft: [
       ...COMMON.itemLeft,
       'absolute',
-      'z-0',
     ],
     item: [
       ...COMMON.item,
-      'bg-inherit',
       'z-10'
     ]
   },
@@ -113,6 +111,17 @@ const SIZES = {
     ]
   },
   interwoven: {
+    itemLeft: [
+      'h-full',
+      'w-10'
+    ]
+  },
+  gapStart: {
+    itemLeft: [
+      'w-10'
+    ]
+  },
+  gapEnd: {
     itemLeft: [
       'h-full',
       'w-10'

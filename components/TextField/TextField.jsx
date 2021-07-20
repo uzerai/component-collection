@@ -48,6 +48,7 @@ const VARIATIONS = {
       'items-center'
     ],
     count: [
+      'select-none',
       'font-effra',
       'border-l',
       'border-smoke',

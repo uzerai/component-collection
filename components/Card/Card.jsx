@@ -114,16 +114,16 @@ export const Card = ({ variation, size, children }) => {
   return <section className={containerStyles.join(' ')}>
     {
       // Ensure that the Card.Header component is always at the top of the card when provided.
-      React.Children.toArray(children).find(element => element.type.displayName === CardHeader.displayName)
+      React.Children.toArray(children).find(element => element?.type.name === CardHeader.displayName)
     }
 
     {
-      React.Children.toArray(children).find(element => element.type.displayName === CardContent.displayName)
+      React.Children.toArray(children).find(element => element?.type.name === CardContent.displayName)
     }
     
     {
       // Ensure that the Card.Footer component is always at the bottom when provided. 
-      React.Children.toArray(children).find(element => element.type.displayName === CardFooter.displayName)
+      React.Children.toArray(children).find(element => element?.type.name === CardFooter.displayName)
     }
   </section>
 };

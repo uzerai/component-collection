@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { React } from 'react';
+import React from 'react';
 // Components using this import must follow the VARIATIONS / SIZES pattern. 
 import { generateStyles } from '../../shared/variationsHelper';
 

@@ -9,9 +9,12 @@ export default {
 };
 
 const Template = (args) => <Timeline {...args} />;
-const DefaultContent = () => <p 
-  className="p-10 border border-steam dark:border-dark-3 rounded bg-white dark:bg-dark-1 dark:text-white">
-    Some random content
+
+// Declaring prop-types for supplementary, one-off, storybook-only elements is silly.
+// eslint-disable-next-line
+const DefaultContent = ({ children }) => <p 
+  className="p-10 border border-smoke dark:border-dark-3 rounded bg-white dark:bg-dark-1 dark:text-white">
+  {children ? children : 'Default content where anything can be written.'}
 </p>;
 
 export const Default = Template.bind({});
@@ -65,6 +68,25 @@ Interwoven.args = {
   size: 'default',
   variation: 'default',
   children: [
+    <TimelineHead key="timeline-header">
+      <DefaultContent>This is the timeline-head</DefaultContent>
+    </TimelineHead>,
+    <TimelineTail key="timeline-tail">
+      <DefaultContent>This is the timeline-tail</DefaultContent>
+    </TimelineTail>,
+    <TimelineItem key="custom-content" variation='interwoven' size='interwoven'>
+      <DefaultContent />
+    </TimelineItem>,
+    <TimelineItem key="custom-content" variation='interwoven' size='gapStart'>
+      <DefaultContent>
+        This TimelineItem will have a gap after it (<strong>interwoven / gapStart</strong>).
+      </DefaultContent>
+    </TimelineItem>,
+    <TimelineItem key="custom-content" variation='interwoven' size='gapEnd'>
+      <DefaultContent>
+        This TimelineItem will resume the timeline after a gap (<strong>interwoven / gapEnd</strong>).
+      </DefaultContent>
+    </TimelineItem>,
     <TimelineItem key="custom-content" variation='interwoven' size='interwoven'>
       <DefaultContent />
     </TimelineItem>,
@@ -168,7 +190,7 @@ CustomIndicator.args = {
         </CardContent>
       </Card>
     </TimelineItem>,
-    <TimelineItem key="content">
+    <TimelineItem key="content" >
       <Card>
         <CardContent>
           <SkeletonTextLoader nLines={5} />

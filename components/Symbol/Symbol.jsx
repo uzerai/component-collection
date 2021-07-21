@@ -11,6 +11,7 @@ import Bell from './assets/feather/bell.svg';
 import Check from './assets/feather/check.svg';
 import ChevronDown from './assets/feather/chevron-down.svg';
 import Command from './assets/feather/command.svg';
+import HelpCircle from './assets/feather/help-circle.svg';
 import Mail from './assets/feather/mail.svg';
 import Search from './assets/feather/search.svg';
 import Trash from './assets/feather/trash.svg';
@@ -90,7 +91,8 @@ export const SYMBOLS = {
   check: <Check />,
   chevronDown: <ChevronDown />,
   command: <Command />,
-  cross: <Cross />
+  cross: <Cross />,
+  helpCircle: <HelpCircle />
 }
 
 /** 
@@ -101,6 +103,8 @@ export const SYMBOLS = {
 
 /**
  * A symbol element for representing a symbol of argument `symbol`.
+ * 
+ * Uses the open source icons provided by the feather (https://feathericons.com) pack.
  */
 export const Symbol = ({ symbol, variation, size }) => {
   const { body: bodyStyles, symbol: symbolStyles } = generateStyles(variation, size, VARIATIONS, SIZES);

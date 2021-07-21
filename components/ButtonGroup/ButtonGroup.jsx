@@ -71,6 +71,8 @@ const BUTTON_CLASSES = {
   ]
 }
 
+// TODO: Clean this up not to use default <Button> but instead have a custom ButtonGroup.Button to filter display by.
+
 /**
  * Component representing grouped buttons; recommended 
  * for button groupings where only one of the grouped buttons should be clicked.
@@ -82,6 +84,7 @@ export const ButtonGroup = ({ variation, justify, size, styles, buttonStyles, ch
     .concat(JUSTIFY[justify])
     .concat(GROUP_CLASSES[variation] || GROUP_CLASSES['default']).join(' ')
     .concat(styles);
+    
   return (
     <div className={classNames}>
       {

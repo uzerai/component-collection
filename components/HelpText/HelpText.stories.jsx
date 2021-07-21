@@ -3,7 +3,7 @@ import { HelpText } from './HelpText';
 
 
 export default {
-  title: 'Indicators/Helptext',
+  title: 'Indication/Helptext',
   component: HelpText,
 };
 

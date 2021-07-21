@@ -3,7 +3,7 @@ import { Banner } from './Banner';
 
 
 export default {
-  title: 'Indicators/Banner',
+  title: 'Indication/Banner',
   component: Banner,
 };
 
@@ -44,7 +44,7 @@ Dismissable.args = {
   children: [
     <>
       <p className='font-bold text-charcoal'>This is a dismissable banner!</p>
-      <p className='text-charcoal'>It can be dismissed and onDismiss do <em>anything</em>.</p>
+      <p className='text-charcoal'>It can be dismissed and onDismiss can do <em>anything</em>.</p>
     </>
   ],
 };

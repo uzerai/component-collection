@@ -13,7 +13,9 @@ import { generateStyles } from '../../shared/variationsHelper';
 
 const VARIATIONS = {
   default: {
-    body: []
+    body: [
+      'dark:text-white'
+    ]
   }
 }
 

@@ -3,7 +3,7 @@ import { SIZES, Tag, VARIATIONS } from './Tag';
 
 
 export default {
-  title: 'Indicators/Tag',
+  title: 'Indication/Tag',
   component: Tag,
 };
 

@@ -3,7 +3,7 @@ import { ColorIndicator, VARIATIONS } from './ColorIndicator';
 
 
 export default {
-  title: 'Indicators/ColorIndicator',
+  title: 'Indication/ColorIndicator',
   component: ColorIndicator,
 };
 

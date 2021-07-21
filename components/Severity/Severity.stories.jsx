@@ -3,7 +3,7 @@ import { Severity } from './Severity';
 
 
 export default {
-  title: 'Indicators/Severity',
+  title: 'Indication/Severity',
   component: Severity,
 };
 

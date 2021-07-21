@@ -92,6 +92,9 @@ export const SIZES = {
       'w-full',
     ]
   },
+  noMargin: {
+    content: []
+  }
 };
 
 //TODO: Refactor to use generateStyles

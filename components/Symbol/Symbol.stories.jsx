@@ -3,7 +3,7 @@ import { SIZES, Symbol, SYMBOLS, VARIATIONS } from './Symbol';
 
 
 export default {
-  title: 'Indicators/Symbol',
+  title: 'Indication/Symbol',
   component: Symbol,
 };
 

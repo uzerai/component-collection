@@ -1,6 +1,6 @@
 import React from 'react';
+import { Card, CardContent, CardFooter, CardHeader } from '.';
 import { SkeletonTextLoader } from '../SkeletonLoader/SkeletonTextLoader';
-import { Card, CardContent, CardFooter, CardHeader } from './Card';
 
 
 

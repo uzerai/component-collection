@@ -1,6 +1,6 @@
 import React from 'react';
+import { Button } from '.';
 import TrashIcon from './assets/remove-delete-trash-cancel.svg';
-import { Button } from './Button';
 
 
 export default {

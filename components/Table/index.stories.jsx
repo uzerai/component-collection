@@ -1,6 +1,6 @@
 import React from 'react';
-import { ColorIndicator } from '../ColorIndicator/ColorIndicator';
-import { Table, VARIATIONS } from './Table';
+import { Table, VARIATIONS } from '.';
+import { ColorIndicator } from '../ColorIndicator';
 
 
 export default {

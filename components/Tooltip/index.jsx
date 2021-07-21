@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { generateStyles } from '../../shared/variationsHelper';
-import './Tooltip.css';
+import './tooltip.css';
 
 /** 
  *  ######################################################

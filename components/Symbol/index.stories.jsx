@@ -1,5 +1,5 @@
 import React from 'react';
-import { SIZES, Symbol, SYMBOLS, VARIATIONS } from './Symbol';
+import { SIZES, Symbol, SYMBOLS, VARIATIONS } from '.';
 
 
 export default {

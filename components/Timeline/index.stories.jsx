@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardContent, CardFooter, CardHeader } from '../Card/Card';
+import { Timeline, TimelineHead, TimelineIndicator, TimelineItem, TimelineTail } from '.';
+import { Card, CardContent, CardFooter, CardHeader } from '../Card';
 import { SkeletonTextLoader } from '../SkeletonLoader/SkeletonTextLoader';
-import { Timeline, TimelineHead, TimelineIndicator, TimelineItem, TimelineTail } from './Timeline';
 
 export default {
   title: 'Layout/Timeline',

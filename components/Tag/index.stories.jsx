@@ -1,5 +1,5 @@
 import React from 'react';
-import { SIZES, Tag, VARIATIONS } from './Tag';
+import { SIZES, Tag, VARIATIONS } from '.';
 
 
 export default {

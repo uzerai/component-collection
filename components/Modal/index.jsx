@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { generateStyles } from '../../shared/variationsHelper';
 // Components using this import must follow the VARIATIONS / SIZES pattern.
-import { Button } from '../Button/Button';
+import { Button } from '../Button';
 import './modal.css';
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColorIndicator, VARIATIONS } from './ColorIndicator';
+import { ColorIndicator, VARIATIONS } from '.';
 
 
 export default {

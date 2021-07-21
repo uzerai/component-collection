@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router';
-import { TabNavigation, TabNavigationLink } from './TabNavigation';
+import { TabNavigation, TabNavigationLink } from '.';
 
 
 export default {

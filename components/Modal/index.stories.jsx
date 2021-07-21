@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button } from '../Button/Button';
-import { Card, CardContent, CardFooter, CardHeader } from '../Card/Card';
-import { Timeline, TimelineHead, TimelineItem, TimelineTail } from '../Timeline/Timeline';
-import { Modal } from './Modal';
+import { Modal } from '.';
+import { Button } from '../Button';
+import { Card, CardContent, CardFooter, CardHeader } from '../Card';
+import { Timeline, TimelineHead, TimelineItem, TimelineTail } from '../Timeline';
 
 
 

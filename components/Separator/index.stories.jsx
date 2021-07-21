@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardContent, CardFooter, CardHeader } from '../Card/Card';
+import { Separator as Separator } from '.';
+import { Card, CardContent, CardFooter, CardHeader } from '../Card';
 import { SkeletonTextLoader } from '../SkeletonLoader/SkeletonTextLoader';
-import { Separator as Separator } from './Separator';
 
 
 export default {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Severity } from './Severity';
+import { Severity } from '.';
 
 
 export default {

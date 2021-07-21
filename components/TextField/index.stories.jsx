@@ -1,6 +1,6 @@
 import React from 'react';
-import { Symbol } from '../Symbol/Symbol';
-import { TextField } from './TextField';
+import { TextField } from '.';
+import { Symbol } from '../Symbol';
 
 
 export default {

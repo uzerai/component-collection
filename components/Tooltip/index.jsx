@@ -41,7 +41,7 @@ export const Tooltip = ({
   return (<>
     <span ref={setTriggerRef} className={'cursor-help underline'}>{children}</span>
     { visible && (
-      <div ref={setTooltipRef} {...getTooltipProps({ className: 'tooltip-container p-2 text-base rounded' })}>
+      <div ref={setTooltipRef} {...getTooltipProps({ className: 'tooltip-container text-base rounded' })}>
         <div {...getArrowProps({ className: 'tooltip-arrow' })} />
         <div className="dark:text-white">
           {tooltip}

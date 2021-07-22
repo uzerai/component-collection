@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-// Components using this import must follow the VARIATIONS / SIZES pattern. 
+// Components using this import must follow the VARIATIONS / SIZES pattern.
 import { generateStyles } from '../../shared/variationsHelper';
 
 
 
-/** 
+/**
  *  ######################################################
  *  #            VARIATION and SIZE controls             #
  *  ######################################################
@@ -47,7 +47,7 @@ const SIZES = {
   }
 }
 
-/** 
+/**
  *  ######################################################
  *  #                  Component logic                   #
  *  ######################################################
@@ -57,7 +57,7 @@ const SIZES = {
  * The default button which comes in a number of variations.
  */
 export const Separator = ({ label, variation, size }) => {
-  const { 
+  const {
     label: labelStyles,
     inset: insetStyles,
     container: containerStyles

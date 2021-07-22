@@ -1,6 +1,8 @@
 import React from 'react';
 import { Tooltip } from '.';
-
+import { Card, CardContent } from '../Card';
+import { Separator } from '../Separator';
+import { Timeline, TimelineHead, TimelineItem, TimelineTail } from '../Timeline';
 
 export default {
   title: 'Interactive/Tooltip',
@@ -43,27 +45,68 @@ const Template = (args) => {
 
 const IsolatedTemplate = (args) => {
   return <div className='w-full h-screen flex justify-center items-center dark:text-white'>
-    <Tooltip {...args}>Click Me!</Tooltip>
+    <Tooltip {...args}>
+      <p className='text-xl'>Click me!</p>
+    </Tooltip>
   </div>
 };
 
+const LargeTooltip = () => <div className='flex flex-col'>
+  <p className='text-xl font-varta px-4 pt-4'>A HUGE tooltip</p>
+  {
+    /*
+     * Separators currently do not handle padding correctly,
+     * so if required to entirely separate the parent container,
+     * do not apply padding to the parent.
+     */
+  }
+  <Separator label='with separator' />
+  <div className='p-8'>
+    <Timeline>
+      <TimelineHead key="timeline-header">
+        <Card>
+          <CardContent>
+            <p className="font-thin">This is the TimelineHead</p>
+          </CardContent>
+        </Card>
+      </TimelineHead>
+      <TimelineTail key="timeline-tail">
+        <Card>
+          <CardContent>
+            <p className="font-thin">This is the TimelineTail</p>
+          </CardContent>
+        </Card>
+      </TimelineTail>
+      <TimelineItem key="custom-content">
+        <Card>
+          <CardContent>
+            <p className="font-thin">This is the TimelineContent</p>
+          </CardContent>
+        </Card>
+      </TimelineItem>
+    </Timeline>
+  </div>
+</div>
+
 export const Default = Template.bind({});
 Default.args = {
-  tooltip: 'Here\'s a tooltip for ya!',
+  tooltip: <p className='p-5'>Here&apos;s a tooltip for ya!</p>,
   variation: 'default',
 };
 
 export const Isolated = IsolatedTemplate.bind({});
 Isolated.args = {
   visible: true,
+  interactive: false,
+  placement: 'bottom',
   trigger: 'click',
-  tooltip: 'Here\'s a tooltip for ya!',
+  tooltip: <LargeTooltip />,
   variation: 'default',
 }
 
 export const Large = Template.bind({});
 Large.args = {
-  tooltip: 'A BIG TOOLTIP?',
+  tooltip: <p className='p-2'>Smol content, large package</p>,
   variation: 'default',
   size: 'large'
 };

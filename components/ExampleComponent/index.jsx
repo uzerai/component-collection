@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-// Components using this import must follow the VARIATIONS / SIZES pattern. 
+// Components using this import must follow the VARIATIONS / SIZES pattern.
 import { generateStyles } from '../../shared/variationsHelper';
 
 
 
-/** 
+/**
  *  ######################################################
  *  #            VARIATION and SIZE controls             #
  *  ######################################################
@@ -25,7 +25,7 @@ const SIZES = {
   }
 }
 
-/** 
+/**
  *  ######################################################
  *  #                  Component logic                   #
  *  ######################################################

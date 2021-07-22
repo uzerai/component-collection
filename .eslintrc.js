@@ -23,7 +23,8 @@ module.exports = { // eslint-disable-line no-undef
   rules: {
     quotes: [1, 'single'],
     'array-bracket-newline': [1, 'consistent'],
-    indent: [1, 2]
+    indent: [1, 2],
+    'no-trailing-spaces': ['warn', { skipBlankLines: true }]
   },
   settings: {
     react: {

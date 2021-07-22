@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-// Components using this import must follow the VARIATIONS / SIZES pattern. 
+// Components using this import must follow the VARIATIONS / SIZES pattern.
 import { generateStyles } from '../../shared/variationsHelper';
 import Activity from './assets/feather/activity.svg';
 import Airplay from './assets/feather/airplay.svg';
@@ -10,6 +10,7 @@ import BellOff from './assets/feather/bell-off.svg';
 import Bell from './assets/feather/bell.svg';
 import Check from './assets/feather/check.svg';
 import ChevronDown from './assets/feather/chevron-down.svg';
+import ChevronUp from './assets/feather/chevron-up.svg';
 import Command from './assets/feather/command.svg';
 import HelpCircle from './assets/feather/help-circle.svg';
 import Mail from './assets/feather/mail.svg';
@@ -17,7 +18,7 @@ import Search from './assets/feather/search.svg';
 import Trash from './assets/feather/trash.svg';
 import Cross from './assets/feather/x.svg';
 
-/** 
+/**
  *  ######################################################
  *  #            VARIATION and SIZE controls             #
  *  ######################################################
@@ -96,7 +97,7 @@ export const SIZES = {
   }
 }
 
-export const SYMBOLS = { 
+export const SYMBOLS = {
   default: <div />,
   search: <Search />,
   trash: <Trash />,
@@ -108,13 +109,14 @@ export const SYMBOLS = {
   bell: <Bell />,
   bellOff: <BellOff />,
   check: <Check />,
+  chevronUp: <ChevronUp />,
   chevronDown: <ChevronDown />,
   command: <Command />,
   cross: <Cross />,
   helpCircle: <HelpCircle />
 }
 
-/** 
+/**
  *  ######################################################
  *  #                  Component logic                   #
  *  ######################################################
@@ -122,15 +124,12 @@ export const SYMBOLS = {
 
 /**
  * A symbol element for representing a symbol of argument `symbol`.
- * 
+ *
  * Uses the open source icons provided by the feather (https://feathericons.com) pack.
  */
 export const Symbol = ({ symbol, variation, size }) => {
   const { body: bodyStyles, symbol: symbolStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
   const symbolSVG = SYMBOLS[symbol]
-
-  console.log(symbolSVG);
-  debugger
   
   return <div className={bodyStyles.join(' ')}>
     { React.cloneElement(symbolSVG, { className: symbolStyles.join(' ') }) }

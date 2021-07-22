@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { React } from 'react';
-// Components using this import must follow the VARIATIONS / SIZES pattern. 
+// Components using this import must follow the VARIATIONS / SIZES pattern.
 import { generateStyles } from '../../shared/variationsHelper';
-import CloseX from './assets/tag-close-x.svg';
+import { Symbol } from '../Symbol';
 
 
 
 
-/** 
+/**
  *  ######################################################
  *  #            VARIATION and SIZE controls             #
  *  ######################################################
@@ -16,13 +16,18 @@ import CloseX from './assets/tag-close-x.svg';
 const COMMON = {
   body: [ 'inline-block', 'select-none'],
   text: [ 'font-effra', 'overflow-hidden', 'flex', 'flex-grow' ],
-  count: ['ml-2', 'pl-1', 'border-l', 'inline', 'py-1'],
+  count: ['mx-1', 'pl-1', 'border-l', 'inline', 'py-1'],
   close: ['inline-block', 'h-full', 'flex', 'items-center', 'cursor-pointer']
 }
 
 export const VARIATIONS = {
   default: {
-    body: [ ...COMMON.body, 'bg-slate' ],
+    additional: {
+      symbolVariation: 'default',
+      symbolSize: 'fitHeight',
+      symbolName: 'cross',
+    },
+    body: [ ...COMMON.body, 'bg-slate dark:bg-graphite' ],
     text: [ ...COMMON.text, 'text-white' ],
     count: [ ...COMMON.count, 'border-charcoal' ],
     close: [ ...COMMON.close ]
@@ -30,7 +35,8 @@ export const VARIATIONS = {
   green: {
     body: [ ...COMMON.body, 'bg-green' ],
     text: [ ...COMMON.text, 'text-white' ],
-    count: [...COMMON.count, 'border-green-dark' ]
+    count: [...COMMON.count, 'border-green-dark' ],
+    close: [ ...COMMON.close, 'text-white' ]
   },
   red: {
     body: [ ...COMMON.body, 'bg-red' ],
@@ -78,23 +84,23 @@ export const VARIATIONS = {
 
 export const SIZES = {
   default: {
-    body: [ 'rounded-md' ],
+    body: [ 'rounded-md', 'px-1' ],
     text: [ 'text-sm', 'mx-1' ],
-    close: [ 'ml-2', 'w-4' ]
+    close: [ 'w-4', 'px-1' ]
   },
   small: {
-    body: [ 'rounded-sm' ],
+    body: [ 'rounded-sm', 'px-1' ],
     text: [ 'text-xs'],
     close: [ 'w-4' ]
   },
   large: {
-    body: [ 'rounded-lg' ],
+    body: [ 'rounded-lg', 'px-2' ],
     text: [ 'text-xl' ],
-    close: [ 'w-5' ]
+    close: [ 'w-5', 'px-1' ]
   }
 }
 
-/** 
+/**
  *  ######################################################
  *  #                  Component logic                   #
  *  ######################################################
@@ -104,8 +110,12 @@ export const SIZES = {
  * The default button which comes in a number of variations.
  */
 export const Tag = ({ tagName, count, closeable, onClose, variation, size }) => {
-  const { 
-    body: bodyStyles, text: textStyles, count: countStyles, close: closeStyles
+  const {
+    body: bodyStyles,
+    text: textStyles,
+    count: countStyles,
+    close: closeStyles,
+    additional: { symbolVariation, symbolSize, symbolName }
   } = generateStyles(variation, size, VARIATIONS, SIZES);
 
   return <div className={bodyStyles.join(' ')}>
@@ -114,15 +124,15 @@ export const Tag = ({ tagName, count, closeable, onClose, variation, size }) => 
       <div className='inline-block'>
         {
           // Render either the count (when given), or the close-button
-          count ? 
+          count ?
             <span className={countStyles.join(' ')}>
               {count}
             </span> : null
         }
         {
-          closeable ? 
+          closeable ?
             <div onClick={(event) => onClose(event)} className={closeStyles.join(' ')}>
-              <CloseX />
+              <Symbol symbol={symbolName} variation={symbolVariation} size={symbolSize} />
             </div> : null
         }
       </div>

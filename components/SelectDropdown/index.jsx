@@ -16,7 +16,6 @@ import { SIZES as TAG_SIZES, VARIATIONS as TAG_VARIATIONS } from '../Tag';
 const COMMON = {
   clearIndicator: [ 'cursor-pointer' ],
   control: [
-    'p-2',
     'flex',
     'border',
     'border-smoke',
@@ -29,8 +28,8 @@ const COMMON = {
     'cursor-default',
   ],
   dropIndicator: [],
-  group: ['mb-2'],
-  groupHeading: ['px-1', 'text-sm', 'text-stone', 'm-1'],
+  group: [],
+  groupHeading: ['text-sm', 'text-stone'],
   indicatorsContainer: ['flex', 'gap-2'],
   indicatorsSeparator: ['border-l', 'border-smoke', 'dark:border-dark-3'],
   input: ['dark:caret-white'],
@@ -41,12 +40,11 @@ const COMMON = {
     'border',
     'border-smoke',
     'dark:border-dark-3',
-    'z-20','bg-white',
+    'z-20',
+    'bg-white',
     'dark:bg-dark-2',
-    'mt-1',
     'overflow-hidden',
     'absolute',
-    'w-full'
   ],
   menuList:[
     'divide-y',
@@ -61,9 +59,7 @@ const COMMON = {
   ],
   menuPortal: [],
   noOptionsMsg: [
-    'w-full',
     'text-center',
-    'py-2',
     'text-stone',
     'dark:text-steam'
   ],
@@ -73,14 +69,11 @@ const COMMON = {
   multiValueLabel: [],
   multiValueRemove: [],
   option: [
-    'px-2',
-    'pt-2',
-    'pb-1.5',
     'hover:bg-steam',
     'dark:hover:bg-blue-dark'
   ],
   selectedOption: [],
-  placeholder: ['absolute', 'text-center', 'text-smoke', 'dark:text-dark-3', 'font-varta', 'mt-1'],
+  placeholder: ['absolute', 'text-center', 'text-smoke', 'dark:text-dark-3', 'font-varta', 'select-none'],
   selectContainer: ['relative'],
   singleValue: ['font-effra', 'text-charcoal', 'dark:text-white', 'absolute'],
   valueContainer: ['flex', 'flex-grow', 'flex-wrap', 'gap-1'],
@@ -137,25 +130,25 @@ const SIZES = {
   default: {
     additional: [],
     clearIndicator: [],
-    control: [],
+    control: ['p-2',],
     dropIndicator: [],
-    group: [],
-    groupHeading: [],
+    group: ['mb-2'],
+    groupHeading: [ 'm-1', 'px-1' ],
     indicatorsContainer: [],
     indicatorsSeparator: [],
     input: [],
     loadingIndicator: [],
     loadingMessage: [],
-    menu: [],
+    menu: ['w-full', 'mt-1'],
     menuList:[],
     menuPortal: [],
-    noOptionsMsg: [],
+    noOptionsMsg: ['w-full', 'py-2'],
     multiValue: [],
     multiValueContainer: [],
     multiValueLabel: [],
     multiValueRemove: [],
-    option: [],
-    placeholder: [],
+    option: ['px-2', 'pt-2', 'pb-1.5'],
+    placeholder: ['mt-1'],
     selectContainer: [],
     singleValue: [],
     valueContainer: []
@@ -171,7 +164,7 @@ const SIZES = {
 /**
  * The default Select dropdown component. This component can be either multi-select or single-select.
  */
-export const SelectDropdown = ({ placeholder, options, value: initialValue, onChange, menuIsOpen, variation, size }) => {
+export const SelectDropdown = ({ placeholder, options, value: initialValue, onChange, menuIsOpen, disabled, variation, size }) => {
   const {
     clearIndicator: clearIndicatorStyles,
     control: controlStyles,
@@ -353,6 +346,7 @@ export const SelectDropdown = ({ placeholder, options, value: initialValue, onCh
       SingleValue: SingleValue,
       ValueContainer: ValueContainer,
     }}
+    // Styles are overriden here, as even with component override they are passed some default styling.
     styles={{
       multiValue: () => ({
         display: 'flex',
@@ -363,8 +357,10 @@ export const SelectDropdown = ({ placeholder, options, value: initialValue, onCh
       multiValueRemove: () => ({}),
       input: () => ({}),
     }}
+    // TODO: when disabled, disallow removal of initial values
+    isDisabled={disabled}
     placeholder={placeholder}
-    value={initialValue}
+    defaultValue={initialValue}
     onChange={onChange}
     options={options}
     isMulti={isMulti}
@@ -374,12 +370,20 @@ export const SelectDropdown = ({ placeholder, options, value: initialValue, onCh
 
 SelectDropdown.propTypes = {
   placeholder: PropTypes.string,
-  value: PropTypes.shape({
-    value: PropTypes.string,
-    label: PropTypes.string.isRequired,
-    tagVariation: PropTypes.oneOf(Object.keys(TAG_VARIATIONS)),
-    imageUrl: PropTypes.string,
-  }),
+  value: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string.isRequired,
+      tagVariation: PropTypes.oneOf(Object.keys(TAG_VARIATIONS)),
+      imageUrl: PropTypes.string,
+    })),
+    PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string.isRequired,
+      tagVariation: PropTypes.oneOf(Object.keys(TAG_VARIATIONS)),
+      imageUrl: PropTypes.string,
+    })
+  ]),
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string, // Not required if the option is an options group.
@@ -389,12 +393,14 @@ SelectDropdown.propTypes = {
     imageUrl: PropTypes.string,
   })),
   menuIsOpen: PropTypes.bool,
+  disabled: PropTypes.bool,
   size: PropTypes.oneOf(Object.keys(SIZES)),
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
 }
 
 SelectDropdown.defaultProps = {
   menuIsOpen: undefined,
+  disabled: false,
   variation: 'default',
   size: 'default',
 };

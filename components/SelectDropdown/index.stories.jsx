@@ -17,19 +17,39 @@ const options = [
   { value: 'option-2', label: 'Option 2', group: 'a'},
   { value: 'option-3', label: 'Option 3', group: 'a'},
   { value: 'option-4', label: 'Option 4'},
-  { label: 'Group 2',
+  { label: 'Group 2 (blue tags)',
     options: [
-      { value: 'group-2-option-1', label: 'Group 2 Option 1'},
-      { value: 'group-2-option-2', label: 'Group 2 Option 2'},
+      { value: 'group-2-option-1', label: 'Group 2 Option 1', tagVariation: 'blue'},
+      { value: 'group-2-option-2', label: 'Group 2 Option 2', tagVariation: 'blue'},
     ]},
   { value: 'option-5', label: 'Option 5'},
   { value: 'option-6', label: 'Option 6'},
 ];
 
 const Template = (args) => <div className={'flex flex-col gap-10'}>
-  <SelectDropdown {...args}/>
-  <SelectDropdown {...args} variation={'multi'}/>
-  <SelectDropdown />
+  <div className="">
+    <p className="text-2xl pb-3">Single-select</p>
+    <SelectDropdown {...args}/>
+  </div>
+  <div className="">
+    <p className="text-2xl pb-3">Multi-select</p>
+    <SelectDropdown {...args} variation={'multi'}/>
+  </div>
+  <div className="">
+    <p className="text-2xl pb-3">Multi-select custom start value / colours</p>
+    <SelectDropdown {...args}
+      variation={'multi'}
+      value={[
+        { value: 'option-5', label: 'Option 5' },
+        { value: 'group-2-option-1', label: 'Group 2 Option 1', tagVariation: 'blue'},
+        { value: 'option-doesn\'t exist', label: 'Not in options list :)', tagVariation: 'red' }
+      ]}
+    />
+  </div>
+  <div className="">
+    <p className="text-2xl pb-3">No options</p>
+    <SelectDropdown />
+  </div>
 </div>
 
 export const Default = Template.bind({});
@@ -38,7 +58,6 @@ Default.args = {
   name: 'example-dropdown',
   placeholder: 'Some placeholder text',
   size: 'default',
-  onChange: () => {},
   variation: 'default',
   options: options
 };

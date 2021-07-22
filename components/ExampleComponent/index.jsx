@@ -13,6 +13,7 @@ import { generateStyles } from '../../shared/variationsHelper';
 
 const VARIATIONS = {
   default: {
+    additional: {},
     body: [
       'dark:text-white'
     ]
@@ -21,6 +22,7 @@ const VARIATIONS = {
 
 const SIZES = {
   default: {
+    additional: {},
     body: []
   }
 }

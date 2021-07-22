@@ -31,7 +31,7 @@ const Template = (args) => {
               'text-5xl',
               'text-6xl',
             ].map((textClass) => {
-              return <div className={textClass} key={textClass}>This is normal text and this is the <Tooltip {...args} />. Hope it helps!</div>
+              return <div className={textClass} key={textClass}>This is normal text and this is the <Tooltip {...args}>tooltip</Tooltip>. Hope it helps!</div>
             })
           }
         </div>
@@ -41,29 +41,29 @@ const Template = (args) => {
   </div>;
 };
 
+const IsolatedTemplate = (args) => {
+  return <div className='w-full h-screen flex justify-center items-center dark:text-white'>
+    <Tooltip {...args}>Click Me!</Tooltip>
+  </div>
+};
+
 export const Default = Template.bind({});
 Default.args = {
+  tooltip: 'Here\'s a tooltip for ya!',
   variation: 'default',
-  children: [
-    'tooltip'
-  ],
-  tooltip: [
-    <p key="tooltip">More explanation here</p>
-  ]
 };
+
+export const Isolated = IsolatedTemplate.bind({});
+Isolated.args = {
+  visible: true,
+  trigger: 'click',
+  tooltip: 'Here\'s a tooltip for ya!',
+  variation: 'default',
+}
 
 export const Large = Template.bind({});
 Large.args = {
+  tooltip: 'A BIG TOOLTIP?',
   variation: 'default',
-  size: 'large',
-  children: [
-    'tooltip'
-  ],
-  tooltip: [
-    <p key="tooltip">
-      A larger tooltip should warrant a larger tooltip text,
-      and that text should go into possibly more
-      details on exactly what the tooltip should be besides.
-    </p>
-  ]
+  size: 'large'
 };

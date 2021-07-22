@@ -28,15 +28,15 @@ const options = [
 
 const Template = (args) => <div className={'flex flex-col gap-10'}>
   <div className="">
-    <p className="text-2xl pb-3">Single-select</p>
+    <p className="text-2xl pb-3 dark:text-white">Single-select</p>
     <SelectDropdown {...args}/>
   </div>
   <div className="">
-    <p className="text-2xl pb-3">Multi-select</p>
+    <p className="text-2xl pb-3 dark:text-white">Multi-select</p>
     <SelectDropdown {...args} variation={'multi'}/>
   </div>
   <div className="">
-    <p className="text-2xl pb-3">Multi-select custom start value / colours</p>
+    <p className="text-2xl pb-3 dark:text-white">Multi-select custom start value / colours</p>
     <SelectDropdown {...args}
       variation={'multi'}
       value={[
@@ -47,7 +47,7 @@ const Template = (args) => <div className={'flex flex-col gap-10'}>
     />
   </div>
   <div className="">
-    <p className="text-2xl pb-3">No options</p>
+    <p className="text-2xl pb-3 dark:text-white">No options</p>
     <SelectDropdown />
   </div>
 </div>

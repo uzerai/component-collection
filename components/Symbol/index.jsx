@@ -88,7 +88,7 @@ export const SIZES = {
   },
   small: {
     body: [
-      'w-full'
+      'w-min'
     ],
     symbol: [
       'h-3',

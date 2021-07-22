@@ -1,161 +1,94 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { generateStyles } from '../../shared/variationsHelper';
+import { usePopperTooltip } from 'react-popper-tooltip';
 import './tooltip.css';
 
-/** 
- *  ######################################################
- *  #            VARIATION and SIZE controls             #
- *  ######################################################
- */
-
-const COMMON = {
-  tooltipIndicatorTriangle: [],
-  tooltipWrapper: [
-    'invisible',
-    'opacity-0',
-    'group-hover:group',
-    'group-hover:opacity-100',
-    'group-hover:visible',
-    'group-hover:z-50',
-    'duration-300',
-    'absolute',
-    'select-none',
-    'w-full',
-  ],
-  tooltipText: [
-    'flex' ,
-    'justify-center',
-  ]
-}
-
-const VARIATIONS = {
-  default: {
-    text: [
-      'group',
-      'relative',
-      'cursor-help',
-      'underline',
-      'inline-block',
-    ],
-    tooltipWrapper: [
-      ...COMMON.tooltipWrapper,
-    ],
-    tooltipIndicatorTriangle: [
-      ...COMMON.tooltipIndicatorTriangle,
-      'bg-dark-3',
-      'tooltip-pointer',
-    ],
-    tooltipText: [
-      ...COMMON.tooltipText,
-      'text-sm',
-      'text-white',
-      'bg-dark-3',
-      'py-2',
-      'px-3',
-      'rounded',
-    ]
-  },
-  above: {
-    tooltipIndicatorTriangle: [
-      'bg-dark-3',
-      'tooltip-pointer-down',
-    ]
-  }
-};
-
-const SIZES = {
-  default: {
-    text: [],
-    tooltipWrapper: [],
-    tooltipIndicatorTriangle: [],
-    tooltipText: [
-      'w-44'
-    ],
-  },
-  large: {
-    tooltipText: [
-      'md:w-64',
-      'w-36'
-    ],
-  }
-}
-
-
-/** 
+/**
  *  ######################################################
  *  #                  Component logic                   #
  *  ######################################################
  */
 
 /**
- * A component for enabling a tooltip within another component.
+ * A tooltip component utilizing the react-popper-tooltip library and extending it with classes to befit the UI style of H1.
+ *
+ * See: https://github.com/mohsinulhaq/react-popper-tooltip#readme
  */
-export const Tooltip = ({ tooltip, variation, size, children }) => {
-  const { 
-    text: textStyles, 
-    tooltipWrapper: tooltipWrapperStyles
-  } = generateStyles(variation, size, VARIATIONS, SIZES);
-    
-  return (
-    <span className={textStyles.join(' ')}>
-      {children}
-      <div className={tooltipWrapperStyles.join(' ')}>
-        <Tooltip.Popup variation={variation} size={size}>
+export const Tooltip = ({
+  tooltip,
+  interactive,
+  placement,
+  visible: initialVisible,
+  delayShow,
+  trigger,
+  variation,
+  size,
+  children }) => {
+  const {
+    getArrowProps,
+    getTooltipProps,
+    setTooltipRef,
+    setTriggerRef,
+    visible
+  } = usePopperTooltip({
+    defaultVisible: initialVisible,
+    placement: placement,
+    interactive: interactive,
+    delayShow: delayShow,
+    trigger: trigger,
+  });
+
+  return (<>
+    <span ref={setTriggerRef} className={'cursor-help underline'}>{children}</span>
+    { visible && (
+      <div ref={setTooltipRef} {...getTooltipProps({ className: 'tooltip-container p-2 text-base rounded' })}>
+        <div {...getArrowProps({ className: 'tooltip-arrow' })} />
+        <div className="dark:text-white">
           {tooltip}
-        </Tooltip.Popup>
+        </div>
       </div>
-    </span>
-  );
+    )}
+  </>)
 };
 
 Tooltip.propTypes = {
-  tooltip: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
+  interactive: PropTypes.bool,
+  visible: PropTypes.bool,
+  delayShow: PropTypes.number,
+  trigger: PropTypes.oneOf([
+    'click',
+    'right-click',
+    'hover',
+    'focus'
   ]),
-  size: PropTypes.oneOf(Object.keys(SIZES)),
-  variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
+  placement: PropTypes.oneOf([
+    'auto',
+    'auto-start',
+    'auto-end',
+    'top',
+    'top-start',
+    'top-end',
+    'bottom',
+    'bottom-start',
+    'bottom-end',
+    'right',
+    'right-start',
+    'right-end',
+    'left',
+    'left-start',
+    'left-end',
+  ]),
+  tooltip: PropTypes.node.isRequired,
   children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
+    PropTypes.arrayOf(PropTypes.node), PropTypes.node
+  ]),
 };
 
 Tooltip.defaultProps = {
+  visible: false,
+  trigger: 'hover',
+  interactive: true,
+  placement: 'auto',
   variation: 'default',
   children: undefined
 };
-
-Tooltip.Popup = ({ children, variation, size }) => {
-  const { 
-    tooltipIndicatorTriangle: tipStyles,
-    tooltipText: textStyles,
-  } = generateStyles(variation, size, VARIATIONS, SIZES);
-
-
-  return <div className={'flex justify-center gap-0'}>
-    <div className='flex-grow'>
-      <figure className={'h-2 '.concat(tipStyles.join(' '))} />
-      <span className={textStyles.join(' ')}>
-        {children}
-      </span>
-    </div>
-  </div>
-}
-
-Tooltip.Popup.displayName = 'TooltipPopup';
-
-Tooltip.Popup.propTypes = {
-  variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
-  size: PropTypes.oneOf(Object.keys(SIZES)),
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
-}
-
-Tooltip.Popup.defaultProps = {
-  variation: 'default',
-  children: undefined,
-}

@@ -62,10 +62,7 @@ const VARIATIONS = {
 
 const SIZES = {
   default: {
-    body: [
-      'py-2',
-      'px-3'
-    ],
+    body: ['py-2','px-3'],
     input: [],
     symbol: [
       'w-7',

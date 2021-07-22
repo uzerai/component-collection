@@ -15,9 +15,9 @@ import CloseX from './assets/tag-close-x.svg';
 
 const COMMON = {
   body: [ 'inline-block', 'select-none'],
-  text: [ 'font-effra', 'mx-1', 'overflow-hidden', 'flex', 'flex-grow' ],
+  text: [ 'font-effra', 'overflow-hidden', 'flex', 'flex-grow' ],
   count: ['ml-2', 'pl-1', 'border-l', 'inline', 'py-1'],
-  close: ['ml-2', 'inline-block', 'h-full', 'flex', 'items-center', 'cursor-pointer']
+  close: ['inline-block', 'h-full', 'flex', 'items-center', 'cursor-pointer']
 }
 
 export const VARIATIONS = {
@@ -79,13 +79,13 @@ export const VARIATIONS = {
 export const SIZES = {
   default: {
     body: [ 'rounded-md' ],
-    text: [ 'text-sm' ],
-    close: [ 'w-4' ]
+    text: [ 'text-sm', 'mx-1' ],
+    close: [ 'ml-2', 'w-4' ]
   },
   small: {
     body: [ 'rounded-sm' ],
-    text: [ 'text-xs' ],
-    close: [ 'w-3' ]
+    text: [ 'text-xs'],
+    close: [ 'w-4' ]
   },
   large: {
     body: [ 'rounded-lg' ],

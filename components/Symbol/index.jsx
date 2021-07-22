@@ -55,6 +55,16 @@ export const VARIATIONS = {
     symbol: [
       ...COMMON.symbol,
     ]
+  },
+  white: {
+    body: [
+      ...COMMON.body,
+      'text-white',
+    ],
+    symbol: [
+      ...COMMON.symbol,
+      'text-white'
+    ]
   }
 }
 
@@ -74,6 +84,15 @@ export const SIZES = {
   },
   fitWidth: {
     body: [ 'w-full' ]
+  },
+  small: {
+    body: [
+      'w-full'
+    ],
+    symbol: [
+      'h-3',
+      'w-3'
+    ]
   }
 }
 
@@ -108,7 +127,10 @@ export const SYMBOLS = {
  */
 export const Symbol = ({ symbol, variation, size }) => {
   const { body: bodyStyles, symbol: symbolStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
-  const symbolSVG = (SYMBOLS[symbol] || SYMBOLS.default)
+  const symbolSVG = SYMBOLS[symbol]
+
+  console.log(symbolSVG);
+  debugger
   
   return <div className={bodyStyles.join(' ')}>
     { React.cloneElement(symbolSVG, { className: symbolStyles.join(' ') }) }

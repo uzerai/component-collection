@@ -46,7 +46,7 @@ const Template = (args) => {
 const IsolatedTemplate = (args) => {
   return <div className='w-full h-screen flex justify-center items-center dark:text-white'>
     <Tooltip {...args}>
-      <p className='text-xl'>Click me!</p>
+      {args.component}
     </Tooltip>
   </div>
 };
@@ -94,14 +94,15 @@ Default.args = {
   variation: 'default',
 };
 
-export const Isolated = IsolatedTemplate.bind({});
-Isolated.args = {
+export const IsolatedCustom = IsolatedTemplate.bind({});
+IsolatedCustom.args = {
+  variation: 'custom',
   visible: true,
-  interactive: false,
+  interactive: true,
   placement: 'bottom',
   trigger: 'click',
   tooltip: <LargeTooltip />,
-  variation: 'default',
+  component: <p className='text-xl'>Click me!</p>
 }
 
 export const Large = Template.bind({});

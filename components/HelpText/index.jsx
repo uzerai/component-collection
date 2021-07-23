@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-// Components using this import must follow the VARIATIONS / SIZES pattern. 
+// Components using this import must follow the VARIATIONS / SIZES pattern.
 import { generateStyles } from '../../shared/variationsHelper';
 
 
 
-/** 
+/**
  *  ######################################################
  *  #            VARIATION and SIZE controls             #
  *  ######################################################
@@ -28,7 +28,7 @@ const SIZES = {
   }
 }
 
-/** 
+/**
  *  ######################################################
  *  #                  Component logic                   #
  *  ######################################################
@@ -36,7 +36,7 @@ const SIZES = {
 
 /**
  * A simple helpertext component to enforce that helper-text platform-wide can be altered from a single component.
- * 
+ *
  * There are no special restrictions on what can be contained within a HelperText span, but text will be forced RED when
  * hasError is true. This could lead to unexpected results in child components. As such it is recommended only to provide
  * unstyled text-based components as children.

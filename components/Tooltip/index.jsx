@@ -1,7 +1,61 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { usePopperTooltip } from 'react-popper-tooltip';
+import { generateStyles } from '../../shared/variationsHelper';
 import './tooltip.css';
+
+/**
+ *  ######################################################
+ *  #                VARIATION controls                  #
+ *  ######################################################
+ */
+
+const COMMON = {
+  additional: {
+    placement: 'auto',
+    delayShow: '200',
+    trigger: 'hover',
+    interactive: false,
+    visible: false,
+  }
+}
+
+const VARIATIONS = {
+  default: {
+    additional: {
+      ...COMMON.additional
+    },
+    body: [
+      'text-charcoal',
+      'dark:text-white',
+      'p-2'
+    ],
+    text: [
+      'cursor-help',
+      'underline'
+    ]
+  },
+  click: {
+    additional: {
+      ...COMMON.additional,
+      trigger: 'click',
+      delayShow: 0
+    }
+  },
+  focus: {
+    additional: {
+      ...COMMON.additional,
+      trigger: 'focus',
+      delayShow: 0
+    },
+    text: []
+  },
+  custom: {
+    additional: {},
+    body: [],
+    text: []
+  }
+}
 
 /**
  *  ######################################################
@@ -22,8 +76,21 @@ export const Tooltip = ({
   delayShow,
   trigger,
   variation,
-  size,
-  children }) => {
+  children
+}) => {
+  // Tooltip should not require size
+  const {
+    additional: {
+      visible: variationVisible,
+      placement: variationPlacement,
+      interactive: variationInteractive,
+      delayShow: variationDelayShow,
+      trigger: variationTrigger,
+    },
+    body: bodyStyles,
+    text: textStyles
+  } = generateStyles(variation, 'default', VARIATIONS, {default:{additional: {}}});
+
   const {
     getArrowProps,
     getTooltipProps,
@@ -31,19 +98,19 @@ export const Tooltip = ({
     setTriggerRef,
     visible
   } = usePopperTooltip({
-    defaultVisible: initialVisible,
-    placement: placement,
-    interactive: interactive,
-    delayShow: delayShow,
-    trigger: trigger,
+    defaultVisible: (initialVisible || variationVisible),
+    placement: (placement || variationPlacement),
+    interactive: (interactive || variationInteractive),
+    delayShow: (delayShow || variationDelayShow),
+    trigger: (trigger || variationTrigger),
   });
 
   return (<>
-    <span ref={setTriggerRef} className={'cursor-help underline'}>{children}</span>
+    <span ref={setTriggerRef} className={textStyles.join(' ')}>{children}</span>
     { visible && (
       <div ref={setTooltipRef} {...getTooltipProps({ className: 'tooltip-container text-base rounded' })}>
         <div {...getArrowProps({ className: 'tooltip-arrow' })} />
-        <div className="dark:text-white">
+        <div className={bodyStyles.join(' ')}>
           {tooltip}
         </div>
       </div>
@@ -79,16 +146,12 @@ Tooltip.propTypes = {
     'left-end',
   ]),
   tooltip: PropTypes.node.isRequired,
+  variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node), PropTypes.node
   ]),
 };
 
 Tooltip.defaultProps = {
-  visible: false,
-  trigger: 'hover',
-  interactive: true,
-  placement: 'auto',
   variation: 'default',
-  children: undefined
 };

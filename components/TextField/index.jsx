@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-// Components using this import must follow the VARIATIONS / SIZES pattern. 
+// Components using this import must follow the VARIATIONS / SIZES pattern.
 import { generateStyles } from '../../shared/variationsHelper';
 
 
 
-/** 
+/**
  *  ######################################################
  *  #            VARIATION and SIZE controls             #
  *  ######################################################
@@ -72,7 +72,7 @@ const SIZES = {
   }
 }
 
-/** 
+/**
  *  ######################################################
  *  #                  Component logic                   #
  *  ######################################################
@@ -83,8 +83,8 @@ const SIZES = {
  */
 export const TextField = ({ id, name, value, onChange, placeholder, disabled, maxLength, symbol, variation, size }) => {
   const [ textValue, setTextValue ] = useState(value);
-  const { 
-    body: bodyStyles, 
+  const {
+    body: bodyStyles,
     input: inputStyles,
     symbol: symbolStyles,
     count: countStyles
@@ -94,30 +94,26 @@ export const TextField = ({ id, name, value, onChange, placeholder, disabled, ma
   // The space preceding these conditional classes is to avoid class-mashing.
   const disabledStyles = `${disabled ? ' cursor-not-allowed' : ''}`;
   // Styles added to the main wrapper when the maxlength is defined.
-  const overLimitStyles = `${textValue.length > maxLength ? 
+  const overLimitStyles = `${textValue.length > maxLength ?
     ' !border-red-light dark:!border-red focus-within:!border-red-dark dark:focus-within:!border-red-dark' : ''}`
 
   return <div className={bodyStyles.join(' ').concat(disabledStyles).concat(overLimitStyles)}>
     {/* Left-side area */}
-    { 
+    {
       symbol && <div className={symbolStyles.join(' ')}>
         {
           React.cloneElement(symbol, { ...symbol.props, size: 'fitHeight' })
         }
       </div>
-    } 
-    <input 
-      name={name} 
-      placeholder={placeholder} 
-      type="text" 
+    }
+    <input
+      name={name}
+      placeholder={placeholder}
+      type="text"
       id={id}
       disabled={disabled}
       className={inputStyles.join(' ')}
       onChange={(event) => {
-        if (maxLength && (event.target.value.length > maxLength)) {
-          // Add some styling or something.
-          console.info('Too many characters.');
-        }
         setTextValue(event.target.value);
         onChange(event);
       }}

@@ -62,7 +62,7 @@ export const Checkbox = ({ id, name, label, checked: initialChecked, disabled, t
         <input type='checkbox' aria-labelledby={`${name}-checkbox-label`} id={id} className='peer inline-block' checked={checked} readOnly disabled={disabled} />
         <label id={`${name}-checkbox-label`} className={labelStyles.join(' ')}>{label}</label>
       </div>
-      { tooltip && <Tooltip tooltip={tooltip} placement='bottom' delayShow={400}>
+      { tooltip && <Tooltip tooltip={tooltip} variation={'click'}>
         <Symbol symbol={'helpCircle'} size={'fitHeight'} variation={'default'} />
       </Tooltip> }
     </div>

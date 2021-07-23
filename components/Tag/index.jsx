@@ -14,10 +14,10 @@ import { Symbol } from '../Symbol';
  */
 
 const COMMON = {
-  body: [ 'inline-block', 'select-none'],
-  text: [ 'font-effra', 'overflow-hidden', 'flex', 'flex-grow' ],
-  count: ['mx-1', 'pl-1', 'border-l', 'inline', 'py-1'],
-  close: ['inline-block', 'h-full', 'flex', 'items-center', 'cursor-pointer']
+  body: ['inline-block', 'select-none'],
+  text: ['font-effra', 'overflow-hidden', 'flex', 'flex-grow'],
+  count: ['border-l'],
+  close: ['inline-block', 'h-full', 'flex', 'items-center', 'cursor-pointer' ]
 }
 
 export const VARIATIONS = {
@@ -85,13 +85,15 @@ export const VARIATIONS = {
 export const SIZES = {
   default: {
     body: [ 'rounded-md', 'px-1' ],
-    text: [ 'text-sm', 'mx-1' ],
-    close: [ 'w-4', 'px-1' ]
+    text: [ 'text-sm', 'px-1' ],
+    close: [ 'w-4', 'px-1' ],
+    count: ['ml-1', 'pl-2', 'py-1' ]
   },
   small: {
     body: [ 'rounded-sm', 'px-1' ],
     text: [ 'text-xs'],
-    close: [ 'w-4' ]
+    close: [ 'w-4' ],
+    count: ['ml-1', 'pl-1']
   },
   large: {
     body: [ 'rounded-lg', 'px-2' ],
@@ -120,10 +122,10 @@ export const Tag = ({ tagName, count, closeable, onClose, variation, size }) => 
 
   return <div className={bodyStyles.join(' ')}>
     <div className={textStyles.join(' ')}>
-      {tagName}
+      <span className={`${count ? 'pr-0.5' : ''}`}>{tagName}</span>
       <div className='inline-block'>
         {
-          // Render either the count (when given), or the close-button
+        // Render either the count (when given), or the close-button
           count ?
             <span className={countStyles.join(' ')}>
               {count}

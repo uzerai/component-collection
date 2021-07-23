@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 // Components using this import must follow the VARIATIONS / SIZES pattern.
 import { generateStyles } from '../../shared/variationsHelper';
+import { Symbol } from '../Symbol';
 
 
 
@@ -11,10 +12,17 @@ import { generateStyles } from '../../shared/variationsHelper';
  *  ######################################################
  */
 
+const COMMON = {
+  body: ['relative']
+}
+
 const VARIATIONS = {
   default: {
     additional: {},
     body: [
+      ...COMMON.body,
+      'bg-stone',
+      'rounded-full',
       'dark:text-white'
     ]
   }
@@ -23,7 +31,19 @@ const VARIATIONS = {
 const SIZES = {
   default: {
     additional: {},
-    body: []
+    body: [
+      'w-14',
+      'h-14'
+    ]
+  },
+  timeline: {
+    body: [
+      'w-10',
+      'h-10'
+    ]
+  },
+  fill: {
+    body: ['w-full', 'h-full']
   }
 }
 
@@ -34,27 +54,31 @@ const SIZES = {
  */
 
 /**
- * Simple example component for easy copy-paste initialization of other components.
+ * The default Avatar which comes with in-component support for displaying the users'
+ * badges. Avatar badges are not enabled by default,
  */
-export const ExampleComponent = ({ variation, size, children }) => {
+export const Avatar = ({ _src, variation, badges, size }) => {
   const { body: bodyStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
 
   return <div className={bodyStyles.join(' ')}>
-    <p>An example component.</p>
-    <div>
-      {children}
-    </div>
+    <figure className={'absolute h-full w-full rounded-full overflow-hidden'}>
+      <Symbol symbol={'user'} variation={'charcoal'} size={'fill'} />
+    </figure>
+    {
+      badges && <div className='absolute right-0 top-0 bg-blue w-4 h-4 m-0.5 rounded-full scale-125'>
+        <Symbol symbol={'stopCircle'} variation={'white'} size={'fitWidth'} />
+      </div>
+    }
   </div>
 };
 
-ExampleComponent.propTypes = {
+Avatar.propTypes = {
+  src: PropTypes.string.isRequired,
+  badges: PropTypes.bool,
   size: PropTypes.oneOf(Object.keys(SIZES)),
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node), PropTypes.node
-  ]),
 };
 
-ExampleComponent.defaultProps = {
+Avatar.defaultProps = {
   size: 'default',
 };

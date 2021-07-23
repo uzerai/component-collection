@@ -1,15 +1,15 @@
 import React from 'react';
-import { ExampleComponent } from '.';
+import { Avatar } from '.';
 
 
 export default {
-  title: 'Example/Template',
-  component: ExampleComponent,
+  title: 'Layout/Avatar',
+  component: Avatar,
 };
 
-const Template = (args) => <ExampleComponent {...args} />;
+const Template = (args) => <Avatar {...args} />;
 const CenteredTemplate = (args) => <div className='absolute inset-0 flex justify-center items-center dark:text-white'>
-  <ExampleComponent {...args} />
+  <Avatar {...args} />
 </div>;
 
 export const Default = Template.bind({});
@@ -22,6 +22,14 @@ Default.args = {
 export const Centered = CenteredTemplate.bind({});
 Default.args = {
   size: 'default',
+  variation: 'default',
+  children: [],
+};
+
+export const Badge = Template.bind({});
+Badge.args = {
+  size: 'default',
+  badges: true,
   variation: 'default',
   children: [],
 };

@@ -1,15 +1,15 @@
 import React from 'react';
-import { ExampleComponent } from '.';
+import { ProfileShort } from '.';
 
 
 export default {
-  title: 'Example/Template',
-  component: ExampleComponent,
+  title: 'Layout/ProfileShort',
+  component: ProfileShort,
 };
 
-const Template = (args) => <ExampleComponent {...args} />;
+const Template = (args) => <ProfileShort {...args} />;
 const CenteredTemplate = (args) => <div className='absolute inset-0 flex justify-center items-center dark:text-white'>
-  <ExampleComponent {...args} />
+  <ProfileShort {...args} />
 </div>;
 
 export const Default = Template.bind({});

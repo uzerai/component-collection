@@ -103,6 +103,7 @@ export const Tooltip = ({
     interactive: (interactive || variationInteractive),
     delayShow: (delayShow || variationDelayShow),
     trigger: (trigger || variationTrigger),
+    offset: [0, 9]
   });
 
   return (<>

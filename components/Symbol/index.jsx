@@ -13,9 +13,12 @@ import ChevronDown from './assets/feather/chevron-down.svg';
 import ChevronUp from './assets/feather/chevron-up.svg';
 import Command from './assets/feather/command.svg';
 import HelpCircle from './assets/feather/help-circle.svg';
+import Info from './assets/feather/info.svg';
 import Mail from './assets/feather/mail.svg';
 import Search from './assets/feather/search.svg';
+import StopCircle from './assets/feather/stop-circle.svg';
 import Trash from './assets/feather/trash.svg';
+import User from './assets/feather/user.svg';
 import Cross from './assets/feather/x.svg';
 
 /**
@@ -66,7 +69,17 @@ export const VARIATIONS = {
       ...COMMON.symbol,
       'text-white'
     ]
-  }
+  },
+  charcoal: {
+    body: [
+      ...COMMON.body,
+      'text-charcoal',
+    ],
+    symbol: [
+      ...COMMON.symbol,
+      'text-charcoal'
+    ]
+  },
 }
 
 export const SIZES = {
@@ -85,6 +98,10 @@ export const SIZES = {
   },
   fitWidth: {
     body: [ 'w-full' ]
+  },
+  fill: {
+    body: [ 'h-full', 'w-full' ],
+    symbol: ['h-full', 'w-full']
   },
   small: {
     body: [
@@ -113,7 +130,10 @@ export const SYMBOLS = {
   chevronDown: <ChevronDown />,
   command: <Command />,
   cross: <Cross />,
-  helpCircle: <HelpCircle />
+  helpCircle: <HelpCircle />,
+  info: <Info />,
+  stopCircle: <StopCircle />,
+  user: <User />,
 }
 
 /**

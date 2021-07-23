@@ -1,6 +1,8 @@
 import React from 'react';
 import { Tooltip } from '.';
+import { Avatar } from '../Avatar';
 import { Card, CardContent } from '../Card';
+import { ProfileShort } from '../ProfileShort';
 import { Separator } from '../Separator';
 import { Timeline, TimelineHead, TimelineItem, TimelineTail } from '../Timeline';
 
@@ -111,3 +113,14 @@ Large.args = {
   variation: 'default',
   size: 'large'
 };
+
+export const IsolatedAvatar = IsolatedTemplate.bind({});
+IsolatedAvatar.args = {
+  variation: 'custom',
+  visible: true,
+  interactive: false,
+  placement: 'bottom',
+  trigger: 'click',
+  tooltip: <ProfileShort />,
+  component: <Avatar badges={true} src='' />
+}

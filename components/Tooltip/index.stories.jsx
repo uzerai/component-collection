@@ -1,8 +1,6 @@
 import React from 'react';
 import { Tooltip } from '.';
-import { Avatar } from '../Avatar';
 import { Card, CardContent } from '../Card';
-import { ProfileShort } from '../ProfileShort';
 import { Separator } from '../Separator';
 import { Timeline, TimelineHead, TimelineItem, TimelineTail } from '../Timeline';
 
@@ -45,7 +43,7 @@ const Template = (args) => {
   </div>;
 };
 
-const IsolatedTemplate = (args) => {
+const CenteredTemplate = (args) => {
   return <div className='w-full h-screen flex justify-center items-center dark:text-white'>
     <Tooltip {...args}>
       {args.component}
@@ -92,12 +90,12 @@ const LargeTooltip = () => <div className='flex flex-col'>
 
 export const Default = Template.bind({});
 Default.args = {
-  tooltip: <p className='p-5'>Here&apos;s a tooltip for ya!</p>,
+  tooltip: 'Here\'s a tooltip for ya!',
   variation: 'default',
 };
 
-export const IsolatedCustom = IsolatedTemplate.bind({});
-IsolatedCustom.args = {
+export const CenteredCustom = CenteredTemplate.bind({});
+CenteredCustom.args = {
   variation: 'custom',
   visible: true,
   interactive: true,
@@ -105,22 +103,4 @@ IsolatedCustom.args = {
   trigger: 'click',
   tooltip: <LargeTooltip />,
   component: <p className='text-xl'>Click me!</p>
-}
-
-export const Large = Template.bind({});
-Large.args = {
-  tooltip: <p className='p-2'>Smol content, large package</p>,
-  variation: 'default',
-  size: 'large'
-};
-
-export const IsolatedAvatar = IsolatedTemplate.bind({});
-IsolatedAvatar.args = {
-  variation: 'custom',
-  visible: true,
-  interactive: false,
-  placement: 'bottom',
-  trigger: 'click',
-  tooltip: <ProfileShort />,
-  component: <Avatar badges={true} src='' />
 }

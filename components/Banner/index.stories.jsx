@@ -16,8 +16,8 @@ Default.args = {
   onDismiss: undefined,
   children: [
     <>
-      <p className='font-bold text-charcoal'>This is a banner!</p>
-      <p className='text-charcoal'>It can contain <em>anything</em>.</p>
+      <p className='font-bold text-charcoal dark:text-white'>This is a banner!</p>
+      <p className='text-stone'>It can contain <em>anything</em>.</p>
     </>
   ],
 };
@@ -29,8 +29,8 @@ Green.args = {
   onDismiss: undefined,
   children: [
     <>
-      <p className='font-bold text-charcoal'>This is a banner!</p>
-      <p className='text-charcoal'>It can contain <em>anything</em>.</p>
+      <p className='font-bold text-charcoal dark:text-white'>This is a banner!</p>
+      <p className='text-stone'>It can contain <em>anything</em>.</p>
     </>
   ],
 };
@@ -43,8 +43,8 @@ Dismissable.args = {
   onDismiss: () => {},
   children: [
     <>
-      <p className='font-bold text-charcoal'>This is a dismissable banner!</p>
-      <p className='text-charcoal'>It can be dismissed and onDismiss can do <em>anything</em>.</p>
+      <p className='font-bold text-charcoal dark:text-white'>This is a banner!</p>
+      <p className='text-stone'>It can contain <em>anything</em>.</p>
     </>
   ],
 };

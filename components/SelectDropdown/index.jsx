@@ -1,11 +1,10 @@
-
 import PropTypes from 'prop-types';
 import React from 'react';
 import Select, { components } from 'react-select';
 import { generateStyles } from '../../shared/variationsHelper';
 import { Symbol } from '../Symbol';
 import { SIZES as TAG_SIZES, VARIATIONS as TAG_VARIATIONS } from '../Tag';
-
+import './selectDropdown.css';
 
 /**
  *  ######################################################
@@ -164,7 +163,7 @@ const SIZES = {
 /**
  * The default Select dropdown component. This component can be either multi-select or single-select.
  */
-export const SelectDropdown = ({ placeholder, options, value: initialValue, onChange, menuIsOpen, disabled, variation, size }) => {
+export const SelectDropdown = ({ placeholder, options, value: initialValue, onChange: onChangeArg, menuIsOpen, disabled, searchable, variation, size }) => {
   const {
     clearIndicator: clearIndicatorStyles,
     control: controlStyles,
@@ -196,12 +195,43 @@ export const SelectDropdown = ({ placeholder, options, value: initialValue, onCh
     }
   } = generateStyles(variation, size, VARIATIONS, SIZES);
 
+  //  TODO: Remove / use library / move to helper.
+  const generateUUID = () => {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+
+  // Necessary for the removal-animation on multi-value selected values (only when `isMulti === true`)
+  const SELECT_UID = `__SELECT_${generateUUID()}`;
+
+  const onChange = (data, { action, option, removedValue, name }) => {
+    // This handles the animation of removing a value when the component is multi valued.
+    if (action === 'remove-value') {
+      // The divId is injected into all options on component load. See injectIdOptions() or optionId().
+      const valueContainer = document.querySelector(`#${removedValue.divId}`); //select the div of the chosen value via divId
+      const parent = valueContainer.parentElement; //
+      const clone = valueContainer.cloneNode(true);
+      if (clone) {
+        // Add event listener to remove the cloned element on animation-end.
+        clone.addEventListener('animationend', () => {
+          parent.removeChild(clone);
+        })
+        // Add animated CSS class.
+        clone.classList.add('optionTagOut');
+        parent.insertBefore(clone, valueContainer);
+      }
+    }
+
+    // Also calls the functionality provided as `onChange` prop.
+    onChangeArg(data, { action, option, removedValue, name});
+  }
+  
   /**
    *  ######################################################
    *  #               Component overrides                  #
    *  ######################################################
    */
-
 
   const ClearIndicator = props => {
     return <components.ClearIndicator {...props} getStyles={() => null} className={clearIndicatorStyles.join(' ')}>
@@ -266,14 +296,14 @@ export const SelectDropdown = ({ placeholder, options, value: initialValue, onCh
   }
   
   const MultiValue = props => {
-    return <components.MultiValue {...props} />
+    return <components.MultiValue {...props} className='MULTI-VALUE' />
   }
   
   const MultiValueContainer = props => {
     // Tags in the Select can now adhere to the Tag styling from the Tag component!
     const { body: bodyStyles } = generateStyles((props.data?.tagVariation || tagVariation), 'default', TAG_VARIATIONS, TAG_SIZES);
 
-    return <div className={`MULTI-VALUE-CONTAINER ${bodyStyles.join(' ')}`} >
+    return <div className={`MULTI-VALUE-CONTAINER ${bodyStyles.join(' ')}`} id={props.data.divId}>
       <components.MultiValueContainer {...props} />
     </div>
   }
@@ -320,6 +350,37 @@ export const SelectDropdown = ({ placeholder, options, value: initialValue, onCh
     return <components.ValueContainer {...props} getStyles={() => null} className={valueContainerStyles.join(' ')} />
   }
 
+  /**
+   * #############################################################################
+   * #                         Option value injection                            #
+   * #                            (for animations)                               #
+   * #############################################################################
+   */
+
+  const optionID = option => `${SELECT_UID}_${option.value}__`;
+
+  const injectIdOptions = (options) => {
+    return options?.map(option => {
+      // group option-objects have no value
+      if (!option?.value) {
+        // Sub-calling the injectIdOptions if the option was a grouping.
+        return {...option, options: injectIdOptions(option.options)};
+      }
+      // Otherwise we return same object with a divId.
+      return {... option, divId: optionID(option)}
+    })
+  }
+
+  const injectedOptions = injectIdOptions(options);
+  const injectedInitialValue = initialValue?.map(option => {
+    const existingID = injectedOptions.find(injected => injected.value === option.value)?.divId;
+    if (existingID) {
+      return {...option, divId: existingID}
+    } else {
+      return {...option, divId: optionID(option) }
+    }
+  })
+
   return <Select
     components={{
       Control: Control,
@@ -357,12 +418,13 @@ export const SelectDropdown = ({ placeholder, options, value: initialValue, onCh
       multiValueRemove: () => ({}),
       input: () => ({}),
     }}
+    isSearchable={searchable}
     // TODO: when disabled, disallow removal of initial values
     isDisabled={disabled}
     placeholder={placeholder}
-    defaultValue={initialValue}
+    defaultValue={injectedInitialValue}
     onChange={onChange}
-    options={options}
+    options={injectedOptions}
     isMulti={isMulti}
     menuIsOpen={menuIsOpen}
   />
@@ -384,6 +446,7 @@ SelectDropdown.propTypes = {
       imageUrl: PropTypes.string,
     })
   ]),
+  searchable: PropTypes.bool,
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string, // Not required if the option is an options group.
@@ -401,6 +464,7 @@ SelectDropdown.propTypes = {
 SelectDropdown.defaultProps = {
   menuIsOpen: undefined,
   disabled: false,
+  searchable: false,
   variation: 'default',
   size: 'default',
 };

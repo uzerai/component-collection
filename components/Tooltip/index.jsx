@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { usePopperTooltip } from 'react-popper-tooltip';
 import { generateStyles } from '../../shared/variationsHelper';
 import './tooltip.css';
@@ -23,7 +23,8 @@ const COMMON = {
 const VARIATIONS = {
   default: {
     additional: {
-      ...COMMON.additional
+      ...COMMON.additional,
+      offset: [0, 12],
     },
     body: [
       'text-charcoal',
@@ -74,8 +75,10 @@ export const Tooltip = ({
   placement,
   visible: initialVisible,
   delayShow,
+  offset,
   trigger,
   variation,
+  animated,
   children
 }) => {
   // Tooltip should not require size
@@ -86,33 +89,61 @@ export const Tooltip = ({
       interactive: variationInteractive,
       delayShow: variationDelayShow,
       trigger: variationTrigger,
+      offset: variationOffset,
     },
     body: bodyStyles,
     text: textStyles
-  } = generateStyles(variation, 'default', VARIATIONS, {default:{additional: {}}});
+  } = generateStyles(variation, 'default', VARIATIONS, {default: {additional: {}}});
+  /* This component is now controlled by its own visibility state. This is useful when animating. */
+  const [ visible, setVisible ] = useState((initialVisible || variationVisible))
+  const [ animationClass, setAnimationClass ] = useState('tooltipIn');
+  const [ bodyAnimationClass, setBodyAnimationClass ] = useState(animated ? 'tooltipContentIn' : '');
+  
+  /**
+   * A function for applying the animationClass of the tooltip (conditionally when visible is true/false)
+   * allowing separate animations when loaded and unloaded.
+   */
+  const animateVisibility = (state) => {
+    if(animated) {
+      setAnimationClass(state ? 'tooltipIn' : 'tooltipOut')
+      //TODO: system for handling custom animations via tailwindcss classes
+      setBodyAnimationClass(state ? 'tooltipContentIn' : 'tooltipContentOut');
+      if(!state) {
+        setTimeout(() =>  setVisible(state), 200);
+      } else{
+        setVisible(state);
+      }
+    } else {
+      setVisible(state);
+    }
+  }
 
   const {
     getArrowProps,
     getTooltipProps,
     setTooltipRef,
-    setTriggerRef,
-    visible
+    setTriggerRef
   } = usePopperTooltip({
-    defaultVisible: (initialVisible || variationVisible),
     placement: (placement || variationPlacement),
     interactive: (interactive || variationInteractive),
     delayShow: (delayShow || variationDelayShow),
     trigger: (trigger || variationTrigger),
-    offset: [0, 9]
+    offset: (offset || variationOffset),
+    visible: visible,
+    onVisibleChange: animateVisibility,
   });
+
+  const tooltipContainerStyles = 'tooltip-container text-base rounded drop-shadow-sm '.concat(animationClass);
 
   return (<>
     <span ref={setTriggerRef} className={textStyles.join(' ')}>{children}</span>
     { visible && (
-      <div ref={setTooltipRef} {...getTooltipProps({ className: 'tooltip-container text-base rounded' })}>
+      <div ref={setTooltipRef} {...getTooltipProps({ className: tooltipContainerStyles })}>
         <div {...getArrowProps({ className: 'tooltip-arrow' })} />
-        <div className={bodyStyles.join(' ')}>
-          {tooltip}
+        <div className='overflow-hidden'>
+          <div className={bodyStyles.join(' ').concat(` ${bodyAnimationClass}`)}>
+            {tooltip}
+          </div>
         </div>
       </div>
     )}
@@ -147,6 +178,7 @@ Tooltip.propTypes = {
     'left-end',
   ]),
   tooltip: PropTypes.node.isRequired,
+  offset: PropTypes.arrayOf(PropTypes.number),
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node), PropTypes.node
@@ -155,4 +187,5 @@ Tooltip.propTypes = {
 
 Tooltip.defaultProps = {
   variation: 'default',
+  animated: false,
 };

@@ -23,7 +23,10 @@ const VARIATIONS = {
       ...COMMON.body,
       'bg-stone',
       'rounded-full',
-      'dark:text-white'
+      'dark:text-white',
+      'ring-2',
+      'ring-white',
+      'drop-shadow-md'
     ]
   }
 }
@@ -65,7 +68,7 @@ export const Avatar = ({ _src, variation, badges, size }) => {
       <Symbol symbol={'user'} variation={'charcoal'} size={'fill'} />
     </figure>
     {
-      badges && <div className='absolute right-0 top-0 bg-blue w-4 h-4 m-0.5 rounded-full scale-125'>
+      badges && <div className='absolute right-0 bottom-0 bg-blue w-4 h-4 m-0.5 rounded-full scale-125'>
         <Symbol symbol={'stopCircle'} variation={'white'} size={'fitWidth'} />
       </div>
     }

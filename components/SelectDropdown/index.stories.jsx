@@ -42,7 +42,7 @@ const Template = (args) => <div className={'flex flex-col gap-10'}>
       value={[
         { value: 'option-5', label: 'Option 5' },
         { value: 'group-2-option-1', label: 'Group 2 Option 1', tagVariation: 'blue'},
-        { value: 'option-doesn\'t exist', label: 'Not in options list :)', tagVariation: 'red' }
+        { value: 'option-no-exist', label: 'Not in options list :)', tagVariation: 'red' }
       ]}
     />
   </div>
@@ -57,6 +57,7 @@ Default.args = {
   id: 'example-dropdown',
   name: 'example-dropdown',
   placeholder: 'Some placeholder text',
+  searchable: true,
   size: 'default',
   variation: 'default',
   options: options

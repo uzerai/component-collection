@@ -76,7 +76,6 @@ export const VARIATIONS = {
       'text-charcoal',
     ],
     symbol: [
-      ...COMMON.symbol,
       'text-charcoal'
     ]
   },

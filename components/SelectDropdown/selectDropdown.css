@@ -1,0 +1,29 @@
+.optionTagIn {
+  -webkit-animation: optionTagOut .2s cubic-bezier(0, 0, 0.44, 1) forwards ease-in;
+  animation: optionTagOut .2s cubic-bezier(0, 0, 0.44, 1) forwards ease-in;
+}
+
+.optionTagOut {
+  -webkit-animation: optionTagOut .08s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  animation: optionTagOut .08s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@-webkit-keyframes optionTagIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+ }
+
+ @keyframes optionTagIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-webkit-keyframes optionTagOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes optionTagOut {
+  0% {opacity: 1;}
+  100% { opacity: 0;}
+}

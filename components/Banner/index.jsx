@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { React } from 'react';
-// Components using this import must follow the VARIATIONS / SIZES pattern. 
+// Components using this import must follow the VARIATIONS / SIZES pattern.
 import { generateStyles } from '../../shared/variationsHelper';
 import { Symbol } from '../Symbol';
 
 
 
-/** 
+/**
  *  ######################################################
  *  #            VARIATION and SIZE controls             #
  *  ######################################################
@@ -31,12 +31,17 @@ const VARIATIONS = {
       ...COMMON.container,
       'border',
       'border-steam',
+      'dark:border-dark-3',
+      'dark:bg-dark-2'
     ],
     streak: [
       ...COMMON.streak,
       'bg-yellow',
     ],
-    body: [ ...COMMON.body ]
+    body: [
+      ...COMMON.body,
+      'dark:text-white',
+    ]
   },
   green: {
     streak: [ ...COMMON.streak, 'bg-green' ]
@@ -54,7 +59,7 @@ const SIZES = {
   }
 }
 
-/** 
+/**
  *  ######################################################
  *  #                  Component logic                   #
  *  ######################################################
@@ -64,16 +69,16 @@ const SIZES = {
  * A simple banner component for indicating to users that something has happened.
  */
 export const Banner = ({ dismissable, onDismiss, variation, size, children }) => {
-  const { 
-    container: containerStyles, 
-    body: bodyStyles, 
-    streak: streakStyles 
+  const {
+    container: containerStyles,
+    body: bodyStyles,
+    streak: streakStyles
   } = generateStyles(variation, size, VARIATIONS, SIZES);
 
   return <div className={containerStyles.join(' ')}>
     {
-      dismissable && 
-      <button 
+      dismissable &&
+      <button
         onClick={onDismiss} className={'absolute top-0 right-0'}>
         <Symbol symbol='cross' />
       </button>

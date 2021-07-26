@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
-// Components using this import must follow the VARIATIONS / SIZES pattern. 
+// Components using this import must follow the VARIATIONS / SIZES pattern.
 import { generateStyles } from '../../shared/variationsHelper';
 
 
 
-/** 
+/**
  *  ######################################################
  *  #            VARIATION and SIZE controls             #
  *  ######################################################
@@ -86,7 +86,7 @@ const SIZES = {
   }
 }
 
-/** 
+/**
  *  ######################################################
  *  #                  Component logic                   #
  *  ######################################################
@@ -101,7 +101,7 @@ export const TabNavigation = ({ tabGroupName, variation, size, children }) => {
   return <nav aria-labelledby={`${tabGroupName}-label`} className={bodyStyles.join(' ')}>
     {/* We don't want to display this, but want our screen-reader users to be able to identify this navigation component */}
     <label id={`${tabGroupName}-label`} className={'hidden'}>{tabGroupName}</label>
-    { 
+    {
       React.Children.toArray(children)
         .filter(node => node.type.name === TabNavigationLink.name)
         .map((node) => React.cloneElement(node, { variation: variation, size: size, ...node.props }))
@@ -124,7 +124,7 @@ TabNavigation.defaultProps = {
 };
 
 export const TabNavigationLink = ({ label, linkTo, disabled, variation, size }) => {
-  const { 
+  const {
     navItem: navItemStyles,
     linkContainer: containerStyles,
     indicator: indicatorStyles,

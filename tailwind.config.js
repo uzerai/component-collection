@@ -48,6 +48,7 @@ module.exports = {
       },
       // Colours!
       pink: {
+        salmon: '#fff6fa',
         lighter: '#f191be',
         light: '#e94f97',
         DEFAULT: '#e10e71',

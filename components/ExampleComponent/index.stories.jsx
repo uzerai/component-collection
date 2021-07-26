@@ -20,7 +20,7 @@ Default.args = {
 };
 
 export const Centered = CenteredTemplate.bind({});
-Default.args = {
+Centered.args = {
   size: 'default',
   variation: 'default',
   children: [],

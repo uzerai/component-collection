@@ -13,7 +13,14 @@ module.exports = {
         backgrounds: false
       }
     },
-    "@storybook/addon-postcss",
+    { 
+      name: "@storybook/addon-postcss",
+      options: {
+        postcssLoaderOptions: {
+          implementation: require('postcss')
+        }
+      }
+    },
     "storybook-addon-themes"
   ],
   babel: async (options) => {

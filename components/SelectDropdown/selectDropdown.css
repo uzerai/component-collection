@@ -4,8 +4,8 @@
 }
 
 .optionTagOut {
-  -webkit-animation: optionTagOut .08s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-  animation: optionTagOut .08s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  -webkit-animation: optionTagOut .1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  animation: optionTagOut .1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 @-webkit-keyframes optionTagIn {

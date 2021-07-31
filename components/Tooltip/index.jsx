@@ -24,7 +24,7 @@ const VARIATIONS = {
   default: {
     additional: {
       ...COMMON.additional,
-      offset: [0, 12],
+      offset: [0, 4],
     },
     body: [
       'text-charcoal',

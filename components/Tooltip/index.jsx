@@ -179,6 +179,7 @@ Tooltip.propTypes = {
   ]),
   tooltip: PropTypes.node.isRequired,
   offset: PropTypes.arrayOf(PropTypes.number),
+  animated: PropTypes.bool,
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node), PropTypes.node

@@ -5,8 +5,8 @@ module.exports = {
     "../components/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   addons: [
+    'storybook-addon-themes',
     "@storybook/addon-links",
-    "storybook-addon-themes",
     {
       name: "@storybook/addon-essentials",
       options: {
@@ -21,7 +21,7 @@ module.exports = {
         }
       }
     },
-    "storybook-addon-themes"
+    
   ],
   babel: async (options) => {
     options.plugins.push('babel-plugin-inline-react-svg');

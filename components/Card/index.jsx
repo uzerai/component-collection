@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-// Components using this import must follow the VARIATIONS / SIZES pattern. 
+// Components using this import must follow the VARIATIONS / SIZES pattern.
 import { generateStyles } from '../../shared/variationsHelper';
 
 
-/** 
+/**
  *  ######################################################
  *  #            VARIATION and SIZE controls             #
  *  ######################################################
  */
 
 const COMMON = {
+  additional: {},
   header: [],
   content: [],
   footer: [],
@@ -23,6 +24,9 @@ const COMMON = {
 
 export const VARIATIONS = {
   default: {
+    additional: {
+      ...COMMON.additional,
+    },
     header: [
       ...COMMON.header,
       'dark:border-b',
@@ -97,19 +101,17 @@ export const SIZES = {
   }
 };
 
-//TODO: Refactor to use generateStyles
-
-/** 
+/**
  *  ######################################################
  *  #                  Component logic                   #
  *  ######################################################
  */
 
 /**
- * A configurable card component with accompanying header and footer classes. 
- * 
- * @param {*} param0 
- * @returns 
+ * A configurable card component with accompanying header and footer classes.
+ *
+ * @param {*} param0
+ * @returns
  */
 export const Card = ({ variation, size, children }) => {
   const { container: containerStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
@@ -125,7 +127,7 @@ export const Card = ({ variation, size, children }) => {
     }
     
     {
-      // Ensure that the Card.Footer component is always at the bottom when provided. 
+      // Ensure that the Card.Footer component is always at the bottom when provided.
       React.Children.toArray(children).find(element => element?.type.name === CardFooter.displayName)
     }
   </section>
@@ -147,11 +149,11 @@ Card.defaultProps = {
 };
 
 /**
- * 
- * A header class which will always appear at the top of the card if within the card's direct child components. 
- * 
- * @param {*} param0 
- * @returns 
+ *
+ * A header class which will always appear at the top of the card if within the card's direct child components.
+ *
+ * @param {*} param0
+ * @returns
  */
 export const CardHeader = ({ size, variation, children }) => {
   const { header: headerStyles } = generateStyles(variation, size, VARIATIONS, SIZES);
@@ -199,9 +201,9 @@ CardContent.defaultProps = {
 
 /**
  * A footer component which will always appear at the bottom of the card if within the card's direct child components.
- * 
- * @param {*} param0 
- * @returns 
+ *
+ * @param {*} param0
+ * @returns
  */
 export const CardFooter = ({ size, variation, children  }) => {
   const { footer: footerStyles } = generateStyles(variation, size, VARIATIONS, SIZES);

@@ -13,6 +13,7 @@ export const parameters = {
     },
   },
   themes: {
+    default: 'Light',
     clearable: false,
     list: [
       {

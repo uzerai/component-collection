@@ -14,8 +14,9 @@ const CenteredTemplate = (args) => <div className='absolute inset-0 flex justify
   <ProfileShort {...args} />
 </div>;
 
-const AvatarHoverTooltipTemplate = (args) => <div className='w-full h-screen flex justify-center items-center dark:text-white'>
-  <Tooltip variation='custom' animated
+const AvatarHoverTooltipTemplate = (args) => <div className='w-full h-screen flex justify-center items-center dark:text-white bg-smoke'>
+  <Tooltip animated
+    variation={'nostyles'}
     visible={true}
     interactive={false}
     placement='right'
@@ -28,21 +29,42 @@ const AvatarHoverTooltipTemplate = (args) => <div className='w-full h-screen fle
 
 export const Default = Template.bind({});
 Default.args = {
+  user: {
+    username: 'TestUser',
+    handle: 'testuser',
+    reputation: 1337,
+    signal: 69.42,
+    impact_percentile: 91,
+    impact: 8008
+  },
   size: 'default',
   variation: 'default',
-  children: [],
 };
 
 export const Centered = CenteredTemplate.bind({});
-Default.args = {
+Centered.args = {
+  user: {
+    username: 'TestUser',
+    handle: 'testuser',
+    reputation: 1337,
+    signal: 69.42,
+    impact: 8008,
+    impact_percentile: 91,
+  },
   size: 'default',
   variation: 'default',
-  children: [],
 };
 
 export const AvatarHoverTooltip = AvatarHoverTooltipTemplate.bind({});
 AvatarHoverTooltip.args = {
+  user: {
+    username: 'TestUser',
+    handle: 'testuser',
+    reputation: 1337,
+    impact_percentile: 91,
+    signal: 69.42,
+    impact: 8008
+  },
+  variation: 'nostyles',
   size: 'default',
-  variation: 'default',
-  children: [],
 }

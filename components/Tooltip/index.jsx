@@ -51,7 +51,7 @@ const VARIATIONS = {
     },
     text: []
   },
-  custom: {
+  nostyles: {
     additional: {},
     body: [],
     text: []
@@ -109,7 +109,7 @@ export const Tooltip = ({
       //TODO: system for handling custom animations via tailwindcss classes
       setBodyAnimationClass(state ? 'tooltipContentIn' : 'tooltipContentOut');
       if(!state) {
-        setTimeout(() =>  setVisible(state), 200);
+        setTimeout(() =>  setVisible(state), 100);
       } else{
         setVisible(state);
       }

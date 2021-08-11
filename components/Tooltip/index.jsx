@@ -109,9 +109,15 @@ export const Tooltip = ({
    * allowing separate animations when loaded and unloaded.
    */
   const animateVisibility = (state) => {
+    /**
+     * TODO: REVISIT ANIMATION VARIABLE NAMES
+     *
+     * Usage of the containerAnimationName / bodyAnimationName should be cleaner than this;
+     * perhaps squish the animation classes at some prior stage (after prop-import) and
+     * then determine animation classes to be applied.
+     */
     if(containerAnimationName || bodyAnimationName) {
       setAnimationClass(state ? `${containerAnimationName}In` : `${containerAnimationName}Out`);
-      //TODO: system for handling custom animations via tailwindcss classes
       setBodyAnimationClass(state ? `${bodyAnimationName}In` : `${bodyAnimationName}Out`);
       if(!state) {
         setTimeout(() =>  setVisible(state), 100);
@@ -184,7 +190,8 @@ Tooltip.propTypes = {
   ]),
   tooltip: PropTypes.node.isRequired,
   offset: PropTypes.arrayOf(PropTypes.number),
-  animated: PropTypes.bool,
+  bodyAnimationName: PropTypes.string,
+  containerAnimationName: PropTypes.string,
   variation: PropTypes.oneOf(Object.keys(VARIATIONS)),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node), PropTypes.node

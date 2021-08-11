@@ -17,6 +17,8 @@ const COMMON = {
     trigger: 'hover',
     interactive: false,
     visible: false,
+    bodyAnimationName: '',
+    containerAnimationName: ''
   }
 }
 
@@ -78,7 +80,8 @@ export const Tooltip = ({
   offset,
   trigger,
   variation,
-  animated,
+  containerAnimationName,
+  bodyAnimationName,
   children
 }) => {
   // Tooltip should not require size
@@ -90,24 +93,26 @@ export const Tooltip = ({
       delayShow: variationDelayShow,
       trigger: variationTrigger,
       offset: variationOffset,
+      containerAnimation: variationContainerAnimationName,
+      bodyAnimationName: variationBodyAnimationName,
     },
     body: bodyStyles,
     text: textStyles
   } = generateStyles(variation, 'default', VARIATIONS, {default: {additional: {}}});
   /* This component is now controlled by its own visibility state. This is useful when animating. */
   const [ visible, setVisible ] = useState((initialVisible || variationVisible))
-  const [ animationClass, setAnimationClass ] = useState('tooltipIn');
-  const [ bodyAnimationClass, setBodyAnimationClass ] = useState(animated ? 'tooltipContentIn' : '');
+  const [ animationClass, setAnimationClass ] = useState(containerAnimationName || variationContainerAnimationName);
+  const [ bodyAnimationClass, setBodyAnimationClass ] = useState(bodyAnimationName || variationBodyAnimationName);
   
   /**
    * A function for applying the animationClass of the tooltip (conditionally when visible is true/false)
    * allowing separate animations when loaded and unloaded.
    */
   const animateVisibility = (state) => {
-    if(animated) {
-      setAnimationClass(state ? 'tooltipIn' : 'tooltipOut')
+    if(containerAnimationName || bodyAnimationName) {
+      setAnimationClass(state ? `${containerAnimationName}In` : `${containerAnimationName}Out`);
       //TODO: system for handling custom animations via tailwindcss classes
-      setBodyAnimationClass(state ? 'tooltipContentIn' : 'tooltipContentOut');
+      setBodyAnimationClass(state ? `${bodyAnimationName}In` : `${bodyAnimationName}Out`);
       if(!state) {
         setTimeout(() =>  setVisible(state), 100);
       } else{

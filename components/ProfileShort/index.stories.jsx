@@ -14,7 +14,7 @@ const CenteredTemplate = (args) => <div className='absolute inset-0 flex justify
   <ProfileShort {...args} />
 </div>;
 
-const AvatarHoverTooltipTemplate = (args) => <div className='w-full h-screen flex justify-center items-center dark:text-white bg-smoke'>
+const AvatarHoverTooltipTemplate = (args) => <div className='w-full h-screen flex justify-center items-center dark:text-white'>
   <Tooltip
     bodyAnimationName={'tooltipContent'}
     containerAnimationName={'tooltip'}

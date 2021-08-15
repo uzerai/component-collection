@@ -54,7 +54,7 @@ Multiline.args = {
   variation: 'default',
   children: [
     <p key='message'>Some message which spans across multiple</p>,
-    <p key='message-2'>lines, but really shouldn't make it look weird.</p>
+    <p key='message-2'>lines, but really shouldn&apos;t make it look weird.</p>
   ],
 };
 

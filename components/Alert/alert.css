@@ -1,0 +1,29 @@
+.alertIn {
+  -webkit-animation: alertIn .2s cubic-bezier(0, 0, 0.44, 1) forwards;
+  animation: alertIn .2s cubic-bezier(0, 0, 0.44, 1) forwards;
+}
+
+.alertOut {
+  -webkit-animation: alertOut .1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  animation: alertOut .1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@-webkit-keyframes alertIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+ }
+
+ @keyframes alertIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-webkit-keyframes alertOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes alertOut {
+  0% {opacity: 1;}
+  100% { opacity: 0;}
+}

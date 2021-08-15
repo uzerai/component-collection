@@ -6,8 +6,10 @@ import Activity from './assets/feather/activity.svg';
 import Airplay from './assets/feather/airplay.svg';
 import AlertCircle from './assets/feather/alert-circle.svg';
 import AlertOctagon from './assets/feather/alert-octagon.svg';
+import AlertTriangle from './assets/feather/alert-triangle.svg';
 import BellOff from './assets/feather/bell-off.svg';
 import Bell from './assets/feather/bell.svg';
+import CheckSquare from './assets/feather/check-square.svg';
 import Check from './assets/feather/check.svg';
 import ChevronDown from './assets/feather/chevron-down.svg';
 import ChevronUp from './assets/feather/chevron-up.svg';
@@ -119,12 +121,14 @@ export const SYMBOLS = {
   trash: <Trash />,
   mail: <Mail />,
   alertCircle: <AlertCircle />,
+  alertTriangle: <AlertTriangle />,
   activity: <Activity />,
   airplay: <Airplay />,
   alertOctagon: <AlertOctagon />,
   bell: <Bell />,
   bellOff: <BellOff />,
   check: <Check />,
+  checkSquare: <CheckSquare />,
   chevronUp: <ChevronUp />,
   chevronDown: <ChevronDown />,
   command: <Command />,
